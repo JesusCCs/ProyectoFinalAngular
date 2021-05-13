@@ -17,7 +17,7 @@ export class JwtTokenService {
     this.decodedToken = jwt_decode(this.jwtToken);
   }
 
-  isTokenExpired(): boolean {
+  public isTokenExpired(): boolean {
     const expiration: number | null = this.decodedToken ? +this.decodedToken.exp : null;
 
     if (!expiration) {
