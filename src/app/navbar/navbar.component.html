@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+      <img
+        src="assets/logo_transparent.png"
+        height="50"
+        alt=""
+        loading="lazy"
+      />
+      Sweet
+    </a>
+    
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="togglerSecondExample.toggle()"
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarTogglerDemo02"
+      mdbCollapse
+      #togglerSecondExample="mdbCollapse"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+          >Disabled</a
+          >
+        </li>
+      </ul>
+      <form class="d-flex input-group w-auto">
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Type query"
+          aria-label="Search"
+        />
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          data-mdb-ripple-color="dark"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
