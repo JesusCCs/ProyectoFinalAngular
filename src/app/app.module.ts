@@ -5,13 +5,15 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MdbModule} from 'mdb-angular-ui-kit';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NavbarComponent} from './navbar/navbar.component';
-import {LoginComponent} from './login/login.component';
-import {GimnasioHomeComponent} from './gimnasio-home/gimnasio-home.component';
-import {AdminHomeComponent} from './admin-home/admin-home.component';
+import {NavbarComponent} from './_components/navbar/navbar.component';
+import {LoginComponent} from './account/login/login.component';
+import {GimnasioHomeComponent} from './gimnasio/gimnasio-home/gimnasio-home.component';
+import {AdminHomeComponent} from './admin/admin-home/admin-home.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {JwtTokenService} from './_services/jwt-token.service';
 import {LocalStorageService} from './_services/local-storage.service';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpInterceptorProviders} from './_interceptors';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,14 @@ import {LocalStorageService} from './_services/local-storage.service';
     AppRoutingModule,
     MdbModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [JwtTokenService, LocalStorageService],
+  providers: [
+    JwtTokenService,
+    LocalStorageService,
+    HttpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
