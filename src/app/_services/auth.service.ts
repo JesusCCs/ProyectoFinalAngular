@@ -19,4 +19,8 @@ export class AuthService {
   public login(email: string, password: string): boolean {
     return false;
   }
+
+  public async forgot(email: any): Promise<boolean> {
+    return false;
+  }
 }

@@ -14,6 +14,8 @@ import {JwtTokenService} from './_services/jwt-token.service';
 import {LocalStorageService} from './_services/local-storage.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpInterceptorProviders} from './_interceptors';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import { SignUpComponent } from './account/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {HttpInterceptorProviders} from './_interceptors';
     NavbarComponent,
     LoginComponent,
     GimnasioHomeComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    ForgotPasswordComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
