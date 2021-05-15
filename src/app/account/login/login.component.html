@@ -3,13 +3,15 @@
 
     <!-- Login input -->
     <mdb-form-control class="mb-4">
-      <input mdbInput type="text" id="emailOrUserName" class="form-control" name="emailOrUserName" formControlName="emailOrUserName" required>
+      <input mdbInput [mdbValidate]="false" type="text" class="form-control"
+             id="emailOrUserName" formControlName="emailOrUserName" required>
       <label mdbLabel class="form-label" for="emailOrUserName">Email o Usuario</label>
     </mdb-form-control>
 
     <!-- Password input -->
     <mdb-form-control class="mb-4">
-      <input mdbInput type="password" id="password" class="form-control" name="password" formControlName="password" required>
+      <input mdbInput [mdbValidate]="false" type="password" class="form-control"
+             id="password" formControlName="password" required>
       <label mdbLabel class="form-label" for="password">Contraseña</label>
     </mdb-form-control>
 
@@ -17,7 +19,7 @@
       <div class="col d-flex justify-content-center">
         <!-- Remember me -->
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="remember" name="remember" checked/>
+          <input class="form-check-input" type="checkbox" value="" id="remember" checked/>
           <label class="form-check-label" for="remember"> Recordarme </label>
         </div>
       </div>
