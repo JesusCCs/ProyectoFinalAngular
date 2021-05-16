@@ -15,7 +15,6 @@ export class JwtTokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
     const token: string|null = this.storage.get(TOKEN_KEY);
 
     if (!token) {

@@ -2,11 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
 import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
+import {environment} from '../../environments/environment';
+import {LoginResponse, User} from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  userIsLogged = false;
 
   constructor(private http: HttpClient,
               private tokenService: JwtTokenService,
@@ -14,9 +18,21 @@ export class AuthService {
 
   }
 
-  public login(email: string, password: string, type: string): boolean {
+  public async login(userNameOrEmail: string, password: string, rememberMe: boolean, type: string): Promise<boolean> {
+    const login: LoginResponse | void = await this.http.post<LoginResponse>(`${environment.apiUrl}/${type}/login`, {
+      userNameOrEmail, password, rememberMe
+    }).toPromise().catch(reason => console.log(reason));
 
-    return false;
+    return this.initLogin(login, rememberMe);
+  }
+
+  private initLogin(login: LoginResponse | void, rememberMe: boolean): boolean {
+    if (!login) {
+      return false;
+    }
+
+
+    return true;
   }
 
   public logout(): void {

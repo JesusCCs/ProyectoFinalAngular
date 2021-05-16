@@ -5,7 +5,7 @@
     <p class="text-center h4 mb-4">Login</p>
 
     <!-- Login input -->
-    <app-input type="text" name="emailOrUserName" label="Email o Usuario" [form]="loginForm"></app-input>
+    <app-input type="text" name="userNameOrEmail" label="Email o Usuario" [form]="loginForm"></app-input>
 
     <!-- Password input -->
     <app-input type="password" name="password" label="Contraseña" [form]="loginForm"></app-input>
@@ -14,8 +14,8 @@
       <!-- Remember me -->
       <div class="col d-flex justify-content-start" style="padding-left: 17px">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="remember" checked/>
-          <label class="form-check-label" for="remember"> Recordarme </label>
+          <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe" checked/>
+          <label class="form-check-label" for="rememberMe"> Recordarme </label>
         </div>
       </div>
 

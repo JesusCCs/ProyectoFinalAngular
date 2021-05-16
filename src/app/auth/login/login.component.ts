@@ -20,26 +20,24 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      emailOrUserName: ['', Validators.required],
-      password: ['', Validators.required]
+      userNameOrEmail: ['', Validators.required],
+      password: ['', Validators.required],
+      rememberMe: [''],
     });
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
     const inputs = this.loginForm.value;
+    const rememberMe = inputs.rememberMe !== '' ? inputs.rememberMe : false;
 
-    const login: boolean = this.authService.login(inputs.emailOrUserName, inputs.password, this.type);
+    const login: boolean = await this.authService.login(inputs.userNameOrEmail, inputs.password, rememberMe, this.type);
 
-    if (!login) {
-      console.log('Error');
-    } else {
-      this.router.navigateByUrl('/');
-    }
+    login && this.router.navigateByUrl('/');
   }
 
   /**
