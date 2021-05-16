@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../_services/auth.service';
 
@@ -8,34 +8,46 @@ import {AuthService} from '../../_services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   @Input() type!: string;
-
-  loginForm: FormGroup = this.fb.group({
-    emailOrUserName: ['', Validators.required],
-    password: ['', Validators.required]
-  }, {updateOn: 'submit'});
+  loginForm!: FormGroup;
 
   constructor(private authService: AuthService,
               private router: Router,
               private fb: FormBuilder) {
   }
 
-  public async login(): Promise<void> {
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      emailOrUserName: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
-    const val = this.loginForm.value;
-
-    if (!val.emailOrUserName || !val.password) {
+  public onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    const login: boolean = this.authService.login(val.email, val.password, this.type);
+    const inputs = this.loginForm.value;
+
+    const login: boolean = this.authService.login(inputs.emailOrUserName, inputs.password, this.type);
 
     if (!login) {
       console.log('Error');
     } else {
-      await this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');
     }
   }
+
+  /**
+   * Wrapper para obtener los campos del formulario
+   */
+  get f(): { [p: string]: AbstractControl } {
+    return this.loginForm.controls;
+  }
+
+
 }

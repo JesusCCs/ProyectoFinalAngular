@@ -1,0 +1,16 @@
+<ng-container [formGroup]="form">
+  <div [ngClass]="{'mb-3' : touched && errors, 'mb-4': !touched || !errors}">
+    <mdb-form-control>
+      <input mdbInput [mdbValidate]="true" type="{{ type }}" class="form-control mb-0" id="{{ name }}" name="{{ name }}"
+             formControlName="{{ name }}">
+      <label mdbLabel class="form-label" for="{{ name }}">
+        {{ label }}
+      </label>
+    </mdb-form-control>
+
+    <div *ngIf="touched && errors" class="mt-1">
+      <div class="error" *ngIf="errors.required">Campo requerido</div>
+    </div>
+  </div>
+</ng-container>
+

@@ -18,6 +18,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { GimnasioLoginComponent } from './gimnasio/gimnasio-login/gimnasio-login.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { InputComponent } from './_components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
     ForgotPasswordComponent,
     SignUpComponent,
     GimnasioLoginComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,

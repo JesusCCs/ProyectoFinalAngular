@@ -1,40 +1,32 @@
 <div class="container-sm" style="max-width: 30rem">
 
-  <form [formGroup]="loginForm" class="text-center border border-light py-5">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="border border-light py-5">
 
-    <p class="h4 mb-4">Login</p>
+    <p class="text-center h4 mb-4">Login</p>
 
     <!-- Login input -->
-    <mdb-form-control class="mb-4">
-      <input mdbInput [mdbValidate]="false" type="text" class="form-control"
-             id="emailOrUserName" formControlName="emailOrUserName" required>
-      <label mdbLabel class="form-label" for="emailOrUserName">Email o Usuario</label>
-    </mdb-form-control>
+    <app-input type="text" name="emailOrUserName" label="Email o Usuario" [form]="loginForm"></app-input>
 
     <!-- Password input -->
-    <mdb-form-control class="mb-4">
-      <input mdbInput [mdbValidate]="false" type="password" class="form-control"
-             id="password" formControlName="password" required>
-      <label mdbLabel class="form-label" for="password">Contraseña</label>
-    </mdb-form-control>
+    <app-input type="password" name="password" label="Contraseña" [form]="loginForm"></app-input>
 
     <div class="row mb-4">
-      <div class="col d-flex justify-content-center">
-        <!-- Remember me -->
+      <!-- Remember me -->
+      <div class="col d-flex justify-content-start" style="padding-left: 17px">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="remember" checked/>
           <label class="form-check-label" for="remember"> Recordarme </label>
         </div>
       </div>
 
-      <div class="col">
-        <!-- Forgot Password -->
+      <!-- Forgot Password -->
+      <div class="col text-end">
         <a routerLink="/auth/forgot">¿Olvidaste la contraseña?</a>
       </div>
     </div>
 
     <!-- Submit button -->
-    <button type="submit" class="btn btn-primary btn-block mb-4" (click)="login()">Iniciar Sesión</button>
+    <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar Sesión</button>
 
     <!-- Register buttons -->
     <div class="text-center">
