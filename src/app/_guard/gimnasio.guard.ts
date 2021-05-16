@@ -6,7 +6,7 @@ import {AuthService} from '../_services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuard implements CanActivate {
+export class GimnasioGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -17,8 +17,9 @@ export class UserGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
+    if (state.url === '/login') { return true; }
 
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
     return false;
   }
 

@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
-import {LocalStorageService} from './local-storage.service';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../_models/user';
+import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +14,13 @@ export class AuthService {
 
   }
 
-  public login(email: string, password: string): boolean {
+  public login(email: string, password: string, type: string): boolean {
     return false;
+  }
+
+  public logout(): void {
+    this.storage.remove(TOKEN_KEY);
+    this.storage.remove(REFRESH_TOKEN_KEY);
   }
 
   public async forgot(email: any): Promise<boolean> {

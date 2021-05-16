@@ -20,7 +20,7 @@ export class SignUpComponent {
     tarifa: ['', Validators.required],
     password: ['', Validators.required],
     rPassword: ['', Validators.required],
-    descripcion: ['', Validators.required]
+    descripcion: ['']
   }, {updateOn: 'submit'});
 
   constructor(private authService: AuthService,
