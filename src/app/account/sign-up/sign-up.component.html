@@ -1,1 +1,113 @@
-<p>sign-up works!</p>
+<div class="container-sm" style="max-width: 40rem">
+  <form [formGroup]="signUpForm" class="text-center border border-light py-5">
+
+    <p class="h4 mb-4">Nueva Cuenta</p>
+
+    <!-- Logo input -->
+    <div class="text-start mb-4">
+      <label class="form-label" for="logo">Logo de su gimnasio</label>
+      <input type="file" class="form-control" id="logo" formControlName="logo"/>
+    </div>
+
+    <div class="row">
+      <!-- Login input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="text" class="form-control"
+                 id="username" formControlName="username" required>
+          <label mdbLabel class="form-label" for="username">Usuario</label>
+        </mdb-form-control>
+      </div>
+
+      <!-- Email input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="email" class="form-control"
+                 id="email" formControlName="email" required>
+          <label mdbLabel class="form-label" for="email">Email</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Name input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="text" class="form-control"
+                 id="nombre" formControlName="nombre" required>
+          <label mdbLabel class="form-label" for="nombre">Nombre</label>
+        </mdb-form-control>
+      </div>
+
+      <!-- CIF input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="text" class="form-control"
+                 id="cif" formControlName="cif" required>
+          <label mdbLabel class="form-label" for="cif">CIF</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Address input -->
+      <div class="col-9">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="text" class="form-control"
+                 id="direccion" formControlName="direccion" required>
+          <label mdbLabel class="form-label" for="direccion">Dirección</label>
+        </mdb-form-control>
+      </div>
+
+      <!-- Price input -->
+      <div class="col-3">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="number" class="form-control"
+                 id="tarifa" formControlName="tarifa" required>
+          <label mdbLabel class="form-label" for="tarifa">Tarifa</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Password input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="password" class="form-control"
+                 id="password" formControlName="password" required>
+          <label mdbLabel class="form-label" for="password">Contraseña</label>
+        </mdb-form-control>
+      </div>
+
+      <!-- Repeat Password input -->
+      <div class="col-6">
+        <mdb-form-control>
+          <input mdbInput [mdbValidate]="false" type="password" class="form-control"
+                 id="rPassword" formControlName="rPassword" required>
+          <label mdbLabel class="form-label" for="rPassword">Repita Contraseña</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <!-- Description input -->
+      <div class="col-12">
+        <mdb-form-control>
+        <textarea mdbInput [mdbValidate]="false" class="form-control"
+                  id="descripcion" formControlName="descripcion" rows="4"></textarea>
+          <label mdbLabel class="form-label" for="descripcion">Descripción</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4" (click)="signUp()">Registrarme</button>
+
+    <!-- Sign In buttons -->
+    <div class="text-center">
+      <p>O si ya tienes una cuenta <a routerLink="../login">Iniciar Sesión</a></p>
+    </div>
+
+  </form>
+</div>

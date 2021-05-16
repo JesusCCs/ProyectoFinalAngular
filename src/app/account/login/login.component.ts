@@ -13,7 +13,7 @@ export class LoginComponent {
   loginForm: FormGroup = this.fb.group({
     emailOrUserName: ['', Validators.required],
     password: ['', Validators.required]
-  }, { updateOn: 'submit' });
+  }, {updateOn: 'submit'});
 
   constructor(private authService: AuthService,
               private router: Router,
