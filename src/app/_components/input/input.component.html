@@ -10,6 +10,7 @@
 
     <div *ngIf="touched && errors" class="mt-1">
       <div class="error" *ngIf="errors.required">Campo requerido</div>
+      <div class="error" id="{{ name }}-error" *ngIf="errors.formServer"></div>
     </div>
   </div>
 </ng-container>

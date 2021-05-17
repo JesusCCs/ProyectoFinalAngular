@@ -4,6 +4,7 @@ import {JwtTokenService} from './jwt-token.service';
 import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
 import {environment} from '../../environments/environment';
 import {LoginResponse, User} from '../_models/user';
+import {ErrorService} from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,14 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private tokenService: JwtTokenService,
-              private storage: LocalStorageService) {
+              private storageService: LocalStorageService) {
 
   }
 
   public async login(userNameOrEmail: string, password: string, rememberMe: boolean, type: string): Promise<boolean> {
     const login: LoginResponse | void = await this.http.post<LoginResponse>(`${environment.apiUrl}/${type}/login`, {
       userNameOrEmail, password, rememberMe
-    }).toPromise().catch(reason => console.log(reason));
+    }).toPromise().catch(reason => ErrorService.addError(reason));
 
     return this.initLogin(login, rememberMe);
   }
@@ -36,8 +37,8 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.storage.remove(TOKEN_KEY);
-    this.storage.remove(REFRESH_TOKEN_KEY);
+    this.storageService.remove(TOKEN_KEY);
+    this.storageService.remove(REFRESH_TOKEN_KEY);
   }
 
   public async forgot(email: any): Promise<boolean> {

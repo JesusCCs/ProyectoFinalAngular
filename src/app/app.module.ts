@@ -19,6 +19,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { GimnasioLoginComponent } from './gimnasio/gimnasio-login/gimnasio-login.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { InputComponent } from './_components/input/input.component';
+import {ErrorService} from './_services/error.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { InputComponent } from './_components/input/input.component';
   providers: [
     JwtTokenService,
     LocalStorageService,
+    ErrorService,
     HttpInterceptorProviders
   ],
   bootstrap: [AppComponent]
