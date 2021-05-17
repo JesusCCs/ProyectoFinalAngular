@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
 import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
 import {environment} from '../../environments/environment';
-import {LoginResponse, User} from '../_models/user';
+import {LoginResponse} from '../_models/response';
 import {ErrorService} from './error.service';
 
 @Injectable({

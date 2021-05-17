@@ -9,5 +9,4 @@ export interface LoginResponse {
   authId: string;
   accessToken: string;
   refreshToken: string;
-  rememberMe: boolean;
 }
