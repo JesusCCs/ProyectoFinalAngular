@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit {
 
     if (!login) {
       ErrorService.show(this.loginForm);
+    } else {
+      await this.router.navigateByUrl('/');
     }
-
-    login && this.router.navigateByUrl('/');
   }
 
 }

@@ -23,17 +23,14 @@ export class ErrorService {
   }
 
   static show(form: FormGroup): void {
-    if (this.errors === null) {
-      return;
-    }
-
     for (const [key, value] of Object.entries(this.errors)) {
       form.get(key)?.setErrors({formServer: true});
+
       // Usar setTimeout nos garantiza que se haya terminado de renderizar el DOM con los *ngif
       setTimeout(() => {
         const element = document.getElementById(`${key}-error`);
-        element && (element.innerHTML = value);
-      } , 0);
+        return element && (element.innerHTML = value);
+      }, 0);
     }
   }
 
