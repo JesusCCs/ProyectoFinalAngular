@@ -41,7 +41,7 @@
 
       <!-- Price input -->
       <div class="col-3">
-        <app-input type="number" name="tarifa" label="Tarifa" [form]="signUpForm"></app-input>
+        <app-input type="number" name="tarifa" label="Tarifa (€)" [form]="signUpForm"></app-input>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
       <!-- Description input -->
       <div class="col-12">
         <mdb-form-control>
-        <textarea mdbInput [mdbValidate]="false" class="form-control"
+        <textarea mdbInput [mdbValidate]="false" class="form-control" name="descripcion"
                   id="descripcion" formControlName="descripcion" rows="4"></textarea>
           <label mdbLabel class="form-label" for="descripcion">Descripción</label>
         </mdb-form-control>
