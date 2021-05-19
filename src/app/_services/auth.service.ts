@@ -36,6 +36,14 @@ export class AuthService {
     return true;
   }
 
+  public async signUp(inputs: any): Promise<boolean> {
+    const response = await this.http.post(`${environment.apiUrl}/gimnasios`, inputs)
+      .toPromise()
+      .catch(reason => ErrorService.addError(reason));
+
+    return !!response;
+  }
+
   public logout(): void {
     this.storageService.remove(TOKEN_KEY);
     this.storageService.remove(REFRESH_TOKEN_KEY);

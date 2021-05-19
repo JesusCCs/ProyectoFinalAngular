@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     const login: boolean = await this.authService.login(inputs.userNameOrEmail, inputs.password, rememberMe, this.type);
 
     if (!login) {
-      ErrorService.show(this.loginForm);
+      ErrorService.showInForm(this.loginForm);
     } else {
       await this.router.navigateByUrl('/');
     }

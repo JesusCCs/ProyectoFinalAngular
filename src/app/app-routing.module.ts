@@ -15,7 +15,8 @@ const routes: Routes = [
     path: 'auth',
     children: [
       {path: 'forgot', component: ForgotPasswordComponent},
-      {path: 'signup', component: SignUpComponent}
+      {path: 'signup', component: SignUpComponent},
+      {path: '**', redirectTo: '/login'}
     ]
   },
   { // Rutas para el usuario

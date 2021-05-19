@@ -22,7 +22,7 @@ export class ErrorService {
     this.errors = {};
   }
 
-  static show(form: FormGroup): void {
+  static showInForm(form: FormGroup): void {
     for (const [key, value] of Object.entries(this.errors)) {
       form.get(key)?.setErrors({formServer: true});
 
