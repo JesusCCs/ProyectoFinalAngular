@@ -23,6 +23,12 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
       }
 
+      if (err.status === 500) {
+        return throwError({
+          general : ['Hubo un fallo interno en el servidor']
+        });
+      }
+
       if ([401, 403].includes(err.status) && this.authService.userIsLogged) {
         this.authService.logout();
       }
