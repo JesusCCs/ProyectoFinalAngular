@@ -59,4 +59,11 @@ export class AuthService {
   public async forgotPassword(email: any): Promise<boolean> {
     return false;
   }
+
+  async confirmEmail(token: string, email: string): Promise<boolean> {
+    const response = await this.http.put(`${environment.apiUrl}/auth/confirm-email`, {token, email})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
 }

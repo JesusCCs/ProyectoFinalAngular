@@ -9,6 +9,7 @@ import {ForgotPasswordComponent} from './auth/forgot-password/forgot-password.co
 import {SignUpComponent} from './auth/sign-up/sign-up.component';
 import {GimnasioLoginComponent} from './gimnasio/gimnasio-login/gimnasio-login.component';
 import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
+import {ConfirmEmailComponent} from './auth/confirm-email/confirm-email.component';
 
 const routes: Routes = [
   { // Rutas de la autenticación
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       {path: 'forgot', component: ForgotPasswordComponent},
       {path: 'signup', component: SignUpComponent},
+      {path: 'confirm-email', component: ConfirmEmailComponent},
       {path: '**', redirectTo: '/login'}
     ]
   },

@@ -20,6 +20,7 @@ import { GimnasioLoginComponent } from './gimnasio/gimnasio-login/gimnasio-login
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { InputComponent } from './_components/input/input.component';
 import {ErrorService} from './_services/error.service';
+import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {ErrorService} from './_services/error.service';
     SignUpComponent,
     GimnasioLoginComponent,
     AdminLoginComponent,
-    InputComponent
+    InputComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
