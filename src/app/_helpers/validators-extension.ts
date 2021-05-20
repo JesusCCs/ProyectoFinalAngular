@@ -2,13 +2,20 @@ import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angula
 
 export class ValidatorsExtension {
 
-  public static match(firstToMatch: string, secondToMatch: string): ValidatorFn {
+  public static match(firstToMatch: string, secondToMatch: string, required: boolean = true): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
       const form = control as FormGroup;
 
       const inputToMatch = form.get(firstToMatch);
       const anotherInputToMatch = form.get(secondToMatch);
+
+      if (required && (!inputToMatch?.value || !anotherInputToMatch?.value)) {
+        inputToMatch?.setErrors({required: true});
+        anotherInputToMatch?.setErrors({required: true});
+
+        return {required: true};
+      }
 
 
       if (inputToMatch?.value !== anotherInputToMatch?.value) {
