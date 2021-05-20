@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
 import {ErrorService} from '../../_services/error.service';
+import {ValidatorsExtension} from '../../_helpers/validators-extension';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,7 @@ import {ErrorService} from '../../_services/error.service';
 export class SignUpComponent implements OnInit {
 
   signUpForm!: FormGroup;
-  file: File|null = null;
+  file: File | null = null;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -22,15 +23,18 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
       logo: [null],
-      userName: ['', ],
-      email: ['', ],
-      nombre: ['', ],
-      cif: [''],
-      direccion: [''],
-      tarifa: [''],
-      password: [''],
+      userName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      nombre: ['', [Validators.required]],
+      cif: ['', [Validators.required, Validators.minLength(9)]],
+      direccion: ['', [Validators.required]],
+      tarifa: [1, [Validators.required, Validators.min(1), Validators.max(999)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmedPassword: [''],
-      descripcion: ['']
+      descripcion: ['', [Validators.required]]
+    }, {
+      validators: ValidatorsExtension.match('password', 'confirmedPassword'),
+      updateOn: 'submit'
     });
   }
 

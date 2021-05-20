@@ -15,43 +15,43 @@
     <div class="row">
       <!-- Username input -->
       <div class="col-6">
-        <app-input type="text" name="userName" label="Usuario" [form]="signUpForm"></app-input>
+        <app-input name="userName" minLength="3" maxLength="50"  label="Usuario" [form]="signUpForm"></app-input>
       </div>
 
       <!-- Email input -->
       <div class="col-6">
-        <app-input type="email" name="email" label="Email" [form]="signUpForm"></app-input>
+        <app-input type="email" minLength="6" maxLength="200" name="email" label="Email" [form]="signUpForm"></app-input>
       </div>
     </div>
 
     <div class="row">
       <!-- Name input -->
       <div class="col-6">
-        <app-input type="name" name="nombre" label="Nombre" [form]="signUpForm"></app-input>
+        <app-input name="nombre" minLength="6" maxLength="200" label="Nombre" [form]="signUpForm"></app-input>
       </div>
 
       <!-- CIF input -->
       <div class="col-6">
-        <app-input type="text" name="cif" label="CIF" [form]="signUpForm"></app-input>
+        <app-input name="cif" minLength="9" label="CIF" [form]="signUpForm"></app-input>
       </div>
     </div>
 
     <div class="row">
       <!-- Address input -->
       <div class="col-9">
-        <app-input type="text" name="direccion" label="Dirección" [form]="signUpForm"></app-input>
+        <app-input name="direccion" minLength="5" maxLength="200" label="Dirección" [form]="signUpForm"></app-input>
       </div>
 
       <!-- Price input -->
       <div class="col-3">
-        <app-input type="number" name="tarifa" label="Tarifa (€)" [form]="signUpForm"></app-input>
+        <app-input type="number" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="signUpForm"></app-input>
       </div>
     </div>
 
     <div class="row">
       <!-- Password input -->
       <div class="col-6">
-        <app-input type="password" name="password" label="Contraseña" [form]="signUpForm"></app-input>
+        <app-input type="password" minLength="6" maxLength="200" name="password" label="Contraseña" [form]="signUpForm"></app-input>
       </div>
 
       <!-- Repeat Password input -->

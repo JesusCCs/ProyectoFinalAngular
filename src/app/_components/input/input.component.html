@@ -2,7 +2,8 @@
   <div [ngClass]="{'mb-3' : touched && errors, 'mb-4': !touched || !errors}">
     <mdb-form-control>
       <input mdbInput [mdbValidate]="true" type="{{ type }}" class="form-control mb-0" id="{{ name }}" name="{{ name }}"
-             formControlName="{{ name }}">
+             formControlName="{{ name }}" min="{{ min }}" max="{{ max }}" minlength="{{ minLength }}"
+             maxlength="{{ maxLength }}">
       <label mdbLabel class="form-label" for="{{ name }}">
         {{ label }}
       </label>
@@ -10,6 +11,11 @@
 
     <div *ngIf="touched && errors" class="mt-1">
       <div class="error" *ngIf="errors.required">Campo requerido</div>
+      <div class="error" *ngIf="errors.min">El valor mínimo es {{ min }}</div>
+      <div class="error" *ngIf="errors.max">El valor máximo es {{ max }}</div>
+      <div class="error" *ngIf="errors.minlength">Número mínimo de caracteres {{ minLength }}</div>
+      <div class="error" *ngIf="errors.maxlength">Número máximo de caracteres {{ maxLength }}</div>
+      <div class="error" *ngIf="errors.inputMismatch">Ambos campos deben coincidir</div>
       <div class="error" id="{{ name }}-error" *ngIf="errors.formServer"></div>
     </div>
   </div>

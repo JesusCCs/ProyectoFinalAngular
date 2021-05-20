@@ -11,7 +11,12 @@ export class InputComponent implements OnInit {
   @Input() form!: FormGroup;
   @Input() name!: string;
   @Input() label!: string;
+
   @Input() @Optional() type = 'text';
+  @Input() @Optional() min: string | undefined;
+  @Input() @Optional() max: string | undefined;
+  @Input() @Optional() minLength: string | undefined;
+  @Input() @Optional() maxLength: string | undefined;
 
   private _input!: AbstractControl;
 
