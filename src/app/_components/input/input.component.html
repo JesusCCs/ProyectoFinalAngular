@@ -17,6 +17,7 @@
       <div class="error" *ngIf="errors.maxlength">Número máximo de caracteres {{ maxLength }}</div>
       <div class="error" *ngIf="errors.inputMismatch">Ambos campos deben coincidir</div>
       <div class="error" *ngIf="errors.invalidCif">Debe colocar un NIF válido</div>
+      <div class="error" *ngIf="errors.email">Debe colocar un correo válido</div>
       <div class="error" id="{{ name }}-error" *ngIf="errors.formServer"></div>
     </div>
   </div>

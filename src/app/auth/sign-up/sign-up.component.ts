@@ -34,7 +34,7 @@ export class SignUpComponent implements OnInit {
       descripcion: ['', Validators.required]
     }, {
       validators: ValidatorsExtension.match('password', 'confirmedPassword'),
-      updateOn: 'submit'
+      updateOn: 'change'
     });
   }
 
@@ -65,7 +65,9 @@ export class SignUpComponent implements OnInit {
     }
 
     this.file = files[0];
+  }
 
-    this.signUpForm.get('logo')?.updateValueAndValidity();
+  get f(): { [p: string]: AbstractControl } {
+    return this.signUpForm.controls;
   }
 }

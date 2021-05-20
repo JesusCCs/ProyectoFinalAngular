@@ -40,7 +40,7 @@ export class AuthService {
     const form = new FormData();
 
     for (const [key, value] of Object.entries(inputs)) {
-      form.set(key, String(value));
+      form.set(key, String(value).trim());
     }
 
     form.set('logo', file);
