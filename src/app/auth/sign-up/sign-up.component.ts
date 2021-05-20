@@ -12,6 +12,7 @@ import {ErrorService} from '../../_services/error.service';
 export class SignUpComponent implements OnInit {
 
   signUpForm!: FormGroup;
+  file: File|null = null;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -20,8 +21,8 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
-      logo: [''],
-      username: ['', ],
+      logo: [null],
+      userName: ['', ],
       email: ['', ],
       nombre: ['', ],
       cif: [''],
@@ -43,12 +44,24 @@ export class SignUpComponent implements OnInit {
 
     const inputs = this.signUpForm.value;
 
-    const signUp: boolean = await this.authService.signUp(inputs);
+    const signUp: boolean = await this.authService.signUp(inputs, this.file as File);
 
     if (!signUp) {
       ErrorService.showInForm(this.signUpForm);
     } else {
       await this.router.navigateByUrl('/');
     }
+  }
+
+  uploadFile(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files === null) {
+      return;
+    }
+
+    this.file = files[0];
+
+    this.signUpForm.get('logo')?.updateValueAndValidity();
   }
 }

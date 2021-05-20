@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
     const email = this.forgotForm.value.email;
     if (!email) { return; }
 
-    const resultado: boolean = await this.authService.forgot(email);
+    const resultado: boolean = await this.authService.forgotPassword(email);
 
     if (!resultado) {
       console.log('Error');

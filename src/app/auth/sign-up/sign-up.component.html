@@ -1,18 +1,21 @@
 <div class="container-sm" style="max-width: 40rem">
-  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="border border-light py-5">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit() " class="border border-light py-5">
 
     <p class="h4 text-center mb-4">Nueva Cuenta</p>
 
     <!-- Logo input -->
     <div class="mb-4">
       <label class="form-label" for="logo">Logo de su gimnasio</label>
-      <input type="file" class="form-control" id="logo" formControlName="logo"/>
+      <input accept="image/jpeg,image/png" type="file" class="form-control" id="logo" (change)="uploadFile($event)" formControlName="logo"/>
+      <div *ngIf="signUpForm.get('logo')?.touched && signUpForm.get('logo')?.errors" class="mt-1">
+        <div class="error" id="logo-error" *ngIf="signUpForm.get('logo')?.errors?.formServer"></div>
+      </div>
     </div>
 
     <div class="row">
       <!-- Username input -->
       <div class="col-6">
-        <app-input type="text" name="username" label="Usuario" [form]="signUpForm"></app-input>
+        <app-input type="text" name="userName" label="Usuario" [form]="signUpForm"></app-input>
       </div>
 
       <!-- Email input -->
@@ -66,6 +69,9 @@
                   id="descripcion" formControlName="descripcion" rows="4"></textarea>
           <label mdbLabel class="form-label" for="descripcion">Descripción</label>
         </mdb-form-control>
+        <div *ngIf="signUpForm.get('descripcion')?.touched && signUpForm.get('descripcion')?.errors" class="mt-1">
+          <div class="error" id="descripcion-error" *ngIf="signUpForm.get('descripcion')?.errors?.formServer"></div>
+        </div>
       </div>
     </div>
 

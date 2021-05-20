@@ -36,10 +36,19 @@ export class AuthService {
     return true;
   }
 
-  public async signUp(inputs: any): Promise<boolean> {
-    const response = await this.http.post(`${environment.apiUrl}/gimnasios`, inputs)
-      .toPromise()
-      .catch(reason => ErrorService.addError(reason));
+  public async signUp(inputs: any, file: File): Promise<boolean> {
+    const form = new FormData();
+
+    for (const [key, value] of Object.entries(inputs)) {
+      form.set(key, String(value));
+    }
+
+    form.set('logo', file);
+
+    const response = await this.http.post(`${environment.apiUrl}/gimnasios`, form)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    console.log({response});
 
     return !!response;
   }
@@ -49,7 +58,7 @@ export class AuthService {
     this.storageService.remove(REFRESH_TOKEN_KEY);
   }
 
-  public async forgot(email: any): Promise<boolean> {
+  public async forgotPassword(email: any): Promise<boolean> {
     return false;
   }
 }
