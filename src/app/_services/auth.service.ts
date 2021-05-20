@@ -48,9 +48,7 @@ export class AuthService {
     const response = await this.http.post(`${environment.apiUrl}/gimnasios`, form)
       .toPromise().catch(reason => ErrorService.addError(reason));
 
-    console.log({response});
-
-    return !!response;
+    return response !== undefined;
   }
 
   public logout(): void {
