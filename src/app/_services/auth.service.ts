@@ -57,7 +57,10 @@ export class AuthService {
   }
 
   public async forgotPassword(email: any): Promise<boolean> {
-    return false;
+    const response = await this.http.post(`${environment.apiUrl}/auth/forgot-password`, {email})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
   }
 
   async confirmEmail(token: string, email: string): Promise<boolean> {
