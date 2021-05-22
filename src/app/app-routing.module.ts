@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {GimnasioHomeComponent} from './gimnasio/gimnasio-home/gimnasio-home.component';
+import {MisDatosComponent} from './gimnasio/mis-datos/mis-datos.component';
 import {AdminHomeComponent} from './admin/admin-home/admin-home.component';
 import {GimnasioGuard} from './_guard/gimnasio.guard';
 import {AdminGuard} from './_guard/admin.guard';
@@ -9,7 +9,7 @@ import {SignUpComponent} from './auth/sign-up/sign-up.component';
 import {GimnasioLoginComponent} from './gimnasio/gimnasio-login/gimnasio-login.component';
 import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
 import {ConfirmEmailComponent} from './auth/confirm-email/confirm-email.component';
-import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
+import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   { // Rutas de la autenticación
@@ -27,7 +27,7 @@ const routes: Routes = [
     canActivate: [GimnasioGuard],
     children: [
       {path: 'login', component: GimnasioLoginComponent},
-      {path: '', component: GimnasioHomeComponent}
+      {path: '', component: MisDatosComponent}
     ]
   },
   { // Rutas para el administrador

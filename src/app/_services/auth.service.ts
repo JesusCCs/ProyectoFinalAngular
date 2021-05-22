@@ -25,10 +25,6 @@ export class AuthService {
       userNameOrEmail, password, rememberMe
     }).toPromise().catch(reason => ErrorService.addError(reason));
 
-    return this.initLogin(login, rememberMe);
-  }
-
-  private initLogin(login: LoginResponse | void, rememberMe: boolean): boolean {
     if (!login) {
       return false;
     }
