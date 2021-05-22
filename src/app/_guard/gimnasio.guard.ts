@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {StorageService} from '../_services/storage.service';
+import {StorageService, TOKEN_KEY} from '../_services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,14 @@ export class GimnasioGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/login']);
+    const token = this.storage.getAccessToken();
 
+    if (!token || !token.isGimnasio()) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
 
-    return false;
+    return true;
   }
 
 }

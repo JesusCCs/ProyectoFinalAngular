@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AccessToken} from "../_models/access-token";
 
 
 export const TOKEN_KEY = 'token';
@@ -60,6 +61,17 @@ export class StorageService {
     } else {
       return localStorage.getItem(key);
     }
+  }
+
+  /**
+   * Método de conveniencia para obtener el access token (si existe) del storage directamente
+   */
+  public getAccessToken(): AccessToken | null {
+    const token = this.get(TOKEN_KEY);
+
+    if (!token) { return null; }
+
+    return new AccessToken(token);
   }
 
   public remove(key: string): void {
