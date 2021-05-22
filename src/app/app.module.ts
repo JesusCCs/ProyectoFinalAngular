@@ -10,7 +10,6 @@ import {LoginComponent} from './auth/login/login.component';
 import {MisDatosComponent} from './gimnasio/mis-datos/mis-datos.component';
 import {AdminHomeComponent} from './admin/admin-home/admin-home.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {JwtTokenService} from './_services/jwt-token.service';
 import {StorageService} from './_services/storage.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpInterceptorProviders} from './_interceptors';
@@ -47,7 +46,6 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     HttpClientModule
   ],
   providers: [
-    JwtTokenService,
     StorageService,
     ErrorService,
     HttpInterceptorProviders

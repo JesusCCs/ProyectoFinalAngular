@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {JwtTokenService} from './jwt-token.service';
 import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY, STORAGE_SESSION} from './storage.service';
 import {environment} from '../../environments/environment';
 import {LoginResponse, RefreshTokenResponse} from '../_models/responses';
@@ -15,7 +14,6 @@ import {Observable} from "rxjs";
 export class AuthService {
 
   constructor(private http: HttpClient,
-              private token: JwtTokenService,
               private storage: StorageService,
               private router: Router) {
 
