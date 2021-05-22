@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-gimnasio-home',
-  templateUrl: './gimnasio-home.component.html',
-  styleUrls: ['./gimnasio-home.component.scss']
+  templateUrl: './mis-datos.component.html',
+  styleUrls: ['./mis-datos.component.scss']
 })
 export class MisDatosComponent implements OnInit {
 
