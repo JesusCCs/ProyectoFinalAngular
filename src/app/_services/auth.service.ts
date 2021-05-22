@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
-import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './storage.service';
+import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY, STORAGE_SESSION} from './storage.service';
 import {environment} from '../../environments/environment';
 import {LoginResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
-import {ResetPasswordRequest} from "../_models/requests";
+import {ResetPasswordRequest} from '../_models/requests';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class AuthService {
   userIsLogged = false;
 
   constructor(private http: HttpClient,
-              private tokenService: JwtTokenService,
-              private storageService: StorageService) {
+              private token: JwtTokenService,
+              private storage: StorageService) {
 
   }
 
@@ -33,6 +33,12 @@ export class AuthService {
       return false;
     }
 
+    if (!rememberMe) {
+      this.storage.setMode(STORAGE_SESSION);
+    }
+
+    this.storage.set(TOKEN_KEY, login.accessToken);
+    this.storage.set(REFRESH_TOKEN_KEY, login.refreshToken);
 
     return true;
   }
@@ -53,8 +59,8 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.storageService.remove(TOKEN_KEY);
-    this.storageService.remove(REFRESH_TOKEN_KEY);
+    this.storage.remove(TOKEN_KEY);
+    this.storage.remove(REFRESH_TOKEN_KEY);
   }
 
   public async forgotPassword(email: string): Promise<boolean> {
