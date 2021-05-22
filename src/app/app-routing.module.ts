@@ -18,6 +18,7 @@ const routes: Routes = [
       {path: 'forgot', component: ForgotPasswordComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'confirm-email', component: ConfirmEmailComponent},
+      {path: 'reset-password', component: ConfirmEmailComponent},
       {path: '**', redirectTo: '/login'}
     ]
   },

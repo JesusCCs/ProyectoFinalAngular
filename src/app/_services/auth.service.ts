@@ -3,8 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
 import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
 import {environment} from '../../environments/environment';
-import {LoginResponse} from '../_models/response';
+import {LoginResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
+import {ResetPasswordRequest} from "../_models/requests";
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +57,18 @@ export class AuthService {
     this.storageService.remove(REFRESH_TOKEN_KEY);
   }
 
-  public async forgotPassword(email: any): Promise<boolean> {
-    return false;
+  public async forgotPassword(email: string): Promise<boolean> {
+    const response = await this.http.post(`${environment.apiUrl}/auth/forgot-password`, {email})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
+
+  public async resetPassword(resetPassword: ResetPasswordRequest): Promise<boolean> {
+    const response = await this.http.post(`${environment.apiUrl}/auth/reset-password`, {resetPassword})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
   }
 
   async confirmEmail(token: string, email: string): Promise<boolean> {
