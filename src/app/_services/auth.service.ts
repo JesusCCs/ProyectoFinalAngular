@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
-import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
+import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './storage.service';
 import {environment} from '../../environments/environment';
 import {LoginResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private tokenService: JwtTokenService,
-              private storageService: LocalStorageService) {
+              private storageService: StorageService) {
 
   }
 

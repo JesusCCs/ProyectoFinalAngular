@@ -6,12 +6,12 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {LocalStorageService, TOKEN_KEY} from '../_services/local-storage.service';
+import {StorageService, TOKEN_KEY} from '../_services/storage.service';
 
 @Injectable()
 export class JwtTokenInterceptor implements HttpInterceptor {
 
-  constructor(private storage: LocalStorageService) {
+  constructor(private storage: StorageService) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {

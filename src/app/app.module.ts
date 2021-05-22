@@ -11,7 +11,7 @@ import {GimnasioHomeComponent} from './gimnasio/gimnasio-home/gimnasio-home.comp
 import {AdminHomeComponent} from './admin/admin-home/admin-home.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {JwtTokenService} from './_services/jwt-token.service';
-import {LocalStorageService} from './_services/local-storage.service';
+import {StorageService} from './_services/storage.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpInterceptorProviders} from './_interceptors';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
@@ -48,7 +48,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
   ],
   providers: [
     JwtTokenService,
-    LocalStorageService,
+    StorageService,
     ErrorService,
     HttpInterceptorProviders
   ],

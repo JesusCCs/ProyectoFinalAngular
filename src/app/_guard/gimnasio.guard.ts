@@ -11,15 +11,20 @@ export class GimnasioGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (state.url === '/login') { return true; }
+    if (state.url === '/login') {
+      return true;
+    }
 
     this.router.navigate(['/login']);
+
+
     return false;
   }
 
