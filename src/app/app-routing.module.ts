@@ -27,7 +27,8 @@ const routes: Routes = [
     canActivate: [GimnasioGuard],
     children: [
       {path: 'login', component: GimnasioLoginComponent},
-      {path: '', component: MisDatosComponent}
+      {path: '', component: MisDatosComponent},
+      {path: '**', redirectTo: ''}
     ]
   },
   { // Rutas para el administrador

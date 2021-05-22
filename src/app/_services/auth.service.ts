@@ -3,10 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {JwtTokenService} from './jwt-token.service';
 import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY, STORAGE_SESSION} from './storage.service';
 import {environment} from '../../environments/environment';
-import {LoginResponse} from '../_models/responses';
+import {LoginResponse, RefreshTokenResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
 import {ResetPasswordRequest} from '../_models/requests';
 import {Router} from '@angular/router';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -75,10 +76,14 @@ export class AuthService {
     return response !== undefined;
   }
 
-  async confirmEmail(token: string, email: string): Promise<boolean> {
+  public async confirmEmail(token: string, email: string): Promise<boolean> {
     const response = await this.http.put(`${environment.apiUrl}/auth/confirm-email`, {token, email})
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
+  }
+
+  public refreshAccessToken(accessToken: string, refreshToken: string): Observable<RefreshTokenResponse> {
+    return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh-token`, {accessToken, refreshToken});
   }
 }
