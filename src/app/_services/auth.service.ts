@@ -6,17 +6,17 @@ import {environment} from '../../environments/environment';
 import {LoginResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
 import {ResetPasswordRequest} from '../_models/requests';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userIsLogged = false;
-
   constructor(private http: HttpClient,
               private token: JwtTokenService,
-              private storage: StorageService) {
+              private storage: StorageService,
+              private router: Router) {
 
   }
 
@@ -61,6 +61,8 @@ export class AuthService {
   public logout(): void {
     this.storage.remove(TOKEN_KEY);
     this.storage.remove(REFRESH_TOKEN_KEY);
+
+    this.router.navigateByUrl('/login');
   }
 
   public async forgotPassword(email: string): Promise<boolean> {
