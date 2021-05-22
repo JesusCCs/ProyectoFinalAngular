@@ -10,11 +10,8 @@ export class ValidatorsExtension {
       const inputToMatch = form.get(firstToMatch);
       const anotherInputToMatch = form.get(secondToMatch);
 
-      if (required && (!inputToMatch?.value || !anotherInputToMatch?.value)) {
-        inputToMatch?.setErrors({required: true});
-        anotherInputToMatch?.setErrors({required: true});
-
-        return {required: true};
+      if (!inputToMatch?.value || !anotherInputToMatch?.value) {
+        return null;
       }
 
 

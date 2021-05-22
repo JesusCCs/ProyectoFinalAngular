@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   public async resetPassword(resetPassword: ResetPasswordRequest): Promise<boolean> {
-    const response = await this.http.post(`${environment.apiUrl}/auth/reset-password`, {resetPassword})
+    const response = await this.http.put(`${environment.apiUrl}/auth/reset-password`, resetPassword)
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;

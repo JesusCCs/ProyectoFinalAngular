@@ -21,6 +21,7 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { InputComponent } from './_components/input/input.component';
 import {ErrorService} from './_services/error.service';
 import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.compon
     GimnasioLoginComponent,
     AdminLoginComponent,
     InputComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

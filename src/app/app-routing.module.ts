@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {GimnasioHomeComponent} from './gimnasio/gimnasio-home/gimnasio-home.component';
 import {AdminHomeComponent} from './admin/admin-home/admin-home.component';
-import {LoginComponent} from './auth/login/login.component';
 import {GimnasioGuard} from './_guard/gimnasio.guard';
 import {AdminGuard} from './_guard/admin.guard';
 import {ForgotPasswordComponent} from './auth/forgot-password/forgot-password.component';
@@ -10,6 +9,7 @@ import {SignUpComponent} from './auth/sign-up/sign-up.component';
 import {GimnasioLoginComponent} from './gimnasio/gimnasio-login/gimnasio-login.component';
 import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
 import {ConfirmEmailComponent} from './auth/confirm-email/confirm-email.component';
+import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
 
 const routes: Routes = [
   { // Rutas de la autenticación
@@ -18,7 +18,7 @@ const routes: Routes = [
       {path: 'forgot', component: ForgotPasswordComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'confirm-email', component: ConfirmEmailComponent},
-      {path: 'reset-password', component: ConfirmEmailComponent},
+      {path: 'reset-password', component: ResetPasswordComponent},
       {path: '**', redirectTo: '/login'}
     ]
   },
