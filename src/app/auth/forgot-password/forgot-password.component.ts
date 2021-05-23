@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
-import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {ErrorService} from '../../_services/error.service';
 import Swal from 'sweetalert2';
 
@@ -23,10 +22,10 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.forgotForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
-    });
+    }, {updateOn: 'change'});
   }
 
-  public async forgot(): Promise<void> {
+  async onSubmit(): Promise<void> {
     if (this.forgotForm.invalid) {
       this.forgotForm.markAllAsTouched();
       return;
@@ -36,23 +35,19 @@ export class ForgotPasswordComponent implements OnInit {
 
     const email = this.forgotForm.value.email;
 
-    const resultado: boolean = await this.authService.forgotPassword(email);
+    const forgot: boolean = await this.authService.forgotPassword(email);
 
-    if (!resultado) {
+    if (!forgot) {
       ErrorService.showInForm(this.forgotForm);
     } else {
-      this.showModal();
+      Swal.fire({
+        icon: 'success',
+        title: '¡Proceso comenzado!',
+        text: 'Si ha escrito correctamente el email, le llegará un correo donde, siguiendo las instrucciones, podrá recuperar su contraseña.',
+        allowOutsideClick: false,
+        focusConfirm: true,
+        confirmButtonText: 'De acuerdo'
+      }).then(_ => this.router.navigateByUrl('/login'));
     }
-  }
-
-  private showModal(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Proceso de recuperación iniciado',
-      text: 'Si el email que ha colocado está registrado en el sistema, se le enviará un correo donde podrá continuar con los pasos para reiniciar su contraseña.',
-      allowOutsideClick: false,
-      focusConfirm: true,
-      confirmButtonText: 'De acuerdo'
-    }).then(_ => this.router.navigateByUrl('/login'));
   }
 }

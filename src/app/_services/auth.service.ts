@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {JwtTokenService} from './jwt-token.service';
-import {LocalStorageService, REFRESH_TOKEN_KEY, TOKEN_KEY} from './local-storage.service';
+import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY, STORAGE_SESSION} from './storage.service';
 import {environment} from '../../environments/environment';
-import {LoginResponse} from '../_models/response';
+import {LoginResponse, RefreshTokenResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
+import {ResetPasswordRequest} from '../_models/requests';
+import {Router} from '@angular/router';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userIsLogged = false;
-
   constructor(private http: HttpClient,
-              private tokenService: JwtTokenService,
-              private storageService: LocalStorageService) {
+              private storage: StorageService,
+              private router: Router) {
 
   }
 
@@ -24,14 +24,16 @@ export class AuthService {
       userNameOrEmail, password, rememberMe
     }).toPromise().catch(reason => ErrorService.addError(reason));
 
-    return this.initLogin(login, rememberMe);
-  }
-
-  private initLogin(login: LoginResponse | void, rememberMe: boolean): boolean {
     if (!login) {
       return false;
     }
 
+    if (!rememberMe) {
+      this.storage.setMode(STORAGE_SESSION);
+    }
+
+    this.storage.set(TOKEN_KEY, login.accessToken);
+    this.storage.set(REFRESH_TOKEN_KEY, login.refreshToken);
 
     return true;
   }
@@ -52,21 +54,34 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.storageService.remove(TOKEN_KEY);
-    this.storageService.remove(REFRESH_TOKEN_KEY);
+    this.storage.remove(TOKEN_KEY);
+    this.storage.remove(REFRESH_TOKEN_KEY);
+
+    this.router.navigateByUrl('/login');
   }
 
-  public async forgotPassword(email: any): Promise<boolean> {
+  public async forgotPassword(email: string): Promise<boolean> {
     const response = await this.http.post(`${environment.apiUrl}/auth/forgot-password`, {email})
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
   }
 
-  async confirmEmail(token: string, email: string): Promise<boolean> {
+  public async resetPassword(resetPassword: ResetPasswordRequest): Promise<boolean> {
+    const response = await this.http.put(`${environment.apiUrl}/auth/reset-password`, resetPassword)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
+
+  public async confirmEmail(token: string, email: string): Promise<boolean> {
     const response = await this.http.put(`${environment.apiUrl}/auth/confirm-email`, {token, email})
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
+  }
+
+  public refreshAccessToken(accessToken: string, refreshToken: string): Observable<RefreshTokenResponse> {
+    return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh-token`, {accessToken, refreshToken});
   }
 }
