@@ -5,7 +5,7 @@
 
     <div class="col-xl-3 col-lg-3 col-12">
       <div class="card h-100 bg-dark text-light">
-        <div class="card-body">
+        <div class="card-body" *ngIf="gimnasio">
           <div class="account-settings">
             <div class="user-profile">
               <div class="bg-image hover-overlay ripple">
@@ -44,7 +44,7 @@
       <div class="card h-100 bg-dark text-light">
         <div class="card-body">
 
-          <form [formGroup]="updateForm">
+          <form *ngIf="updateForm" [formGroup]="updateForm">
 
             <!-- Zona privada -->
             <section>
@@ -54,13 +54,13 @@
                 <!-- Username -->
                 <div class="col-sm-12 col-md-6">
                   <app-input name="userName" [darkTheme]="true" [readonly]="true"
-                             label="Usuario" value="{{gimnasio.userName}}" [form]="updateForm"></app-input>
+                             label="Usuario" [form]="updateForm"></app-input>
                 </div>
 
                 <!-- Email -->
                 <div class="col-sm-12 col-md-6 d-flex">
                     <app-input name="email" [darkTheme]="true" [readonly]="true"
-                               label="Email" value="{{gimnasio.email}}" [form]="updateForm" style="width: 100%"></app-input>
+                               label="Email" [form]="updateForm" style="width: 100%"></app-input>
                     <button class="btn btn-info" type="button" mdbRipple rippleColor="warning" style="max-height: 36px;margin-left: 10px;width: 120px;" >
                       Editar
                     </button>
@@ -70,8 +70,7 @@
               <div class="row">
                 <!-- CIF -->
                 <div class="col-sm-12 col-md-6">
-                  <app-input name="cif" [darkTheme]="true"
-                             label="NIF" value="{{gimnasio.cif}}" [form]="updateForm"></app-input>
+                  <app-input name="cif" [darkTheme]="true" label="NIF" [form]="updateForm"></app-input>
                 </div>
 
                 <!-- Contraseña -->

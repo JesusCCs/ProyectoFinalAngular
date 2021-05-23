@@ -66,31 +66,18 @@ export class JwtTokenInterceptor implements HttpInterceptor {
       return this.refreshTokenSubject.pipe(
         filter(result => result !== null),
         take(1),
-        switchMap(subject => this.saveAndResendRequest(subject as RefreshTokenResponse, request, next))
+        switchMap(subject => next.handle(this.addBearer(request)))
       );
     } else {
       this.refreshTokenInProgress = true;
       this.refreshTokenSubject.next(null);
 
-      const accessToken = this.storage.get(TOKEN_KEY) as string;
-      const refreshToken = this.storage.get(REFRESH_TOKEN_KEY) as string;
-
-      return this.auth.refreshAccessToken(accessToken, refreshToken).pipe(
+      return this.auth.refreshAccessToken().pipe(
         // Completado el refresh, enviamos de nuevo el request que queríamos con el nuevo Access Token
-        switchMap(response => {
-          this.refreshTokenSubject.next(response);
-          return this.saveAndResendRequest(response, request, next);
-        }),
+        switchMap(() => next.handle(this.addBearer(request))),
         // Al terminar con la llamada al refresh, volvemos a marcar la bandera a falso
         finalize(() => this.refreshTokenInProgress = false)
       );
     }
-  }
-
-  private saveAndResendRequest(tokenResponse: RefreshTokenResponse, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.storage.set(TOKEN_KEY, tokenResponse.accessToken);
-    this.storage.set(REFRESH_TOKEN_KEY, tokenResponse.refreshToken);
-
-    return next.handle(this.addBearer(request));
   }
 }

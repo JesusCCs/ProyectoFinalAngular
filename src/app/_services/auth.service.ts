@@ -6,7 +6,8 @@ import {LoginResponse, RefreshTokenResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
 import {ResetPasswordRequest} from '../_models/requests';
 import {Router} from '@angular/router';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +82,13 @@ export class AuthService {
     return response !== undefined;
   }
 
-  public refreshAccessToken(accessToken: string, refreshToken: string): Observable<RefreshTokenResponse> {
-    return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh-token`, {accessToken, refreshToken});
+  public refreshAccessToken(): Observable<RefreshTokenResponse> {
+    return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh-token`,
+      {accessToken : this.storage.get(TOKEN_KEY), refreshToken : this.storage.get(REFRESH_TOKEN_KEY)}).pipe(
+        tap(x => {
+          this.storage.set(TOKEN_KEY, x.accessToken);
+          this.storage.set(REFRESH_TOKEN_KEY, x.refreshToken);
+        })
+    );
   }
 }

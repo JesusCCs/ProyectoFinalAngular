@@ -6,6 +6,6 @@ import {ErrorInterceptor} from './error.interceptor';
 
 
 export const HttpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true }
 ];
