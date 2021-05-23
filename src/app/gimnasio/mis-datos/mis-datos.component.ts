@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GimnasiosService} from '../../_services/gimnasios.service';
 import {Gimnasio} from '../../_models/gimnasio';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -7,7 +7,8 @@ import {ValidatorsExtension} from '../../_helpers/validators-extension';
 @Component({
   selector: 'app-gimnasio-home',
   templateUrl: './mis-datos.component.html',
-  styleUrls: ['./mis-datos.component.scss']
+  styleUrls: ['./mis-datos.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MisDatosComponent implements OnInit {
 

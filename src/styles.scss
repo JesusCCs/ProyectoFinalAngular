@@ -4,6 +4,7 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
 // MDB SCSS
 @import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 
@@ -18,6 +19,6 @@
   background-color: transparent;
 }
 
-.form-white.form-outline .form-control[readonly]::after {
-  content: 'prueba';
+.form-outline.form-white .form-control {
+  color: #d5d5d5;
 }

@@ -22,17 +22,17 @@
             </div>
 
             <div>
-              <h5 class="mb-2 text-primary">Tarifas</h5>
+              <h5 class="mb-2 text-warning">Tarifas</h5>
               <p>{{ gimnasio.tarifa }} €/mes</p>
             </div>
 
             <div>
-              <h5 class="mb-2 text-primary">Dirección</h5>
+              <h5 class="mb-2 text-warning">Dirección</h5>
               <p>{{ gimnasio.direccion }}</p>
             </div>
 
             <div>
-              <h5 class="mb-2 text-primary">Descripción</h5>
+              <h5 class="mb-2 text-warning">Descripción</h5>
               <p>{{ gimnasio.descripcion }}</p>
             </div>
           </div>
@@ -46,9 +46,9 @@
 
           <form [formGroup]="updateForm">
 
-            <!-- Cuenta -->
+            <!-- Zona privada -->
             <section>
-              <h6 class="mb-3 text-primary">Detalles de la cuenta</h6>
+              <h6 class="mb-3 text-warning">Detalles de la cuenta</h6>
 
               <div class="row">
                 <!-- Username -->
@@ -58,9 +58,12 @@
                 </div>
 
                 <!-- Email -->
-                <div class="col-sm-12 col-md-6">
-                  <app-input name="email" [darkTheme]="true" [readonly]="true"
-                             label="Email" value="{{gimnasio.email}}" [form]="updateForm"></app-input>
+                <div class="col-sm-12 col-md-6 d-flex">
+                    <app-input name="email" [darkTheme]="true" [readonly]="true"
+                               label="Email" value="{{gimnasio.email}}" [form]="updateForm" style="width: 100%"></app-input>
+                    <button class="btn btn-info" type="button" mdbRipple rippleColor="warning" style="max-height: 36px;margin-left: 10px;width: 120px;" >
+                      Editar
+                    </button>
                 </div>
               </div>
 
@@ -73,8 +76,7 @@
 
                 <!-- Contraseña -->
                 <div class="col-sm-12 col-md-6">
-                  <app-input name="email" [darkTheme]="true"
-                             label="Email" value="{{gimnasio.email}}" [form]="updateForm"></app-input>
+                  <button type="button" class="btn btn-light">Cambiar Contraseña</button>
                 </div>
               </div>
 
@@ -82,7 +84,7 @@
 
             <!-- Zona pública -->
             <section>
-              <h6 class="mb-3 text-primary">Información pública</h6>
+              <h6 class="mb-3 text-warning">Información pública</h6>
               <div class="row">
                 <!-- Id input -->
                 <div class="col-4">
