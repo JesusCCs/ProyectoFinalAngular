@@ -15,4 +15,8 @@ export class AccessToken {
   public isAdmin(): boolean {
     return this.decodedToken.role === 'Admin';
   }
+
+  public getId(): string {
+    return this.decodedToken.nameid;
+  }
 }

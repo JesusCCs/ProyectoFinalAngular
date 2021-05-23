@@ -11,3 +11,13 @@
   color: #f93154;
   font-size: 0.875rem;
 }
+
+.form-outline.form-white .form-control:disabled,
+.form-outline.form-white .form-control.disabled,
+.form-white.form-outline .form-control[readonly] {
+  background-color: transparent;
+}
+
+.form-white.form-outline .form-control[readonly]::after {
+  content: 'prueba';
+}

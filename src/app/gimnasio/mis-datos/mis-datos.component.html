@@ -4,104 +4,128 @@
   <div class="row gutters">
 
     <div class="col-xl-3 col-lg-3 col-12">
-      <div class="card h-100 bg-dark">
+      <div class="card h-100 bg-dark text-light">
         <div class="card-body">
           <div class="account-settings">
             <div class="user-profile">
-              <div class="user-avatar">
-                <div class="bg-image hover-overlay ripple">
-                  <img src="https://mdbootstrap.com/img/new/fluid/city/055.jpg"
-                       class="img-fluid shadow-2-strong "
-                       alt="Imagen del Logo"/>
-                  <a href="#!">
-                    <div class="mask" style="background-color: rgba(57, 192, 237, 0.2);"></div>
-                  </a>
-                </div>
+              <div class="bg-image hover-overlay ripple">
+                <img src="https://mdbootstrap.com/img/new/fluid/city/055.jpg"
+                     class="img-fluid shadow-2-strong "
+                     alt="Imagen del Logo"/>
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(57, 192, 237, 0.2);"></div>
+                </a>
               </div>
-              <h5 class="user-name">Yuki Hayashi</h5>
-              <h6 class="user-email">yuki@Maxwell.com</h6>
+
+              <h5 class="my-1">{{ gimnasio.nombre }}</h5>
+              <h6>{{ gimnasio.email }}</h6>
             </div>
 
-            <div class="about">
-              <h5 class="mb-2 text-primary">About</h5>
-              <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+            <div>
+              <h5 class="mb-2 text-primary">Tarifas</h5>
+              <p>{{ gimnasio.tarifa }} €/mes</p>
+            </div>
+
+            <div>
+              <h5 class="mb-2 text-primary">Dirección</h5>
+              <p>{{ gimnasio.direccion }}</p>
+            </div>
+
+            <div>
+              <h5 class="mb-2 text-primary">Descripción</h5>
+              <p>{{ gimnasio.descripcion }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-xl-9 col-lg-9 col-12">
-      <div class="card h-100">
+    <div class="col-lg-9 col-12">
+      <div class="card h-100 bg-dark text-light">
         <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="eMail">Email</label>
-                <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="website">Website URL</label>
-                <input type="url" class="form-control" id="website" placeholder="Website url">
-              </div>
-            </div>
-          </div>
 
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">Address</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="Street">Street</label>
-                <input type="name" class="form-control" id="Street" placeholder="Enter Street">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="ciTy">City</label>
-                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="sTate">State</label>
-                <input type="text" class="form-control" id="sTate" placeholder="Enter State">
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="zIp">Zip Code</label>
-                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-              </div>
-            </div>
-          </div>
+          <form [formGroup]="updateForm">
 
-          <div class="row gutters">
-            <div class="col-12">
-              <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+            <!-- Cuenta -->
+            <section>
+              <h6 class="mb-3 text-primary">Detalles de la cuenta</h6>
+
+              <div class="row">
+                <!-- Username -->
+                <div class="col-sm-12 col-md-6">
+                  <app-input name="userName" [darkTheme]="true" [readonly]="true"
+                             label="Usuario" value="{{gimnasio.userName}}" [form]="updateForm"></app-input>
+                </div>
+
+                <!-- Email -->
+                <div class="col-sm-12 col-md-6">
+                  <app-input name="email" [darkTheme]="true" [readonly]="true"
+                             label="Email" value="{{gimnasio.email}}" [form]="updateForm"></app-input>
+                </div>
               </div>
-            </div>
-          </div>
+
+              <div class="row">
+                <!-- CIF -->
+                <div class="col-sm-12 col-md-6">
+                  <app-input name="cif" [darkTheme]="true"
+                             label="NIF" value="{{gimnasio.cif}}" [form]="updateForm"></app-input>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="col-sm-12 col-md-6">
+                  <app-input name="email" [darkTheme]="true"
+                             label="Email" value="{{gimnasio.email}}" [form]="updateForm"></app-input>
+                </div>
+              </div>
+
+            </section>
+
+            <!-- Zona pública -->
+            <section>
+              <h6 class="mb-3 text-primary">Información pública</h6>
+              <div class="row">
+                <!-- Id input -->
+                <div class="col-4">
+                  <app-input name="identificador" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador" [form]="updateForm"></app-input>
+                </div>
+
+                <!-- Name input -->
+                <div class="col-8">
+                  <app-input name="nombre" [darkTheme]="true" minLength="6" maxLength="200" label="Nombre" [form]="updateForm"></app-input>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Address input -->
+                <div class="col-10">
+                  <app-input name="direccion" [darkTheme]="true" minLength="5" maxLength="200" label="Dirección" [form]="updateForm"></app-input>
+                </div>
+
+                <!-- Price input -->
+                <div class="col-2">
+                  <app-input type="number" [darkTheme]="true" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="updateForm"></app-input>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <!-- Description input -->
+                <div class="col-12" [ngClass]="{'mb-3' : f.descripcion.touched && f.descripcion.errors, 'mb-4': !f.descripcion.touched || !f.descripcion.errors}">
+                  <mdb-form-control class="form-white">
+                  <textarea mdbInput [mdbValidate]="false" class="form-control" name="descripcion" id="descripcion"
+                            formControlName="descripcion" rows="4"></textarea>
+                    <label mdbLabel class="form-label" for="descripcion">Descripción</label>
+                  </mdb-form-control>
+                  <div *ngIf="f.descripcion.touched && f.descripcion.errors">
+                    <div class="error" *ngIf="f.descripcion.errors.required">Campo requerido</div>
+                    <div class="error" id="descripcion-error" *ngIf="f.descripcion.errors.formServer"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </form>
+
         </div>
       </div>
     </div>

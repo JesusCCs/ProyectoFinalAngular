@@ -18,6 +18,10 @@ export class InputComponent implements OnInit {
   @Input() @Optional() minLength: string | undefined;
   @Input() @Optional() maxLength: string | undefined;
 
+  @Input() @Optional() darkTheme = false;
+  @Input() @Optional() value: string | undefined;
+  @Input() @Optional() readonly = false;
+
   private _input!: AbstractControl;
 
 

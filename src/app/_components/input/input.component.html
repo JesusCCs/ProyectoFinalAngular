@@ -1,9 +1,13 @@
 <ng-container [formGroup]="form">
   <div [ngClass]="{'mb-3' : touched && errors, 'mb-4': !touched || !errors}">
-    <mdb-form-control>
-      <input mdbInput [mdbValidate]="true" type="{{ type }}" class="form-control mb-0" id="{{ name }}" name="{{ name }}"
-             formControlName="{{ name }}" min="{{ min }}" max="{{ max }}" minlength="{{ minLength }}"
-             maxlength="{{ maxLength }}">
+    <mdb-form-control [ngClass]="{'form-white' : darkTheme}">
+      <input mdbInput [mdbValidate]="true" id="{{ name }}" name="{{ name }}" formControlName="{{ name }}"
+             type="{{ type }}"
+             min="{{ min }}" max="{{ max }}"
+             minlength="{{ minLength }}" maxlength="{{ maxLength }}"
+             [readonly]="readonly"
+             value="{{ value }}"
+             class="form-control mb-0">
       <label mdbLabel class="form-label" for="{{ name }}">
         {{ label }}
       </label>
