@@ -42,7 +42,7 @@
 
     <div class="col-lg-9 col-12">
       <div class="card h-100 bg-dark text-light">
-        <div class="card-body">
+        <div class="card-body p-4">
 
           <form *ngIf="updateForm" [formGroup]="updateForm">
 
@@ -61,7 +61,7 @@
                 <div class="col-sm-12 col-md-6 d-flex">
                     <app-input name="email" [darkTheme]="true" [readonly]="true"
                                label="Email" [form]="updateForm" style="width: 100%"></app-input>
-                    <button class="btn btn-info" type="button" mdbRipple rippleColor="warning" style="max-height: 36px;margin-left: 10px;width: 120px;" >
+                    <button class="btn btn-light" type="button" mdbRipple rippleColor="warning" style="max-height: 42px;margin-left: 10px;width: 110px;" >
                       Editar
                     </button>
                 </div>
@@ -75,7 +75,7 @@
 
                 <!-- Contraseña -->
                 <div class="col-sm-12 col-md-6">
-                  <button type="button" class="btn btn-light">Cambiar Contraseña</button>
+                  <button type="button" class="btn btn-light w-50" style="height: 42px;">Cambiar Contraseña</button>
                 </div>
               </div>
 
@@ -84,6 +84,7 @@
             <!-- Zona pública -->
             <section>
               <h6 class="mb-3 text-warning">Información pública</h6>
+
               <div class="row">
                 <!-- Id input -->
                 <div class="col-4">
@@ -104,10 +105,9 @@
 
                 <!-- Price input -->
                 <div class="col-2">
-                  <app-input type="number" [darkTheme]="true" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="updateForm"></app-input>
+                  <app-input type="number" step="0.01" [darkTheme]="true" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="updateForm"></app-input>
                 </div>
               </div>
-
 
               <div class="row">
                 <!-- Description input -->
@@ -123,6 +123,16 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row justify-content-end">
+                <div class="col-4">
+                  <button type="button" class="btn btn-outline-gray w-100"> <span class="text-light">Reiniciar</span> </button>
+                </div>
+                <div class="col-4">
+                  <button type="submit" class="btn btn-action w-100">Actualizar</button>
+                </div>
+              </div>
+
             </section>
 
           </form>
@@ -130,7 +140,6 @@
         </div>
       </div>
     </div>
-
 
   </div>
 </div>

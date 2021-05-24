@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
   @Input() label!: string;
 
   @Input() @Optional() type = 'text';
+  @Input() @Optional() step: string | undefined;
   @Input() @Optional() min: string | undefined;
   @Input() @Optional() max: string | undefined;
   @Input() @Optional() minLength: string | undefined;

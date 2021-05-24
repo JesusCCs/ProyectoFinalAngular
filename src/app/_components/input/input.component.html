@@ -3,7 +3,7 @@
     <mdb-form-control [ngClass]="{'form-white' : darkTheme}">
       <input mdbInput [mdbValidate]="true" id="{{ name }}" name="{{ name }}" formControlName="{{ name }}"
              type="{{ type }}"
-             min="{{ min }}" max="{{ max }}"
+             min="{{ min }}" max="{{ max }}" step="{{ step }}"
              minlength="{{ minLength }}" maxlength="{{ maxLength }}"
              [readonly]="readonly"
              value="{{ value }}"
