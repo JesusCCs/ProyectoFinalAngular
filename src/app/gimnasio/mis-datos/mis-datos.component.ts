@@ -16,7 +16,7 @@ export class MisDatosComponent implements OnInit {
 
   gimnasio!: Gimnasio;
   updateForm!: FormGroup;
-  modalRef!: MdbModalRef<ModalChangePassComponent>;
+  modalPass!: MdbModalRef<ModalChangePassComponent>;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -42,8 +42,8 @@ export class MisDatosComponent implements OnInit {
     });
   }
 
-  openModal(): void {
-    this.modalRef = this.modalService.open(ModalChangePassComponent, {
+  openModalPass(): void {
+    this.modalPass = this.modalService.open(ModalChangePassComponent, {
       modalClass: 'modal-dialog-centered'
     });
   }
