@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
@@ -6,7 +6,8 @@ import {ValidatorsExtension} from '../../_helpers/validators-extension';
 @Component({
   selector: 'app-modal-change-pass',
   templateUrl: './modal-change-pass.component.html',
-  styleUrls: ['./modal-change-pass.component.scss']
+  styleUrls: ['./modal-change-pass.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ModalChangePassComponent implements OnInit {
 
