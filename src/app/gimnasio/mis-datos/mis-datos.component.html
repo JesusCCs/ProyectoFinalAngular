@@ -116,18 +116,8 @@
             </div>
 
             <div class="row">
-              <!-- Description input -->
-              <div class="col-12"
-                   [ngClass]="{'mb-3' : f.descripcion.touched && f.descripcion.errors, 'mb-4': !f.descripcion.touched || !f.descripcion.errors}">
-                <mdb-form-control class="form-white">
-                  <textarea mdbInput [mdbValidate]="false" class="form-control" name="descripcion" id="descripcion"
-                            formControlName="descripcion" rows="4"></textarea>
-                  <label mdbLabel class="form-label" for="descripcion">Descripción</label>
-                </mdb-form-control>
-                <div *ngIf="f.descripcion.touched && f.descripcion.errors">
-                  <div class="error" *ngIf="f.descripcion.errors.required">Campo requerido</div>
-                  <div class="error" id="descripcion-error" *ngIf="f.descripcion.errors.formServer"></div>
-                </div>
+              <div class="col-12">
+                <app-textarea [form]="updateForm" [darkTheme]="true" label="Descripción" name="descripcion"></app-textarea>
               </div>
             </div>
 
