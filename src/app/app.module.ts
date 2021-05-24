@@ -22,6 +22,7 @@ import {ErrorService} from './_services/error.service';
 import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import {BdcWalkModule} from 'bdc-walkthrough';
+import { ModalChangePassComponent } from './_components/modal-change-pass/modal-change-pass.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {BdcWalkModule} from 'bdc-walkthrough';
     AdminLoginComponent,
     InputComponent,
     ConfirmEmailComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ModalChangePassComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import {GimnasioService} from '../../_services/gimnasio.service';
 import {Gimnasio} from '../../_models/gimnasio';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
+import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
+import {ModalChangePassComponent} from '../../_components/modal-change-pass/modal-change-pass.component';
 
 @Component({
   selector: 'app-gimnasio-home',
@@ -12,14 +14,12 @@ import {ValidatorsExtension} from '../../_helpers/validators-extension';
 })
 export class MisDatosComponent implements OnInit {
 
-  page = 'mis-datos';
-  type = 'gimnasio';
-
   gimnasio!: Gimnasio;
-
   updateForm!: FormGroup;
+  modalRef!: MdbModalRef<ModalChangePassComponent>;
 
   constructor(private gimnasioService: GimnasioService,
+              private modalService: MdbModalService,
               private fb: FormBuilder) {
   }
 
@@ -39,6 +39,12 @@ export class MisDatosComponent implements OnInit {
       descripcion: [this.gimnasio.descripcion, Validators.required]
     }, {
       updateOn: 'submit'
+    });
+  }
+
+  openModal(): void {
+    this.modalRef = this.modalService.open(ModalChangePassComponent, {
+      modalClass: 'modal-dialog-centered'
     });
   }
 

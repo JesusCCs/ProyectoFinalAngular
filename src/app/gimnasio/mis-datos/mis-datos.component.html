@@ -1,23 +1,25 @@
-<app-navbar [type]="type" [page]="page"></app-navbar>
+<app-navbar type="gimnasio" page="mis-datos"></app-navbar>
 
-<div class="container-sm mt-4">
-  <div class="row gutters">
+<div class="container-sm">
+  <form *ngIf="updateForm" [formGroup]="updateForm" class="row gutters mt-4">
 
+    <!-- Vista Previa -->
     <div class="col-xl-3 col-lg-3 col-12">
       <div class="card h-100 bg-dark text-light">
         <div class="card-body" *ngIf="gimnasio">
           <div class="user-profile">
+
             <!-- Imagen -->
             <div class="bg-image hover-overlay ripple">
               <img src="https://mdbootstrap.com/img/new/fluid/city/055.jpg"
                    class="img-fluid shadow-2-strong "
                    alt="Imagen del Logo"/>
-              <a href="#!">
+              <a>
                 <div class="mask" style="background-color: rgba(57, 192, 237, 0.2);"></div>
               </a>
             </div>
 
-            <!-- Identificación -->
+
             <h5 class="mt-2 mb-1">{{ gimnasio.nombre }}</h5>
             <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasio.identificador }}</h6>
           </div>
@@ -40,107 +42,111 @@
       </div>
     </div>
 
+    <!-- Formulario -->
     <div class="col-lg-9 col-12">
       <div class="card h-100 bg-dark text-light">
         <div class="card-body p-4">
 
-          <form *ngIf="updateForm" [formGroup]="updateForm">
+          <!-- Zona privada -->
+          <section>
+            <h6 class="mb-3 text-warning">Detalles de la cuenta</h6>
 
-            <!-- Zona privada -->
-            <section>
-              <h6 class="mb-3 text-warning">Detalles de la cuenta</h6>
-
-              <div class="row">
-                <!-- Username -->
-                <div class="col-sm-12 col-md-6">
-                  <app-input name="userName" [darkTheme]="true" [readonly]="true"
-                             label="Usuario" [form]="updateForm"></app-input>
-                </div>
-
-                <!-- Email -->
-                <div class="col-sm-12 col-md-6 d-flex">
-                    <app-input name="email" [darkTheme]="true" [readonly]="true"
-                               label="Email" [form]="updateForm" style="width: 100%"></app-input>
-                    <button class="btn btn-light" type="button" mdbRipple rippleColor="warning" style="max-height: 42px;margin-left: 10px;width: 110px;" >
-                      Editar
-                    </button>
-                </div>
+            <div class="row">
+              <!-- Username -->
+              <div class="col-sm-12 col-md-6">
+                <app-input name="userName" [darkTheme]="true" [readonly]="true"
+                           label="Usuario" [form]="updateForm"></app-input>
               </div>
 
-              <div class="row">
-                <!-- CIF -->
-                <div class="col-sm-12 col-md-6">
-                  <app-input name="cif" [darkTheme]="true" label="NIF" [form]="updateForm"></app-input>
-                </div>
+              <!-- Email -->
+              <div class="col-sm-12 col-md-6 d-flex">
+                <app-input name="email" [darkTheme]="true" [readonly]="true"
+                           label="Email" [form]="updateForm" style="width: 100%"></app-input>
+                <button class="btn btn-light" type="button" mdbRipple rippleColor="warning"
+                        style="max-height: 42px;margin-left: 10px;width: 110px;">
+                  Editar
+                </button>
+              </div>
+            </div>
 
-                <!-- Contraseña -->
-                <div class="col-sm-12 col-md-6">
-                  <button type="button" class="btn btn-light w-50" style="height: 42px;">Cambiar Contraseña</button>
-                </div>
+            <div class="row">
+              <!-- CIF -->
+              <div class="col-sm-12 col-md-6">
+                <app-input name="cif" [darkTheme]="true" label="NIF" [form]="updateForm"></app-input>
               </div>
 
-            </section>
+              <!-- Contraseña -->
+              <div class="col-sm-12 col-md-6">
+                <button type="button" class="btn btn-light w-50" (click)="openModal()" style="height: 42px;">Cambiar Contraseña</button>
+              </div>
+            </div>
 
-            <!-- Zona pública -->
-            <section>
-              <h6 class="mb-3 text-warning">Información pública</h6>
+          </section>
 
-              <div class="row">
-                <!-- Id input -->
-                <div class="col-4">
-                  <app-input name="identificador" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador" [form]="updateForm"></app-input>
-                </div>
+          <!-- Zona pública -->
+          <section>
+            <h6 class="mb-3 text-warning">Información pública</h6>
 
-                <!-- Name input -->
-                <div class="col-8">
-                  <app-input name="nombre" [darkTheme]="true" minLength="6" maxLength="200" label="Nombre" [form]="updateForm"></app-input>
-                </div>
+            <div class="row">
+              <!-- Id input -->
+              <div class="col-4">
+                <app-input name="identificador" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador"
+                           [form]="updateForm"></app-input>
               </div>
 
-              <div class="row">
-                <!-- Address input -->
-                <div class="col-10">
-                  <app-input name="direccion" [darkTheme]="true" minLength="5" maxLength="200" label="Dirección" [form]="updateForm"></app-input>
-                </div>
+              <!-- Name input -->
+              <div class="col-8">
+                <app-input name="nombre" [darkTheme]="true" minLength="6" maxLength="200" label="Nombre"
+                           [form]="updateForm"></app-input>
+              </div>
+            </div>
 
-                <!-- Price input -->
-                <div class="col-2">
-                  <app-input type="number" step="0.01" [darkTheme]="true" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="updateForm"></app-input>
-                </div>
+            <div class="row">
+              <!-- Address input -->
+              <div class="col-10">
+                <app-input name="direccion" [darkTheme]="true" minLength="5" maxLength="200" label="Dirección"
+                           [form]="updateForm"></app-input>
               </div>
 
-              <div class="row">
-                <!-- Description input -->
-                <div class="col-12" [ngClass]="{'mb-3' : f.descripcion.touched && f.descripcion.errors, 'mb-4': !f.descripcion.touched || !f.descripcion.errors}">
-                  <mdb-form-control class="form-white">
+              <!-- Price input -->
+              <div class="col-2">
+                <app-input type="number" step="0.01" [darkTheme]="true" min="1" max="999" name="tarifa"
+                           label="Tarifa (€)" [form]="updateForm"></app-input>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Description input -->
+              <div class="col-12"
+                   [ngClass]="{'mb-3' : f.descripcion.touched && f.descripcion.errors, 'mb-4': !f.descripcion.touched || !f.descripcion.errors}">
+                <mdb-form-control class="form-white">
                   <textarea mdbInput [mdbValidate]="false" class="form-control" name="descripcion" id="descripcion"
                             formControlName="descripcion" rows="4"></textarea>
-                    <label mdbLabel class="form-label" for="descripcion">Descripción</label>
-                  </mdb-form-control>
-                  <div *ngIf="f.descripcion.touched && f.descripcion.errors">
-                    <div class="error" *ngIf="f.descripcion.errors.required">Campo requerido</div>
-                    <div class="error" id="descripcion-error" *ngIf="f.descripcion.errors.formServer"></div>
-                  </div>
+                  <label mdbLabel class="form-label" for="descripcion">Descripción</label>
+                </mdb-form-control>
+                <div *ngIf="f.descripcion.touched && f.descripcion.errors">
+                  <div class="error" *ngIf="f.descripcion.errors.required">Campo requerido</div>
+                  <div class="error" id="descripcion-error" *ngIf="f.descripcion.errors.formServer"></div>
                 </div>
               </div>
+            </div>
 
-              <div class="row justify-content-end">
-                <div class="col-4">
-                  <button type="button" class="btn btn-outline-gray w-100"> <span class="text-light">Reiniciar</span> </button>
-                </div>
-                <div class="col-4">
-                  <button type="submit" class="btn btn-action w-100">Actualizar</button>
-                </div>
+            <div class="row justify-content-end">
+              <div class="col-4">
+                <button type="button" class="btn btn-outline-gray w-100"><span class="text-light">Reiniciar</span>
+                </button>
               </div>
+              <div class="col-4">
+                <button type="submit" class="btn btn-action w-100">Actualizar</button>
+              </div>
+            </div>
 
-            </section>
-
-          </form>
+          </section>
 
         </div>
       </div>
     </div>
 
-  </div>
+  </form>
 </div>
 
