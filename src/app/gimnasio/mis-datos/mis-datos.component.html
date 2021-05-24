@@ -62,7 +62,7 @@
               <div class="col-sm-12 col-md-6 d-flex">
                 <app-input name="email" [darkTheme]="true" [readonly]="true"
                            label="Email" [form]="updateForm" style="width: 100%"></app-input>
-                <button class="btn btn-light" type="button" mdbRipple rippleColor="warning"
+                <button class="btn btn-light" type="button" (click)="openModalEmail()"
                         style="max-height: 42px;margin-left: 10px;width: 110px;">
                   Editar
                 </button>

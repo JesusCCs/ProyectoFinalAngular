@@ -1,0 +1,25 @@
+<div class="modal-header bg-dark text-light">
+  <h5 class="modal-title">Cambio de Email</h5>
+  <a class="hover-shadow text-light" role="button"><i class=" fas fa-times fa-2x" (click)="modalRef.close()" aria-label="Cerrar"></i></a>
+</div>
+
+<div class="modal-body pt-4">
+
+  <form [formGroup]="changeEmail" (ngSubmit)="onSubmit()" >
+
+    <!-- Email -->
+    <div class="row">
+      <div class="col-12">
+        <app-input name="newEmail" type="email" label="Nuevo Email" [form]="changeEmail"></app-input>
+      </div>
+    </div>
+
+    <p>Recuerda que tendrás que verificar este cambio mediante un correo que llegará a la bandeja de entrada del nuevo email</p>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="modalRef.close()">Cancelar</button>
+  <button type="button" class="btn btn-dark">Editar</button>
+</div>

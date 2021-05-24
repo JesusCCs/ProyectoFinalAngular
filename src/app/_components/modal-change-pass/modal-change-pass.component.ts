@@ -24,7 +24,7 @@ export class ModalChangePassComponent implements OnInit {
       confirmedNewPassword: ['', Validators.required]
     }, {
       validators: ValidatorsExtension.match('newPassword', 'confirmedNewPassword'),
-      updateOn: 'change'
+      updateOn: 'submit'
     });
   }
 

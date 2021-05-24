@@ -5,6 +5,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {ModalChangePassComponent} from '../../_components/modal-change-pass/modal-change-pass.component';
+import {ModalChangeEmailComponent} from '../../_components/modal-change-email/modal-change-email.component';
 
 @Component({
   selector: 'app-gimnasio-home',
@@ -17,6 +18,7 @@ export class MisDatosComponent implements OnInit {
   gimnasio!: Gimnasio;
   updateForm!: FormGroup;
   modalPass!: MdbModalRef<ModalChangePassComponent>;
+  modalEmail!: MdbModalRef<ModalChangeEmailComponent>;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -44,6 +46,12 @@ export class MisDatosComponent implements OnInit {
 
   openModalPass(): void {
     this.modalPass = this.modalService.open(ModalChangePassComponent, {
+      modalClass: 'modal-dialog-centered'
+    });
+  }
+
+  openModalEmail(): void {
+    this.modalEmail = this.modalService.open(ModalChangeEmailComponent, {
       modalClass: 'modal-dialog-centered'
     });
   }
