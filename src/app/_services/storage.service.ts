@@ -64,7 +64,6 @@ export class StorageService {
   }
 
   public get(key: string): string | null {
-    console.log(this.mode);
     if (this.mode === STORAGE_SESSION) {
       return sessionStorage.getItem(key);
     } else {

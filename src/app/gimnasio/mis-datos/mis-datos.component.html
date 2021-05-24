@@ -6,35 +6,35 @@
     <div class="col-xl-3 col-lg-3 col-12">
       <div class="card h-100 bg-dark text-light">
         <div class="card-body" *ngIf="gimnasio">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="bg-image hover-overlay ripple">
-                <img src="https://mdbootstrap.com/img/new/fluid/city/055.jpg"
-                     class="img-fluid shadow-2-strong "
-                     alt="Imagen del Logo"/>
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(57, 192, 237, 0.2);"></div>
-                </a>
-              </div>
-
-              <h5 class="my-1">{{ gimnasio.nombre }}</h5>
-              <h6>{{ gimnasio.email }}</h6>
+          <div class="user-profile">
+            <!-- Imagen -->
+            <div class="bg-image hover-overlay ripple">
+              <img src="https://mdbootstrap.com/img/new/fluid/city/055.jpg"
+                   class="img-fluid shadow-2-strong "
+                   alt="Imagen del Logo"/>
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(57, 192, 237, 0.2);"></div>
+              </a>
             </div>
 
-            <div>
-              <h5 class="mb-2 text-warning">Tarifas</h5>
-              <p>{{ gimnasio.tarifa }} €/mes</p>
-            </div>
+            <!-- Identificación -->
+            <h5 class="mt-2 mb-1">{{ gimnasio.nombre }}</h5>
+            <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasio.identificador }}</h6>
+          </div>
 
-            <div>
-              <h5 class="mb-2 text-warning">Dirección</h5>
-              <p>{{ gimnasio.direccion }}</p>
-            </div>
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Tarifa</h5>
+            <p>{{ gimnasio.tarifa.toFixed(2) }} €/mes</p>
+          </div>
 
-            <div>
-              <h5 class="mb-2 text-warning">Descripción</h5>
-              <p>{{ gimnasio.descripcion }}</p>
-            </div>
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Dirección</h5>
+            <p>{{ gimnasio.direccion }}</p>
+          </div>
+
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Descripción</h5>
+            <p>{{ gimnasio.descripcion }}</p>
           </div>
         </div>
       </div>

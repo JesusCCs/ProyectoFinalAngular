@@ -8,5 +8,5 @@ export interface Gimnasio {
   direccion: string;
   descripcion: string;
   fechaCreado: string;
-  tarifa: string;
+  tarifa: number;
 }
