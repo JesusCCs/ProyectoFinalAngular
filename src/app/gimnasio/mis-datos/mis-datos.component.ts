@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {GimnasiosService} from '../../_services/gimnasios.service';
+import {GimnasioService} from '../../_services/gimnasio.service';
 import {Gimnasio} from '../../_models/gimnasio';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
@@ -19,7 +19,7 @@ export class MisDatosComponent implements OnInit {
 
   updateForm!: FormGroup;
 
-  constructor(private gimnasioService: GimnasiosService,
+  constructor(private gimnasioService: GimnasioService,
               private fb: FormBuilder) {
   }
 
@@ -30,7 +30,7 @@ export class MisDatosComponent implements OnInit {
       // Valores que no son actualizables por el formulario
       userName: [this.gimnasio.userName],
       email: [this.gimnasio.email],
-      identificador: [''],
+      identificador: [this.gimnasio.identificador],
       // Valores que se podrán actualizar en el momento con el formulario
       nombre: [this.gimnasio.nombre, Validators.required],
       cif: [this.gimnasio.cif, [Validators.required, ValidatorsExtension.mustBeAValidCif]],

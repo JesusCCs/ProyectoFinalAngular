@@ -8,7 +8,7 @@ import {Gimnasio} from '../_models/gimnasio';
 @Injectable({
   providedIn: 'root'
 })
-export class GimnasiosService {
+export class GimnasioService {
 
   constructor(private http: HttpClient,
               private storage: StorageService) {

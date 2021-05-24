@@ -1,5 +1,6 @@
 export interface Gimnasio {
   id: string;
+  identificador: string;
   userName: string;
   email: string;
   cif: string;

@@ -21,6 +21,7 @@ import { InputComponent } from './_components/input/input.component';
 import {ErrorService} from './_services/error.service';
 import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import {BdcWalkModule} from 'bdc-walkthrough';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     MdbModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BdcWalkModule
   ],
   providers: [
     StorageService,

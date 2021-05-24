@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AccessToken} from "../_models/access-token";
+import {AccessToken} from '../_models/access-token';
 
 
 export const TOKEN_KEY = 'token';
@@ -22,17 +22,23 @@ export const STORAGE_SESSION = 'session';
 export const STORAGE_LOCAL = 'local';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+
 /**
  * Wrapper sobre localStorage y sessionStorage para el mantenimiento de los jwt en la aplicación
  * @see localStorage
  * @see sessionStorage
  */
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageService {
 
-  mode = 'local';
+  private mode;
+
+  constructor() {
+    const mode = sessionStorage.getItem('mode');
+    this.mode = mode ? mode : 'local';
+  }
 
   /**
    * Necesario llamar antes de continuar con el Login, donde se establecerá si se quiere guardar los tokens
@@ -45,6 +51,8 @@ export class StorageService {
    */
   public setMode(mode: string): void {
     this.mode = mode;
+    // Guardamos el modo de la sesión también, para que en una recarga de página, sea accesible de nuevo
+    sessionStorage.setItem('mode', mode);
   }
 
   public set(key: string, value: string): void {
@@ -56,6 +64,7 @@ export class StorageService {
   }
 
   public get(key: string): string | null {
+    console.log(this.mode);
     if (this.mode === STORAGE_SESSION) {
       return sessionStorage.getItem(key);
     } else {
@@ -69,7 +78,9 @@ export class StorageService {
   public getAccessToken(): AccessToken | null {
     const token = this.get(TOKEN_KEY);
 
-    if (!token) { return null; }
+    if (!token) {
+      return null;
+    }
 
     return new AccessToken(token);
   }

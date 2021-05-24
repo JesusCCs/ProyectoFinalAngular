@@ -1,9 +1,3 @@
-export interface User {
-  id: string;
-  authId: string;
-  rememberMe: boolean;
-}
-
 export interface LoginResponse {
   id: string;
   authId: string;
