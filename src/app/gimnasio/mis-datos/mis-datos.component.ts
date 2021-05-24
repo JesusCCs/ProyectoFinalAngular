@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GimnasioService} from '../../_services/gimnasio.service';
 import {Gimnasio} from '../../_models/gimnasio';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {ModalChangePassComponent} from '../../_components/modal-change-pass/modal-change-pass.component';
 import {ModalChangeEmailComponent} from '../../_components/modal-change-email/modal-change-email.component';
+import {ErrorService} from '../../_services/error.service';
 
 @Component({
   selector: 'app-gimnasio-home',
@@ -19,6 +20,8 @@ export class MisDatosComponent implements OnInit {
   updateForm!: FormGroup;
   modalPass!: MdbModalRef<ModalChangePassComponent>;
   modalEmail!: MdbModalRef<ModalChangeEmailComponent>;
+
+  file: File | null = null;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -56,8 +59,22 @@ export class MisDatosComponent implements OnInit {
     });
   }
 
-  get f(): { [p: string]: AbstractControl } {
-    return this.updateForm.controls;
-  }
+  public async onSubmit(): Promise<void> {
+    if (this.updateForm.invalid) {
+      this.updateForm.markAllAsTouched();
+      return;
+    }
 
+    ErrorService.clean();
+
+    const inputs = this.updateForm.value;
+
+    const resultado: boolean = await this.gimnasioService.update(inputs, this.file);
+
+    if (!resultado) {
+      ErrorService.showInForm(this.updateForm);
+    } else {
+
+    }
+  }
 }

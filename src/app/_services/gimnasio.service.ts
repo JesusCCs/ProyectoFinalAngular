@@ -20,4 +20,24 @@ export class GimnasioService {
     return await this.http.get<Gimnasio>(`${environment.apiUrl}/gimnasios/${id}`)
       .toPromise().catch(reason => ErrorService.addError(reason)) as Gimnasio;
   }
+
+  public async update(inputs: any, file: File | null): Promise<boolean> {
+    const id = this.storage.getAccessToken()?.getId();
+    const form = new FormData();
+
+    form.set('id', String(id));
+
+    for (const [key, value] of Object.entries(inputs)) {
+      form.set(key, String(value).trim());
+    }
+
+    if (file) {
+      form.set('logo', file);
+    }
+
+    const response = await this.http.put(`${environment.apiUrl}/gimnasios/${id}`, form)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
 }
