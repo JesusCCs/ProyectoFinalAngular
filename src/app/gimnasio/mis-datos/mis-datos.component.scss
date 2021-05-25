@@ -11,3 +11,15 @@ body {
   background-color: #a62929;
   color: #f8f8f8;
 }
+
+.btn-action:hover {
+  color: #f8f8f8;
+}
+
+.form-outline .validate-success.ng-valid.ng-dirty ~ .form-notch .form-notch-leading, .form-outline .validate-success.ng-valid.ng-dirty ~ .form-notch .form-notch-middle, .form-outline .validate-success.ng-valid.ng-dirty ~ .form-notch .form-notch-trailing, .form-outline .validate-success.ng-valid.ng-touched ~ .form-notch .form-notch-leading, .form-outline .validate-success.ng-valid.ng-touched ~ .form-notch .form-notch-middle, .form-outline .validate-success.ng-valid.ng-touched ~ .form-notch .form-notch-trailing {
+  border-color: #fbfbfb;
+}
+
+.form-outline .validate-success.ng-valid.ng-dirty ~ .form-label, .form-outline .validate-success.ng-valid.ng-touched ~ .form-label {
+  border-color: #fbfbfb;
+}

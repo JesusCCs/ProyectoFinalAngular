@@ -7,6 +7,7 @@ import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {ModalChangePassComponent} from '../../_components/modal-change-pass/modal-change-pass.component';
 import {ModalChangeEmailComponent} from '../../_components/modal-change-email/modal-change-email.component';
 import {ErrorService} from '../../_services/error.service';
+import {Toast} from '../../_models/toast';
 
 @Component({
   selector: 'app-gimnasio-home',
@@ -74,7 +75,10 @@ export class MisDatosComponent implements OnInit {
     if (!resultado) {
       ErrorService.showInForm(this.updateForm);
     } else {
-
+      Toast.fire({
+        icon: 'success',
+        title: 'Datos actualizados'
+      }).then(_ => 0);
     }
   }
 }
