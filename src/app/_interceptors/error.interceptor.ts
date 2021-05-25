@@ -29,6 +29,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           });
         }
 
+        if (err.status === 403) {
+          return throwError({
+            general: ['No tiene permisos para realizar esta acción']
+          });
+        }
+
         const error = err.status === 400 ? err.error.errors : null;
 
         return throwError(error);

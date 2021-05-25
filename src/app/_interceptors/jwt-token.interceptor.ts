@@ -21,23 +21,19 @@ export class JwtTokenInterceptor implements HttpInterceptor {
               private auth: AuthService) {
   }
 
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(this.addBearer(request)).pipe(catchError(err => {
-      if (err.status === 401) {
-        const accessToken = this.storage.get(TOKEN_KEY);
-        const refreshToken = this.storage.get(REFRESH_TOKEN_KEY);
-
-        if (refreshToken && accessToken) {
-          return this.refreshToken(request, next);
-        }
-
-        return this.logout(err);
+      if (err.status !== 401) {
+        return throwError(err);
       }
 
-      if (err.status === 403) {
-        return this.logout(err);
-      }
+      const accessToken = this.storage.get(TOKEN_KEY);
+      const refreshToken = this.storage.get(REFRESH_TOKEN_KEY);
 
+      if (refreshToken && accessToken) {
+        return this.refreshToken(request, next);
+      }
 
       return throwError(err);
     }));
@@ -53,11 +49,6 @@ export class JwtTokenInterceptor implements HttpInterceptor {
     return request.clone({
       headers: request.headers.set('Authorization', 'Bearer ' + accessToken)
     });
-  }
-
-  private logout(err: any): Observable<HttpEvent<any>> {
-    this.auth.logout();
-    return throwError(err);
   }
 
   private refreshToken(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
