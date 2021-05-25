@@ -42,8 +42,7 @@ export class ModalChangePassComponent implements OnInit {
     ErrorService.clean();
 
     const inputs = this.updatePass.value;
-
-    const resultado: boolean = await this.auth.;
+    const resultado: boolean = await this.auth.changePassword(inputs);
 
     if (!resultado) {
       ErrorService.showInForm(this.updatePass);

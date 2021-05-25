@@ -4,7 +4,7 @@ import {StorageService, REFRESH_TOKEN_KEY, TOKEN_KEY, STORAGE_SESSION} from './s
 import {environment} from '../../environments/environment';
 import {LoginResponse, RefreshTokenResponse} from '../_models/responses';
 import {ErrorService} from './error.service';
-import {ResetPasswordRequest} from '../_models/requests';
+import {ChangePasswordRequest, ResetPasswordRequest} from '../_models/requests';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -13,6 +13,8 @@ import {tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+
+  private readonly base = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient,
               private storage: StorageService,
@@ -62,33 +64,42 @@ export class AuthService {
   }
 
   public async forgotPassword(email: string): Promise<boolean> {
-    const response = await this.http.post(`${environment.apiUrl}/auth/forgot-password`, {email})
+    const response = await this.http.post(`${this.base}/forgot-password`, {email})
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
   }
 
   public async resetPassword(resetPassword: ResetPasswordRequest): Promise<boolean> {
-    const response = await this.http.put(`${environment.apiUrl}/auth/reset-password`, resetPassword)
+    const response = await this.http.put(`${this.base}/reset-password`, resetPassword)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
+
+  public async changePassword(resetPassword: ChangePasswordRequest): Promise<boolean> {
+    resetPassword.authId = this.storage.getAccessToken()?.getAuthId() as string;
+
+    const response = await this.http.put(`${this.base}/change-password`, resetPassword)
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
   }
 
   public async confirmEmail(token: string, email: string): Promise<boolean> {
-    const response = await this.http.put(`${environment.apiUrl}/auth/confirm-email`, {token, email})
+    const response = await this.http.put(`${this.base}/confirm-email`, {token, email})
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
   }
 
   public refreshAccessToken(): Observable<RefreshTokenResponse> {
-    return this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh-token`,
-      {accessToken : this.storage.get(TOKEN_KEY), refreshToken : this.storage.get(REFRESH_TOKEN_KEY)}).pipe(
-        tap(x => {
-          this.storage.set(TOKEN_KEY, x.accessToken);
-          this.storage.set(REFRESH_TOKEN_KEY, x.refreshToken);
-        })
+    return this.http.post<RefreshTokenResponse>(`${this.base}/refresh-token`,
+      {accessToken: this.storage.get(TOKEN_KEY), refreshToken: this.storage.get(REFRESH_TOKEN_KEY)}).pipe(
+      tap(x => {
+        this.storage.set(TOKEN_KEY, x.accessToken);
+        this.storage.set(REFRESH_TOKEN_KEY, x.refreshToken);
+      })
     );
   }
 }

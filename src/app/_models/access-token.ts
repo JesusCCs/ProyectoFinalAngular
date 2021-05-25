@@ -19,4 +19,8 @@ export class AccessToken {
   public getId(): string {
     return this.decodedToken.nameid;
   }
+
+  public getAuthId(): string {
+    return this.decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid'];
+  }
 }
