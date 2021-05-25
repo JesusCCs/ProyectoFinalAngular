@@ -102,6 +102,13 @@ export class AuthService {
     return response !== undefined;
   }
 
+  public async confirmNewEmail(token: string, currentEmail: string, newEmail: string): Promise<boolean> {
+    const response = await this.http.put(`${this.base}/confirm-new-email`, {token, currentEmail, newEmail})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
+
   public refreshAccessToken(): Observable<RefreshTokenResponse> {
     return this.http.post<RefreshTokenResponse>(`${this.base}/refresh-token`,
       {accessToken: this.storage.get(TOKEN_KEY), refreshToken: this.storage.get(REFRESH_TOKEN_KEY)}).pipe(

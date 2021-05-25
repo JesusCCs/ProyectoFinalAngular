@@ -25,6 +25,7 @@ import {BdcWalkModule} from 'bdc-walkthrough';
 import { ModalChangePassComponent } from './_components/modal-change-pass/modal-change-pass.component';
 import { ModalChangeEmailComponent } from './_components/modal-change-email/modal-change-email.component';
 import { TextareaComponent } from './_components/textarea/textarea.component';
+import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-email.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { TextareaComponent } from './_components/textarea/textarea.component';
     ResetPasswordComponent,
     ModalChangePassComponent,
     ModalChangeEmailComponent,
-    TextareaComponent
+    TextareaComponent,
+    ConfirmNewEmailComponent
   ],
   imports: [
     BrowserModule,

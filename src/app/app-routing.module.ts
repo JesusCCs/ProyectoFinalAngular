@@ -10,6 +10,7 @@ import {GimnasioLoginComponent} from './gimnasio/gimnasio-login/gimnasio-login.c
 import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
 import {ConfirmEmailComponent} from './auth/confirm-email/confirm-email.component';
 import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
+import {ConfirmNewEmailComponent} from './auth/confirm-new-email/confirm-new-email.component';
 
 const routes: Routes = [
   { // Rutas de la autenticación
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: 'forgot', component: ForgotPasswordComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'confirm-email', component: ConfirmEmailComponent},
+      {path: 'confirm-new-email', component: ConfirmNewEmailComponent},
       {path: 'reset-password', component: ResetPasswordComponent},
       {path: '**', redirectTo: '/login'}
     ]
