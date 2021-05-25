@@ -41,7 +41,7 @@ export class MisDatosComponent implements OnInit {
       nombre: [this.gimnasio.nombre, Validators.required],
       cif: [this.gimnasio.cif, [Validators.required, ValidatorsExtension.mustBeAValidCif]],
       direccion: [this.gimnasio.direccion, Validators.required],
-      tarifa: [this.gimnasio.tarifa, [Validators.required, Validators.min(1), Validators.max(999)]],
+      tarifa: [this.gimnasio.tarifa, [Validators.required, Validators.min(1), Validators.max(99)]],
       descripcion: [this.gimnasio.descripcion, Validators.required]
     }, {
       updateOn: 'submit'

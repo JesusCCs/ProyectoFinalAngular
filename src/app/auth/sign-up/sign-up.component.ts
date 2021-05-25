@@ -4,7 +4,7 @@ import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
 import {ErrorService} from '../../_services/error.service';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
       nombre: ['', Validators.required],
       cif: ['', [Validators.required, ValidatorsExtension.mustBeAValidCif]],
       direccion: ['', Validators.required],
-      tarifa: [1, [Validators.required, Validators.min(1), Validators.max(999)]],
+      tarifa: [1, [Validators.required, Validators.min(1), Validators.max(99)]],
       password: ['', Validators.required],
       confirmedPassword: [''],
       descripcion: ['', Validators.required]

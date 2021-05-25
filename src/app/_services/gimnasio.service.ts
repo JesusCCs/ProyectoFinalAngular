@@ -21,14 +21,14 @@ export class GimnasioService {
       .toPromise().catch(reason => ErrorService.addError(reason)) as Gimnasio;
   }
 
-  public async update(inputs: any, file: File | null): Promise<boolean> {
+  public async update(inputs: { [p: string]: any }, file: File | null): Promise<boolean> {
     const id = this.storage.getAccessToken()?.getId();
     const form = new FormData();
 
     form.set('id', String(id));
 
     for (const [key, value] of Object.entries(inputs)) {
-      form.set(key, String(value).trim());
+        form.set(key, value);
     }
 
     if (file) {
