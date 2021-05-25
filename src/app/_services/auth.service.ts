@@ -93,6 +93,15 @@ export class AuthService {
     return response !== undefined;
   }
 
+  public async changeEmail(newEmail: string): Promise<boolean> {
+    const authId = this.storage.getAccessToken()?.getAuthId() as string;
+
+    const response = await this.http.post(`${this.base}/change-email`, {newEmail, authId})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+
+    return response !== undefined;
+  }
+
   public refreshAccessToken(): Observable<RefreshTokenResponse> {
     return this.http.post<RefreshTokenResponse>(`${this.base}/refresh-token`,
       {accessToken: this.storage.get(TOKEN_KEY), refreshToken: this.storage.get(REFRESH_TOKEN_KEY)}).pipe(

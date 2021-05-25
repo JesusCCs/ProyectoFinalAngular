@@ -1,11 +1,13 @@
-<div class="modal-header bg-dark text-light">
-  <h5 class="modal-title">Cambio de Email</h5>
-  <a class="hover-shadow text-light" role="button"><i class=" fas fa-times fa-2x" (click)="modalRef.close()" aria-label="Cerrar"></i></a>
-</div>
+<form [formGroup]="changeEmail" (ngSubmit)="onSubmit()">
 
-<div class="modal-body pt-4">
+  <div class="modal-header bg-dark text-light">
+    <h5 class="modal-title">Cambio de Email</h5>
+    <a class="hover-shadow text-light" role="button"><i class=" fas fa-times fa-2x" (click)="modalRef.close()"
+                                                        aria-label="Cerrar"></i></a>
+  </div>
 
-  <form [formGroup]="changeEmail" (ngSubmit)="onSubmit()" >
+  <div class="modal-body pt-4">
+
 
     <!-- Email -->
     <div class="row">
@@ -14,12 +16,15 @@
       </div>
     </div>
 
-    <p>Recuerda que tendrás que verificar este cambio mediante un correo que llegará a la bandeja de entrada del nuevo email</p>
+    <p>Recuerda que tendrás que verificar este cambio mediante un correo que llegará a la bandeja de entrada del nuevo
+      email</p>
 
-  </form>
-</div>
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="modalRef.close()">Cancelar</button>
-  <button type="button" class="btn btn-dark">Editar</button>
-</div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modalRef.close()">Cancelar</button>
+    <button type="submit" class="btn btn-dark">Editar</button>
+  </div>
+
+</form>
