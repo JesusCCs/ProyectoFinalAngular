@@ -11,30 +11,30 @@
 
             <!-- Imagen -->
             <div class="bg-image hover-overlay ripple" (click)="openFileSelector()">
-              <img [src]="filePath"
+              <img [src]="gimnasioPrevia.logo"
                    class="img-fluid center"
                    alt="Imagen del Logo" style="max-height: 270px"/>
               <div class="mask" style="background-color: rgba(57, 192, 237, 0.2)"></div>
               <input type="file" accept="image/jpeg,image/png" id="uploader" style="display:none" (change)="uploadFile($event)">
             </div>
 
-            <h5 class="mt-2 mb-1">{{ gimnasio.nombre }}</h5>
-            <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasio.identificador }}</h6>
+            <h5 class="mt-2 mb-1">{{ gimnasioPrevia.nombre }}</h5>
+            <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasioPrevia.identificador }}</h6>
           </div>
 
           <div class="mt-1">
             <h5 class="mb-1 text-warning">Tarifa</h5>
-            <p>{{ gimnasio.tarifa.toFixed(2) }} €/mes</p>
+            <p>{{ (+gimnasioPrevia.tarifa).toFixed(2) }} €/mes</p>
           </div>
 
           <div class="mt-1">
             <h5 class="mb-1 text-warning">Dirección</h5>
-            <p>{{ gimnasio.direccion }}</p>
+            <p>{{ gimnasioPrevia.direccion }}</p>
           </div>
 
           <div class="mt-1">
             <h5 class="mb-1 text-warning">Descripción</h5>
-            <p>{{ gimnasio.descripcion }}</p>
+            <p>{{ gimnasioPrevia.descripcion }}</p>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
             <div class="row">
               <!-- Id input -->
               <div class="col-4">
-                <app-input name="identificador" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador"
+                <app-input name="identificador" [readonly]="true" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador"
                            [form]="updateForm"></app-input>
               </div>
 

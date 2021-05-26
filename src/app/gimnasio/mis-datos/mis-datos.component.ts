@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {GimnasioService} from '../../_services/gimnasio.service';
-import {Gimnasio} from '../../_models/gimnasio';
+import {Gimnasio, GimnasioVistaPrevia} from '../../_models/gimnasio';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
@@ -18,12 +18,14 @@ import {Toast} from '../../_models/toast';
 export class MisDatosComponent implements OnInit {
 
   gimnasio!: Gimnasio;
+  gimnasioPrevia!: GimnasioVistaPrevia;
+
   updateForm!: FormGroup;
+
   modalPass!: MdbModalRef<ModalChangePassComponent>;
   modalEmail!: MdbModalRef<ModalChangeEmailComponent>;
 
   file: File | null = null;
-  filePath!: string;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -32,7 +34,7 @@ export class MisDatosComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.gimnasio = await this.gimnasioService.findById();
-    this.filePath = this.gimnasio.logo;
+    this.gimnasioPrevia = new GimnasioVistaPrevia(this.gimnasio);
 
     this.updateForm = this.fb.group({
       // Valores que no son actualizables por el formulario
@@ -46,20 +48,10 @@ export class MisDatosComponent implements OnInit {
       tarifa: [this.gimnasio.tarifa, [Validators.required, Validators.min(1), Validators.max(99)]],
       descripcion: [this.gimnasio.descripcion, Validators.required]
     }, {
-      updateOn: 'submit'
+      updateOn: 'change'
     });
-  }
 
-  openModalPass(): void {
-    this.modalPass = this.modalService.open(ModalChangePassComponent, {
-      modalClass: 'modal-dialog-centered'
-    });
-  }
-
-  openModalEmail(): void {
-    this.modalEmail = this.modalService.open(ModalChangeEmailComponent, {
-      modalClass: 'modal-dialog-centered'
-    });
+    this.gimnasioPrevia.bind(this.updateForm);
   }
 
   openFileSelector(): void {
@@ -85,7 +77,7 @@ export class MisDatosComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.filePath = reader.result as string;
+      this.gimnasioPrevia.logo = reader.result as string;
     };
     reader.readAsDataURL(this.file);
   }
@@ -112,5 +104,20 @@ export class MisDatosComponent implements OnInit {
     }
   }
 
+  public onReset(): void {
+
+  }
+
+  openModalPass(): void {
+    this.modalPass = this.modalService.open(ModalChangePassComponent, {
+      modalClass: 'modal-dialog-centered'
+    });
+  }
+
+  openModalEmail(): void {
+    this.modalEmail = this.modalService.open(ModalChangeEmailComponent, {
+      modalClass: 'modal-dialog-centered'
+    });
+  }
 
 }
