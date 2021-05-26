@@ -105,7 +105,14 @@ export class MisDatosComponent implements OnInit {
   }
 
   public onReset(): void {
-
+    this.gimnasioPrevia.reset(this.gimnasio);
+    this.updateForm.patchValue({
+      nombre: this.gimnasio.nombre,
+      cif: this.gimnasio.cif,
+      direccion: this.gimnasio.direccion,
+      tarifa: this.gimnasio.tarifa,
+      descripcion: this.gimnasio.descripcion
+    });
   }
 
   openModalPass(): void {
