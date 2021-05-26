@@ -23,3 +23,13 @@ body {
 .form-outline .validate-success.ng-valid.ng-dirty ~ .form-label, .form-outline .validate-success.ng-valid.ng-touched ~ .form-label {
   color: #fbfbfb;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hover-overlay:hover {
+  cursor: pointer;
+}
