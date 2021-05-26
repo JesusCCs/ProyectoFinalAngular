@@ -23,6 +23,7 @@ export class MisDatosComponent implements OnInit {
   modalEmail!: MdbModalRef<ModalChangeEmailComponent>;
 
   file: File | null = null;
+  filePath!: string;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -31,6 +32,7 @@ export class MisDatosComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.gimnasio = await this.gimnasioService.findById();
+    this.filePath = this.gimnasio.logo;
 
     this.updateForm = this.fb.group({
       // Valores que no son actualizables por el formulario
@@ -60,6 +62,34 @@ export class MisDatosComponent implements OnInit {
     });
   }
 
+  openFileSelector(): void {
+    document.getElementById('uploader')?.click();
+  }
+
+  uploadFile(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files === null) {
+      return;
+    }
+
+    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(files[0].type)) {
+      Toast.fire({
+        icon: 'error',
+        title: 'Extensión de archivo no permitida'
+      });
+      return;
+    }
+
+    this.file = files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    };
+    reader.readAsDataURL(this.file);
+  }
+
   public async onSubmit(): Promise<void> {
     if (this.updateForm.invalid) {
       this.updateForm.markAllAsTouched();
@@ -81,4 +111,6 @@ export class MisDatosComponent implements OnInit {
       }).then(_ => 0);
     }
   }
+
+
 }

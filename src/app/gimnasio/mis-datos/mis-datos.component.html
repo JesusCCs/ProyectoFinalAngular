@@ -6,17 +6,17 @@
     <!-- Vista Previa -->
     <div class="col-xl-3 col-lg-3 col-12">
       <div class="card h-100 bg-dark text-light">
-        <div class="card-body" *ngIf="gimnasio">
-          <div class="user-profile">
+        <div class="card-body vista-previa" *ngIf="gimnasio">
+          <div class="cabecera">
 
             <!-- Imagen -->
-            <div class="bg-image hover-overlay ripple" style="max-height: 220px; background-color: #FFFFFF">
-              <img src="{{ gimnasio.logo }}"
+            <div class="bg-image hover-overlay ripple" (click)="openFileSelector()">
+              <img [src]="filePath"
                    class="img-fluid center"
-                   alt="Imagen del Logo" style="max-height: 220px"/>
+                   alt="Imagen del Logo" style="max-height: 270px"/>
               <div class="mask" style="background-color: rgba(57, 192, 237, 0.2)"></div>
+              <input type="file" accept="image/jpeg,image/png" id="uploader" style="display:none" (change)="uploadFile($event)">
             </div>
-
 
             <h5 class="mt-2 mb-1">{{ gimnasio.nombre }}</h5>
             <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasio.identificador }}</h6>

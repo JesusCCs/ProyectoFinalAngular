@@ -33,3 +33,9 @@ body {
 .hover-overlay:hover {
   cursor: pointer;
 }
+
+.vista-previa {
+  max-height: 600px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
