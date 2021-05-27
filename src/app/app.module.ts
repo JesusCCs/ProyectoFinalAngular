@@ -26,6 +26,7 @@ import { ModalChangePassComponent } from './_components/modal-change-pass/modal-
 import { ModalChangeEmailComponent } from './_components/modal-change-email/modal-change-email.component';
 import { TextareaComponent } from './_components/textarea/textarea.component';
 import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-email.component';
+import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-e
     ModalChangePassComponent,
     ModalChangeEmailComponent,
     TextareaComponent,
-    ConfirmNewEmailComponent
+    ConfirmNewEmailComponent,
+    MisAnunciosComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
 import {ConfirmEmailComponent} from './auth/confirm-email/confirm-email.component';
 import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
 import {ConfirmNewEmailComponent} from './auth/confirm-new-email/confirm-new-email.component';
+import {MisAnunciosComponent} from './gimnasio/mis-anuncios/mis-anuncios.component';
 
 const routes: Routes = [
   { // Rutas de la autenticación
@@ -28,8 +29,9 @@ const routes: Routes = [
     path: '',
     canActivate: [GimnasioGuard],
     children: [
-      {path: 'login', component: GimnasioLoginComponent},
       {path: '', component: MisDatosComponent},
+      {path: 'login', component: GimnasioLoginComponent},
+      {path: 'anuncios', component: MisAnunciosComponent},
       {path: '**', redirectTo: ''}
     ]
   },
