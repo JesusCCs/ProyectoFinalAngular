@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, Optional} from '@angular/core';
+import {Component, Input, OnInit, Optional, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-input',
     templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss']
+    styleUrls: ['./input.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class InputComponent implements OnInit {
 
