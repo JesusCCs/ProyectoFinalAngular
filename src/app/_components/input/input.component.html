@@ -1,0 +1,30 @@
+<ng-container [formGroup]="form">
+  <div [ngClass]="{'mb-3' : touched && errors, 'mb-4': !touched || !errors}">
+    <mdb-form-control [ngClass]="{'form-white' : darkTheme}">
+      <input mdbInput [mdbValidate]="true" id="{{ name }}" name="{{ name }}" formControlName="{{ name }}"
+             type="{{ type }}"
+             min="{{ min }}" max="{{ max }}" step="{{ step }}"
+             minlength="{{ minLength }}" maxlength="{{ maxLength }}"
+             [readonly]="readonly"
+             value="{{ value }}"
+             class="form-control mb-0">
+      <label mdbLabel class="form-label" for="{{ name }}">
+        {{ label }}
+      </label>
+      <span class="readonly-icon" *ngIf="readonly"><i class="fas fa-lock"></i></span>
+    </mdb-form-control>
+
+    <div *ngIf="touched && errors" class="mt-1">
+      <div class="error" *ngIf="errors.required">Campo requerido</div>
+      <div class="error" *ngIf="errors.min">El valor mínimo es {{ min }}</div>
+      <div class="error" *ngIf="errors.max">El valor máximo es {{ max }}</div>
+      <div class="error" *ngIf="errors.minlength">Número mínimo de caracteres {{ minLength }}</div>
+      <div class="error" *ngIf="errors.maxlength">Número máximo de caracteres {{ maxLength }}</div>
+      <div class="error" *ngIf="errors.inputMismatch">Ambos campos deben coincidir</div>
+      <div class="error" *ngIf="errors.invalidCif">Debe colocar un NIF válido</div>
+      <div class="error" *ngIf="errors.email">Debe colocar un correo válido</div>
+      <div class="error" id="{{ name }}-error" *ngIf="errors.formServer"></div>
+    </div>
+  </div>
+</ng-container>
+

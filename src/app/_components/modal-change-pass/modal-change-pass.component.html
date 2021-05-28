@@ -1,0 +1,39 @@
+<form [formGroup]="updatePass" (ngSubmit)="onSubmit()">
+
+  <div class="modal-header bg-dark text-light">
+    <h5 class="modal-title">Cambio de Contraseña</h5>
+    <a class="hover-shadow text-light" role="button"><i class=" fas fa-times fa-2x" (click)="modalRef.close()"
+                                                        aria-label="Cerrar"></i></a>
+  </div>
+
+  <div class="modal-body pt-4">
+    <!-- Password -->
+    <div class="row">
+      <div class="col-12">
+        <app-input name="currentPassword" type="password" label="Contraseña actual" [form]="updatePass"></app-input>
+      </div>
+    </div>
+
+    <!-- New Password -->
+    <div class="row">
+      <div class="col-12">
+        <app-input name="newPassword" type="password" label="Nueva contraseña" [form]="updatePass"></app-input>
+      </div>
+    </div>
+
+    <!-- Repeat New Password -->
+    <div class="row">
+      <div class="col-12">
+        <app-input name="confirmedNewPassword" type="password" label="Repita la contraseña" [form]="updatePass"></app-input>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modalRef.close()">Cancelar</button>
+    <button type="submit" class="btn btn-dark">Guardar</button>
+  </div>
+
+</form>

@@ -1,0 +1,88 @@
+<div class="container-sm" style="max-width: 40rem">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="border border-light py-5">
+
+    <p class="h4 text-center mb-4">Nueva Cuenta</p>
+
+    <!-- Logo input -->
+    <div class="mb-4">
+      <label class="form-label" for="logo">Logo de su gimnasio</label>
+      <input accept="image/jpeg,image/png" type="file" class="form-control" id="logo" (change)="uploadFile($event)" formControlName="logo"/>
+      <div *ngIf="signUpForm.get('logo')?.touched && signUpForm.get('logo')?.errors" class="mt-1">
+        <div class="error" id="logo-error" *ngIf="signUpForm.get('logo')?.errors?.formServer"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Username input -->
+      <div class="col-6">
+        <app-input name="userName" minLength="3" maxLength="50"  label="Usuario" [form]="signUpForm"></app-input>
+      </div>
+
+      <!-- Email input -->
+      <div class="col-6">
+        <app-input type="email" minLength="6" maxLength="200" name="email" label="Email" [form]="signUpForm"></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Name input -->
+      <div class="col-6">
+        <app-input name="nombre" minLength="6" maxLength="200" label="Nombre" [form]="signUpForm"></app-input>
+      </div>
+
+      <!-- CIF input -->
+      <div class="col-6">
+        <app-input name="cif" minLength="9" label="NIF" [form]="signUpForm"></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Address input -->
+      <div class="col-9">
+        <app-input name="direccion" minLength="5" maxLength="200" label="Dirección" [form]="signUpForm"></app-input>
+      </div>
+
+      <!-- Price input -->
+      <div class="col-3">
+        <app-input type="number" min="1" max="999" name="tarifa" label="Tarifa (€)" [form]="signUpForm"></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Password input -->
+      <div class="col-6">
+        <app-input type="password" minLength="6" maxLength="200" name="password" label="Contraseña" [form]="signUpForm"></app-input>
+      </div>
+
+      <!-- Repeat Password input -->
+      <div class="col-6">
+        <app-input type="password" name="confirmedPassword" label="Repita la Contraseña" [form]="signUpForm"></app-input>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <!-- Description input -->
+      <div class="col-12" [ngClass]="{'mb-3' : f.descripcion.touched && f.descripcion.errors, 'mb-4': !f.descripcion.touched || !f.descripcion.errors}">
+        <mdb-form-control>
+        <textarea mdbInput [mdbValidate]="false" class="form-control" name="descripcion"
+                  id="descripcion" formControlName="descripcion" rows="4"></textarea>
+          <label mdbLabel class="form-label" for="descripcion">Descripción</label>
+        </mdb-form-control>
+        <div *ngIf="f.descripcion.touched && f.descripcion.errors">
+          <div class="error" *ngIf="f.descripcion.errors.required">Campo requerido</div>
+          <div class="error" id="descripcion-error" *ngIf="f.descripcion.errors.formServer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Registrarme</button>
+
+    <!-- Sign In buttons -->
+    <div class="text-center">
+      <p>O si ya tienes una cuenta <a routerLink="/login">Iniciar Sesión</a></p>
+    </div>
+
+  </form>
+</div>

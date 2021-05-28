@@ -1,0 +1,15 @@
+<ng-container [formGroup]="form">
+  <div [ngClass]="{'mb-3' : touched && errors, 'mb-4': !touched || !errors}">
+    <mdb-form-control [ngClass]="{'form-white' : darkTheme}">
+      <textarea mdbInput [mdbValidate]="true" class="form-control"
+                name="{{ name }}" id="{{ name }}" formControlName="{{ name }}"
+                rows="4">
+      </textarea>
+      <label mdbLabel class="form-label" for="{{ name }}">{{ label }}</label>
+    </mdb-form-control>
+    <div *ngIf="touched && errors" class="mt-1">
+      <div class="error" *ngIf="errors.required">Campo requerido</div>
+      <div class="error" id="{{ name }}-error" *ngIf="errors.formServer"></div>
+    </div>
+  </div>
+</ng-container>

@@ -1,8 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import '~@fortawesome/fontawesome-free/scss/solid.scss';
-@import '~@fortawesome/fontawesome-free/scss/regular.scss';
-@import '~@fortawesome/fontawesome-free/scss/brands.scss';
- 
-@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+// Font Awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+// MDB SCSS
+@import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
+
+.error {
+  color: #f93154;
+  font-size: 0.875rem;
+}
+
+.form-outline.form-white .form-control:disabled,
+.form-outline.form-white .form-control.disabled,
+.form-white.form-outline .form-control[readonly] {
+  background-color: transparent;
+}
+
+.form-outline.form-white .form-control {
+  color: #d5d5d5;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
