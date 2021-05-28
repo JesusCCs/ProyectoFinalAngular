@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit {
         allowOutsideClick: false,
         focusConfirm: true,
         confirmButtonText: 'De acuerdo'
-      }).then(_ => this.router.navigateByUrl('/'));
+      }).then(_ => this.router.navigateByUrl('/login'));
     }
   }
 
