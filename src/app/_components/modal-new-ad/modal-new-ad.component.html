@@ -1,0 +1,40 @@
+<div class="modal-header bg-dark-modal text-white">
+  <h5 class="modal-title" id="exampleModalLabel">Nuevo Anuncio</h5>
+  <a class="hover-shadow text-light" role="button">
+    <i class=" fas fa-times fa-2x" (click)="modalRef.close()" aria-label="Cerrar"></i>
+  </a>
+</div>
+
+<div class="modal-body bg-dark-modal">
+  <mat-horizontal-stepper>
+    <mat-step [stepControl]="firstFormGroup" label="Fill out your name">
+      <form [formGroup]="firstFormGroup">
+
+        <div>
+          <button class="btn btn-link" matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+
+      <form [formGroup]="secondFormGroup">
+        <div>
+          <button class="btn btn-link" matStepperPrevious>Atrás</button>
+          <button class="btn btn-link" matStepperNext>Siguiente</button>
+        </div>
+      </form>
+
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+
+      <form [formGroup]="thirdFormGroup">
+        <div>
+          <button class="btn btn-link" matStepperPrevious>Atrás</button>
+          <button class="btn btn-link" matStepperNext>Todo Listo</button>
+        </div>
+      </form>
+
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+

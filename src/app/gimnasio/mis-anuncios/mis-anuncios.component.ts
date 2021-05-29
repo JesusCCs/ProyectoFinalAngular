@@ -1,19 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Anuncio} from '../../_models/anuncio';
 import {GimnasioService} from '../../_services/gimnasio.service';
-import {MdbModalService} from 'mdb-angular-ui-kit';
+import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {FormBuilder} from '@angular/forms';
-import {Element} from '@angular/compiler';
+import {ModalNewAdComponent} from '../../_components/modal-new-ad/modal-new-ad.component';
 
 @Component({
   selector: 'app-mis-anuncios',
   templateUrl: './mis-anuncios.component.html',
-  styleUrls: ['./mis-anuncios.component.scss']
+  styleUrls: ['./mis-anuncios.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MisAnunciosComponent implements OnInit {
 
   anuncios: Array<Anuncio> | null = null;
   hayAnuncios = false;
+
+  modalPass!: MdbModalRef<ModalNewAdComponent>;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -33,10 +36,23 @@ export class MisAnunciosComponent implements OnInit {
   }
 
   onCreateAd($event: boolean): void {
-    console.log($event);
+    this.openModalNewAd();
   }
 
   onWheel(event: WheelEvent): void {
-    document.getElementById('container')!.scrollLeft += event.deltaY;
+    const container = document.getElementById('container');
+
+    if (!container) {
+      return;
+    }
+
+    // noinspection JSSuspiciousNameCombination
+    container.scrollLeft += event.deltaY;
+  }
+
+  openModalNewAd(): void {
+    this.modalPass = this.modalService.open(ModalNewAdComponent, {
+      modalClass: 'modal-xl'
+    });
   }
 }

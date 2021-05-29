@@ -27,6 +27,8 @@ import { ModalChangeEmailComponent } from './_components/modal-change-email/moda
 import { TextareaComponent } from './_components/textarea/textarea.component';
 import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-email.component';
 import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.component';
+import {MaterialModule} from "./material.module";
+import {ModalNewAdComponent} from "./_components/modal-new-ad/modal-new-ad.component";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.compo
     ModalChangeEmailComponent,
     TextareaComponent,
     ConfirmNewEmailComponent,
-    MisAnunciosComponent
+    MisAnunciosComponent,
+    ModalNewAdComponent
   ],
   imports: [
     BrowserModule,
@@ -55,14 +58,15 @@ import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.compo
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BdcWalkModule
+    BdcWalkModule,
+    MaterialModule,
   ],
   providers: [
     StorageService,
     ErrorService,
     HttpInterceptorProviders
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }
