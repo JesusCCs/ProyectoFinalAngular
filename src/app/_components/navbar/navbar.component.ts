@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   @Input() type!: string;
   @Input() page!: string;
 
-  @Output() nuevoAnuncio = new EventEmitter<boolean>();
+  @Output() newAdd = new EventEmitter<boolean>();
 
   constructor(
     private auth: AuthService
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
   }
 
-  crearAnuncio(): void {
-    this.nuevoAnuncio.emit(true);
+  createAdd(): void {
+    this.newAdd.emit(true);
   }
 }

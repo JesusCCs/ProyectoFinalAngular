@@ -21,9 +21,14 @@ export class MisAnunciosComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const anuncios = await this.gimnasioService.anuncios();
 
-    if (!anuncios) { return; }
+    if (!anuncios) {
+      return;
+    }
 
     this.anuncios = anuncios;
   }
 
+  onCreateAdd($event: boolean): void {
+    console.log($event);
+  }
 }
