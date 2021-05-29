@@ -6,18 +6,21 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper>
-    <mat-step [stepControl]="firstFormGroup" label="Fill out your name">
-      <form [formGroup]="firstFormGroup">
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
+      <form [formGroup]="fileForm">
+
 
         <div>
           <button class="btn btn-link" matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <mat-step [stepControl]="detailsForm" label="Selecciona los detalles"  state="details">
 
-      <form [formGroup]="secondFormGroup">
+      <form [formGroup]="detailsForm">
+
+
         <div>
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
           <button class="btn btn-link" matStepperNext>Siguiente</button>
@@ -25,16 +28,37 @@
       </form>
 
     </mat-step>
-    <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+    <mat-step [stepControl]="doneForm" label="Todo listo" state="last">
 
-      <form [formGroup]="thirdFormGroup">
+      <form [formGroup]="doneForm">
+
+
         <div>
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
-          <button class="btn btn-link" matStepperNext>Todo Listo</button>
+          <button class="btn btn-link" matStepperNext>Terminar</button>
         </div>
       </form>
 
     </mat-step>
+
+    <!-- Icon overrides. -->
+    <ng-template matStepperIcon="edit" let-index="index">
+      <mat-icon *ngIf="index === 0">attach_file</mat-icon>
+      <mat-icon *ngIf="index === 1">border_color</mat-icon>
+      <mat-icon *ngIf="index === 2">done_all</mat-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="file">
+      <mat-icon>attach_file</mat-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="details">
+      <mat-icon>notes</mat-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="last">
+      <mat-icon>done_all</mat-icon>
+    </ng-template>
   </mat-horizontal-stepper>
 </div>
 
