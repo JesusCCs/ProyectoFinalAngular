@@ -28,7 +28,7 @@ export class MisAnunciosComponent implements OnInit {
     this.anuncios = anuncios;
   }
 
-  onCreateAdd($event: boolean): void {
+  onCreateAd($event: boolean): void {
     console.log($event);
   }
 }
