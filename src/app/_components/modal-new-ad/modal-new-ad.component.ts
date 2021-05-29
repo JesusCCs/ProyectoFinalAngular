@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {STEPPER_GLOBAL_OPTIONS, StepperOrientation} from '@angular/cdk/stepper';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Template} from "@angular/compiler/src/render3/r3_ast";
 
 @Component({
   selector: 'app-modal-new-ad',
@@ -13,7 +14,7 @@ import {map} from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  }]
+  }],
 })
 export class ModalNewAdComponent implements OnInit {
 
@@ -22,6 +23,7 @@ export class ModalNewAdComponent implements OnInit {
   fileForm!: FormGroup;
   detailsForm!: FormGroup;
   doneForm!: FormGroup;
+
   loading = false;
   finished = false;
 
@@ -34,9 +36,11 @@ export class ModalNewAdComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileForm = this.fb.group({
+      recurso: [null, Validators.required]
+    }, {updateOn: 'submit'});
 
-    });
     this.detailsForm = this.fb.group({});
+
     this.doneForm = this.fb.group({});
   }
 
@@ -46,5 +50,12 @@ export class ModalNewAdComponent implements OnInit {
 
   clickUpload(): void {
     document.getElementById('recurso')?.click();
+  }
+
+  checkValidity(event: MouseEvent): void {
+    // if (this.fileForm.invalid) {
+    //   this.fileForm.markAllAsTouched();
+    //   return;
+    // }
   }
 }

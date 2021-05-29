@@ -9,13 +9,25 @@
   <mat-horizontal-stepper linear>
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
-        <span class="text-white">Los ficheros que tiene permitido subir son:</span>
-        <ul class="text-white">
-          <li>Imágenes (jpg, jpeg, png)</li>
-          <li>GIFs (gif)</li>
-          <li>Vídeos (mp4, avi, webm)</li>
-        </ul>
 
+        <!-- Label con popover -->
+        <label for="upload" class="text-white my-2">
+          Contenido del anuncio
+          <button
+            type="button"
+            class="btn btn-warning btn-floating little me-2"
+            placement="right"
+            mdbPopover="Imágenes (jpg, jpeg, png)<br>
+                        GIFs (gif)<br>
+                        Vídeos (mp4, avi, webm)"
+            [template]="true"
+            mdbPopoverTitle="Tipos permitidos"
+            trigger="hover">
+            <i class="fas fa-question"></i>
+          </button>
+        </label>
+
+        <!-- Input -->
         <div class="input-group">
           <input accept="image/jpeg,image/png,image/gif,video/mp4,video/avi,video/webm" hidden
                  type="file" class="form-control" id="recurso" (change)="uploadFile($event)" formControlName="recurso"/>
@@ -31,13 +43,18 @@
           Tenga en cuenta que si es un vídeo no debe superar los 30 s de duración
         </div>
 
-        <div *ngIf="fileForm.get('recurso')?.touched && fileForm.get('logo')?.errors" class="mt-1">
-          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.formServer"></div>
-          <div class="error" id="recurso-error" *ngIf="fileForm.get('logo')?.errors?.formServer"></div>
+        <!-- Errores input -->
+        <div *ngIf="fileForm.get('recurso')?.touched && fileForm.get('recurso')?.errors" class="mt-1">
+          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.required">
+            Es obligatorio subir un archivo
+          </div>
+          <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer"></div>
         </div>
 
+        <!-- Step siguiente -->
         <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner">Siguiente</button>
+          <button class="btn btn-link" matStepperNext (click)="checkValidity($event)"
+                  *ngIf="!loading; else spinner">Siguiente</button>
           <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
             <span class="visually-hidden">Procesando...</span>
           </ng-template>
