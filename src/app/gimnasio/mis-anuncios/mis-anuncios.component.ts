@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Anuncio} from '../../_models/anuncio';
+import {GimnasioService} from '../../_services/gimnasio.service';
+import {MdbModalService} from 'mdb-angular-ui-kit';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-mis-anuncios',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MisAnunciosComponent implements OnInit {
 
-  constructor() { }
+  private anuncios: Array<Anuncio> | null = null;
 
-  ngOnInit(): void {
+  constructor(private gimnasioService: GimnasioService,
+              private modalService: MdbModalService,
+              private fb: FormBuilder) {
+  }
+
+  async ngOnInit(): Promise<void> {
+    const anuncios = await this.gimnasioService.anuncios();
+
+    if (!anuncios) { return; }
+
+    this.anuncios = anuncios;
   }
 
 }
