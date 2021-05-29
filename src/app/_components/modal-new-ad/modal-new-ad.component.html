@@ -9,21 +9,52 @@
   <mat-horizontal-stepper linear>
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
+        <span class="text-white">Los ficheros que tiene permitido subir son:</span>
+        <ul class="text-white">
+          <li>Imágenes (jpg, jpeg, png)</li>
+          <li>GIFs (gif)</li>
+          <li>Vídeos (mp4, avi, webm)</li>
+        </ul>
 
+        <div class="input-group">
+          <input accept="image/jpeg,image/png,image/gif,video/mp4,video/avi,video/webm" hidden
+                 type="file" class="form-control" id="recurso" (change)="uploadFile($event)" formControlName="recurso"/>
+
+          <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados"
+                 aria-label="Subida del recurso de su anuncio" aria-describedby="upload" (click)="clickUpload()"/>
+          <button class="btn btn-outline-white" type="button" id="upload" (click)="clickUpload()">
+            Subir Fichero
+          </button>
+        </div>
+
+        <div class="form-text">
+          Tenga en cuenta que si es un vídeo no debe superar los 30 s de duración
+        </div>
+
+        <div *ngIf="fileForm.get('recurso')?.touched && fileForm.get('logo')?.errors" class="mt-1">
+          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.formServer"></div>
+          <div class="error" id="recurso-error" *ngIf="fileForm.get('logo')?.errors?.formServer"></div>
+        </div>
 
         <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperNext>Siguiente</button>
+          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner">Siguiente</button>
+          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
+            <span class="visually-hidden">Procesando...</span>
+          </ng-template>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="detailsForm" label="Selecciona los detalles"  state="details">
+    <mat-step [stepControl]="detailsForm" label="Selecciona los detalles" state="details">
 
       <form [formGroup]="detailsForm">
 
 
         <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperPrevious>Atrás</button>
-          <button class="btn btn-link" matStepperNext>Siguiente</button>
+          <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
+          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner">Siguiente</button>
+          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
+            <span class="visually-hidden">Procesando...</span>
+          </ng-template>
         </div>
       </form>
 
@@ -36,6 +67,14 @@
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
           <button class="btn btn-link" matStepperNext>Terminar</button>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-link" matStepperPrevious>Atrás</button>
+          <button class="btn btn-link" *ngIf="finished; else spinner">Terminar</button>
+          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
+            <span class="visually-hidden">Procesando...</span>
+          </ng-template>
         </div>
       </form>
 

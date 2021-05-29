@@ -52,7 +52,8 @@ export class MisAnunciosComponent implements OnInit {
 
   openModalNewAd(): void {
     this.modalPass = this.modalService.open(ModalNewAdComponent, {
-      modalClass: 'modal-xl'
+      modalClass: 'modal-xl',
+      ignoreBackdropClick: true
     });
   }
 }

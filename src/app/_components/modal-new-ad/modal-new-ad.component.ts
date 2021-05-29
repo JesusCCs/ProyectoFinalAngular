@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {STEPPER_GLOBAL_OPTIONS, StepperOrientation} from '@angular/cdk/stepper';
 import {Observable} from 'rxjs';
@@ -10,6 +10,7 @@ import {map} from 'rxjs/operators';
   selector: 'app-modal-new-ad',
   templateUrl: './modal-new-ad.component.html',
   styleUrls: ['./modal-new-ad.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
@@ -21,6 +22,8 @@ export class ModalNewAdComponent implements OnInit {
   fileForm!: FormGroup;
   detailsForm!: FormGroup;
   doneForm!: FormGroup;
+  loading = false;
+  finished = false;
 
   constructor(public modalRef: MdbModalRef<ModalNewAdComponent>,
               private fb: FormBuilder,
@@ -30,9 +33,18 @@ export class ModalNewAdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fileForm = this.fb.group({});
+    this.fileForm = this.fb.group({
+
+    });
     this.detailsForm = this.fb.group({});
     this.doneForm = this.fb.group({});
   }
 
+  uploadFile($event: Event): void {
+
+  }
+
+  clickUpload(): void {
+    document.getElementById('recurso')?.click();
+  }
 }
