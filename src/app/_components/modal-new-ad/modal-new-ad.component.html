@@ -6,12 +6,12 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper linear #stepper>
+  <mat-horizontal-stepper linear>
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
 
 
-        <div>
+        <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperNext>Siguiente</button>
         </div>
       </form>
@@ -21,7 +21,7 @@
       <form [formGroup]="detailsForm">
 
 
-        <div>
+        <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
           <button class="btn btn-link" matStepperNext>Siguiente</button>
         </div>
@@ -33,7 +33,7 @@
       <form [formGroup]="doneForm">
 
 
-        <div>
+        <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
           <button class="btn btn-link" matStepperNext>Terminar</button>
         </div>
@@ -44,7 +44,7 @@
     <!-- Icon overrides. -->
     <ng-template matStepperIcon="edit" let-index="index">
       <mat-icon *ngIf="index === 0">attach_file</mat-icon>
-      <mat-icon *ngIf="index === 1">border_color</mat-icon>
+      <mat-icon *ngIf="index === 1">notes</mat-icon>
       <mat-icon *ngIf="index === 2">done_all</mat-icon>
     </ng-template>
 
