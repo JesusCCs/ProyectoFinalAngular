@@ -32,7 +32,7 @@
           <input accept="image/jpeg,image/png,image/gif,video/mp4,video/avi,video/webm" hidden
                  type="file" class="form-control" id="recurso" (change)="uploadFile($event)" formControlName="recurso"/>
 
-          <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados"
+          <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados" readonly
                  aria-label="Subida del recurso de su anuncio" id="upload-input" aria-describedby="upload" (click)="clickUpload()"/>
           <button class="btn btn-outline-white" type="button" id="upload" (click)="clickUpload()">
             Subir Fichero
@@ -48,7 +48,7 @@
           <div class="error" *ngIf="fileForm.get('recurso')?.errors?.required">
             Es obligatorio subir un archivo
           </div>
-          <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer"></div>
+          <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer">Error</div>
         </div>
 
         <!-- Step siguiente -->

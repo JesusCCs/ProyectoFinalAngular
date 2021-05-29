@@ -19,6 +19,11 @@ export class ErrorService {
     }
 
     for (const [key, value] of Object.entries(error)) {
+      if (key === '') {
+        Swal.fire('¡Error!', error[key][0], 'error');
+        return;
+      }
+
       const keyInCamelCase = key.charAt(0).toLowerCase() + key.slice(1);
       this.errors[keyInCamelCase] = value[0];
     }

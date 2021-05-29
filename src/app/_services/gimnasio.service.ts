@@ -4,7 +4,7 @@ import {StorageService} from './storage.service';
 import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 import {Gimnasio} from '../_models/gimnasio';
-import {Anuncio} from "../_models/anuncio";
+import {Anuncio} from '../_models/anuncio';
 
 @Injectable({
   providedIn: 'root'

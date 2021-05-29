@@ -1,11 +1,12 @@
-import {AfterViewInit, Component, OnInit, TemplateRef, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {STEPPER_GLOBAL_OPTIONS, StepperOrientation} from '@angular/cdk/stepper';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Template} from "@angular/compiler/src/render3/r3_ast";
+import {AnuncioService} from '../../_services/anuncio.service';
+import {ErrorService} from '../../_services/error.service';
 
 @Component({
   selector: 'app-modal-new-ad',
@@ -21,16 +22,25 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
   stepperOrientation: Observable<StepperOrientation>;
 
   fileForm!: FormGroup;
-  input!: HTMLInputElement;
+  inputElement!: HTMLInputElement;
+  fileElement!: HTMLInputElement;
 
   detailsForm!: FormGroup;
   doneForm!: FormGroup;
 
+  /**
+   * El identificador del anuncio que estamos creando. Se carga en memoria porque el formulario
+   * es por partes
+   */
+  anuncioId: string | null = null;
+
   loading = false;
+
   finished = false;
 
   constructor(public modalRef: MdbModalRef<ModalNewAdComponent>,
               private fb: FormBuilder,
+              private anuncioService: AnuncioService,
               private breakpointObserver: BreakpointObserver) {
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
@@ -48,10 +58,11 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.input = document.getElementById('upload-input') as HTMLInputElement;
+    this.inputElement = document.getElementById('upload-input') as HTMLInputElement;
+    this.fileElement = document.getElementById('recurso') as HTMLInputElement;
   }
 
-  uploadFile(event: Event): void {
+  async uploadFile(event: Event): Promise<void> {
     const files = (event.target as HTMLInputElement).files;
 
     if (files === null) {
@@ -60,11 +71,26 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
     const file = files[0];
 
-    this.input.value = file.name;
+    this.inputElement.value = file.name;
     this.loading = true;
+
+    const resultado = await this.anuncioService.create(file);
+
+    this.loading = false;
+
+    if (!resultado) {
+      this.fileForm.markAllAsTouched();
+      ErrorService.showInForm(this.fileForm);
+      return;
+    }
+
+    this.anuncioId = resultado;
   }
 
   clickUpload(): void {
+    if (this.loading) {
+      return;
+    }
     document.getElementById('recurso')?.click();
   }
 
