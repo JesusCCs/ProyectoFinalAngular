@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
@@ -16,11 +16,13 @@ import {Template} from "@angular/compiler/src/render3/r3_ast";
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }],
 })
-export class ModalNewAdComponent implements OnInit {
+export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
   fileForm!: FormGroup;
+  input!: HTMLInputElement;
+
   detailsForm!: FormGroup;
   doneForm!: FormGroup;
 
@@ -34,6 +36,7 @@ export class ModalNewAdComponent implements OnInit {
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
   }
 
+
   ngOnInit(): void {
     this.fileForm = this.fb.group({
       recurso: [null, Validators.required]
@@ -44,8 +47,21 @@ export class ModalNewAdComponent implements OnInit {
     this.doneForm = this.fb.group({});
   }
 
-  uploadFile($event: Event): void {
+  ngAfterViewInit(): void {
+    this.input = document.getElementById('upload-input') as HTMLInputElement;
+  }
 
+  uploadFile(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files === null) {
+      return;
+    }
+
+    const file = files[0];
+
+    this.input.value = file.name;
+    this.loading = true;
   }
 
   clickUpload(): void {
@@ -53,9 +69,9 @@ export class ModalNewAdComponent implements OnInit {
   }
 
   checkValidity(event: MouseEvent): void {
-    // if (this.fileForm.invalid) {
-    //   this.fileForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.fileForm.invalid) {
+      this.fileForm.markAllAsTouched();
+      return;
+    }
   }
 }

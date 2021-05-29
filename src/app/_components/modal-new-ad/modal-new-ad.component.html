@@ -33,7 +33,7 @@
                  type="file" class="form-control" id="recurso" (change)="uploadFile($event)" formControlName="recurso"/>
 
           <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados"
-                 aria-label="Subida del recurso de su anuncio" aria-describedby="upload" (click)="clickUpload()"/>
+                 aria-label="Subida del recurso de su anuncio" id="upload-input" aria-describedby="upload" (click)="clickUpload()"/>
           <button class="btn btn-outline-white" type="button" id="upload" (click)="clickUpload()">
             Subir Fichero
           </button>
@@ -55,8 +55,10 @@
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperNext (click)="checkValidity($event)"
                   *ngIf="!loading; else spinner">Siguiente</button>
-          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
-            <span class="visually-hidden">Procesando...</span>
+          <ng-template #spinner>
+            <div class="spinner-border white-text hover-pointer me-4" role="status">
+              <span class="visually-hidden">Procesando...</span>
+            </div>
           </ng-template>
         </div>
       </form>
@@ -69,8 +71,10 @@
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
           <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner">Siguiente</button>
-          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
-            <span class="visually-hidden">Procesando...</span>
+          <ng-template #spinner>
+            <div class="spinner-border white-text hover-pointer me-4" role="status">
+              <span class="visually-hidden">Procesando...</span>
+            </div>
           </ng-template>
         </div>
       </form>
@@ -89,8 +93,10 @@
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious>Atrás</button>
           <button class="btn btn-link" *ngIf="finished; else spinner">Terminar</button>
-          <ng-template class="spinner-border white-text hover-pointer" role="status" #spinner>
-            <span class="visually-hidden">Procesando...</span>
+          <ng-template #spinner>
+            <div class="spinner-border white-text hover-pointer me-4" role="status">
+              <span class="visually-hidden">Procesando...</span>
+            </div>
           </ng-template>
         </div>
       </form>
