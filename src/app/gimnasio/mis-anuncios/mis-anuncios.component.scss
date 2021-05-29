@@ -1,3 +1,7 @@
-.listado {
-
+.ad-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }

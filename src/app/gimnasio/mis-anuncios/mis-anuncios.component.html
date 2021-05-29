@@ -1,13 +1,15 @@
-<app-navbar type="gimnasio" page="mis-anuncios" (newAd)="onCreateAd($event)"></app-navbar>
+<app-navbar type="gimnasio" [showNewAdd]="hayAnuncios" page="mis-anuncios" (newAd)="onCreateAd($event)"></app-navbar>
 
 
-<div class="container mt-5 add-list">
 
-  <div class="card text-white bg-dark" style="max-width: 18rem;" *ngFor="let number of [0,1,2,3,4]">
+<div class="m-5 ad-list" (wheel)="onWheel($event)" id="container" *ngIf="hayAnuncios; else message">
+
+  <div class="card text-white bg-dark me-4" style="min-width: 18rem;max-width: 18rem;" *ngFor="let anuncio of anuncios">
     <img
       src="https://mdbootstrap.com/img/new/standard/city/062.jpg"
       class="card-img-top"
-      alt="..."
+      alt=""
+      loading="lazy"
     />
     <div class="card-body">
       <h5 class="card-title">Imagen</h5>
@@ -31,5 +33,13 @@
 
 
 </div>
+
+<ng-template #message>
+  <div class="p-5 text-center bg-light mt-5">
+    <h1 class="mb-3">BIENVENIDO A TUS ANUNCIOS</h1>
+    <h4 class="mb-3">Parece que aún no tienes creado ningún anuncio, ¿por qué no creas alguno?</h4>
+    <button class="btn btn-dark">Nuevo anuncio</button>
+  </div>
+</ng-template>
 
 
