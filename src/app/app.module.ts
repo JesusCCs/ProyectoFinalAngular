@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -30,6 +30,7 @@ import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.compo
 import {MaterialModule} from './material.module';
 import {ModalNewAdComponent} from './_components/modal-new-ad/modal-new-ad.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {LocalizationSpanish} from './_helpers/locale';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   providers: [
     StorageService,
     ErrorService,
-    HttpInterceptorProviders
+    HttpInterceptorProviders,
+    LocalizationSpanish
   ],
   bootstrap: [AppComponent],
 })

@@ -23,3 +23,11 @@
   color: #ffa900;
   background-color: #424242
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  margin: 0 1rem;
+  grid-row-gap: 10px;
+}
