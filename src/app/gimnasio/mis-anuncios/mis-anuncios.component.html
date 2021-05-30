@@ -1,6 +1,4 @@
-<app-navbar type="gimnasio" [showNewAdd]="hayAnuncios" page="mis-anuncios" (newAd)="onCreateAd($event)"></app-navbar>
-
-
+<app-navbar type="gimnasio" [showNewAdd]="hayAnuncios" page="mis-anuncios" (newAd)="onCreateAd()"></app-navbar>
 
 <div class="m-5 ad-list" (wheel)="onWheel($event)" id="container" *ngIf="hayAnuncios; else message">
 

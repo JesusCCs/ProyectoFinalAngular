@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
@@ -10,6 +10,7 @@ import {ErrorService} from '../../_services/error.service';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {DateLocalizationProvider} from '../../_helpers/dates';
 import {Moment} from 'moment/moment';
+import {MatStepper} from '@angular/material/stepper';
 
 
 @Component({
@@ -40,6 +41,12 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
    */
   finished = false;
 
+  /**
+   * Referencia al formulario por partes, para poder avanzar al siguiente paso del formulario
+   * @private
+   */
+  @ViewChild('stepper') private stepper!: MatStepper;
+
   stepperOrientation: Observable<StepperOrientation>;
 
   // ESTADOS FORMULARIO DE SUBIDA DE FICHERO
@@ -49,9 +56,6 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   // ESTADOS FORMULARIO DE SUBIDA DE DETALLES
   detailsForm!: FormGroup;
-
-  // ESTADOS FORMULARIO FINAL
-  doneForm!: FormGroup;
 
 
   constructor(public modalRef: MdbModalRef<ModalNewAdComponent>,
@@ -77,8 +81,6 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       validators: ValidatorsExtension.datesCoherent('inicio', 'fin'),
       updateOn: 'change'
     });
-
-    this.doneForm = this.fb.group({});
   }
 
   ngAfterViewInit(): void {
@@ -131,16 +133,23 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     this.loading = true;
     await this.anuncioService.updateDetails(this.anuncioId, this.detailsForm.value);
     this.loading = false;
+    this.finished = true;
+    this.nextStep();
+  }
+
+  async confirm(): Promise<void> {
+    if (!this.anuncioId) {
+      return;
+    }
+
+    const anuncio = await this.anuncioService.confirm(this.anuncioId);
+    this.modalRef.close(anuncio);
   }
 
   checkValidityForms(): void {
     if (this.fileForm.invalid) {
       this.fileForm.markAllAsTouched();
       return;
-    }
-
-    if (this.detailsForm.invalid) {
-      this.detailsForm.markAllAsTouched();
     }
   }
 
@@ -184,4 +193,10 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
     return this.detailsForm.get(element);
   }
+
+  nextStep(): void {
+    this.stepper.next();
+  }
+
+
 }

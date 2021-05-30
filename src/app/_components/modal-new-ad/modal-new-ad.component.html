@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper linear>
+  <mat-horizontal-stepper linear #stepper>
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
@@ -71,7 +71,7 @@
     <!-- Indicar fechas y visualizaciones -->
     <mat-step [stepControl]="detailsForm" label="Selecciona los detalles" state="details">
 
-      <form [formGroup]="detailsForm" (ngSubmit)="updateDetails()">
+      <form [formGroup]="detailsForm">
 
         <div class="form-text text-white mt-3">
           Escriba el rango de fechas en el que quiere mostrar su anuncio y comprobaremos si es posible o, por el
@@ -128,7 +128,7 @@
 
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
-          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidityForms()">
+          <button class="btn btn-link" *ngIf="!loading; else spinner" (click)="updateDetails()">
             Siguiente
           </button>
           <ng-template #spinner>
@@ -142,26 +142,21 @@
     </mat-step>
 
     <!-- Finalizar -->
-    <mat-step [stepControl]="doneForm" label="Todo listo" state="last">
+    <mat-step label="Todo listo" state="last">
 
-      <form [formGroup]="doneForm">
+      <div class="text-center">
+        <p class="text-white">¡Todo Listo! Pulsa sobre TERMINAR para confirmar la creación de este anuncio</p>
+      </div>
 
-
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperPrevious>Atrás</button>
-          <button class="btn btn-link" matStepperNext>Terminar</button>
-        </div>
-
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperPrevious>Atrás</button>
-          <button class="btn btn-link" *ngIf="finished; else spinner">Terminar</button>
-          <ng-template #spinner>
-            <div class="spinner-border white-text hover-pointer me-4" role="status">
-              <span class="visually-hidden">Procesando...</span>
-            </div>
-          </ng-template>
-        </div>
-      </form>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-link" matStepperPrevious>Atrás</button>
+        <button class="btn btn-link" *ngIf="finished; else spinner" (click)="confirm()">TERMINAR</button>
+        <ng-template #spinner>
+          <div class="spinner-border white-text hover-pointer me-4" role="status">
+            <span class="visually-hidden">Procesando...</span>
+          </div>
+        </ng-template>
+      </div>
 
     </mat-step>
 

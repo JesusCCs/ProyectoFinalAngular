@@ -16,7 +16,7 @@ export class MisAnunciosComponent implements OnInit {
   anuncios: Array<Anuncio> | null = null;
   hayAnuncios = false;
 
-  modalPass!: MdbModalRef<ModalNewAdComponent>;
+  modalCreateNewAd!: MdbModalRef<ModalNewAdComponent>;
 
   constructor(private gimnasioService: GimnasioService,
               private modalService: MdbModalService,
@@ -35,7 +35,7 @@ export class MisAnunciosComponent implements OnInit {
     this.hayAnuncios = anuncios.length > 0;
   }
 
-  onCreateAd($event: boolean): void {
+  onCreateAd(): void {
     this.openModalNewAd();
   }
 
@@ -51,9 +51,11 @@ export class MisAnunciosComponent implements OnInit {
   }
 
   openModalNewAd(): void {
-    this.modalPass = this.modalService.open(ModalNewAdComponent, {
+    this.modalCreateNewAd = this.modalService.open(ModalNewAdComponent, {
       modalClass: 'modal-xl',
       ignoreBackdropClick: true
     });
+
+    this.modalCreateNewAd.onClose.subscribe(newAd => this.anuncios?.push(newAd));
   }
 }

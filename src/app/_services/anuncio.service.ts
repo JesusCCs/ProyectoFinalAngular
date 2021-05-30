@@ -48,4 +48,9 @@ export class AnuncioService {
     return await this.http.get<boolean>(this.base + `/${inicio.toISOString()}/${fin.toISOString()}`)
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
+
+  async confirm(anuncioId: string): Promise<Anuncio | void> {
+    return await this.http.put<Anuncio>(this.base + `/${anuncioId}/finalizado`, {finalizado: true})
+      .toPromise().catch(reason => ErrorService.addError(reason));
+  }
 }
