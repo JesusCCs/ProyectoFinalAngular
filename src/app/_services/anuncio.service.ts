@@ -26,4 +26,15 @@ export class AnuncioService {
     return await this.http.post<string>(this.base, form)
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
+
+  async updateFile(anuncioId: string, recurso: File): Promise<string | void> {
+    const id = this.storage.getAccessToken()?.getId() as string;
+
+    const form = new FormData();
+    form.set('recurso', recurso);
+    form.set('gimnasioId', id);
+
+    return await this.http.put<string>(this.base + `/${anuncioId}/recurso`, form)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+  }
 }

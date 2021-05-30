@@ -7,6 +7,7 @@
 
 <div class="modal-body bg-dark-modal">
   <mat-horizontal-stepper linear>
+    <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
 
@@ -32,8 +33,9 @@
           <input accept="image/jpeg,image/png,image/gif,video/mp4,video/avi,video/webm" hidden
                  type="file" class="form-control" id="recurso" (change)="uploadFile($event)" formControlName="recurso"/>
 
-          <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados" readonly
-                 aria-label="Subida del recurso de su anuncio" id="upload-input" aria-describedby="upload" (click)="clickUpload()"/>
+          <input type="text" class="form-control hover-pointer" placeholder="Sin archivos seleccionados"
+                 formControlName="recursoInput" id="upload-input" aria-describedby="upload"
+                 (click)="clickUpload()" readonly/>
           <button class="btn btn-outline-white" type="button" id="upload" (click)="clickUpload()">
             Subir Fichero
           </button>
@@ -44,8 +46,8 @@
         </div>
 
         <!-- Errores input -->
-        <div *ngIf="fileForm.get('recurso')?.touched && fileForm.get('recurso')?.errors" class="mt-1">
-          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.required">
+        <div *ngIf="errorsInUpload" class="mt-1">
+          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.required || fileForm.get('recursoInput')?.errors?.required">
             Es obligatorio subir un archivo
           </div>
           <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer">Error</div>
@@ -53,8 +55,9 @@
 
         <!-- Step siguiente -->
         <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperNext (click)="checkValidity($event)"
-                  *ngIf="!loading; else spinner">Siguiente</button>
+          <button class="btn btn-link" matStepperNext (click)="checkValidity()"
+                  *ngIf="!loading; else spinner">Siguiente
+          </button>
           <ng-template #spinner>
             <div class="spinner-border white-text hover-pointer me-4" role="status">
               <span class="visually-hidden">Procesando...</span>
@@ -63,6 +66,8 @@
         </div>
       </form>
     </mat-step>
+
+    <!-- Indicar fechas y visualizaciones -->
     <mat-step [stepControl]="detailsForm" label="Selecciona los detalles" state="details">
 
       <form [formGroup]="detailsForm">
@@ -80,6 +85,8 @@
       </form>
 
     </mat-step>
+
+    <!-- Finalizar -->
     <mat-step [stepControl]="doneForm" label="Todo listo" state="last">
 
       <form [formGroup]="doneForm">

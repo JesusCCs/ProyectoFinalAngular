@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {STEPPER_GLOBAL_OPTIONS, StepperOrientation} from '@angular/cdk/stepper';
 import {Observable} from 'rxjs';
@@ -23,7 +23,8 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   fileForm!: FormGroup;
   inputElement!: HTMLInputElement;
-  fileElement!: HTMLInputElement;
+
+  fileName: string | null = null;
 
   detailsForm!: FormGroup;
   doneForm!: FormGroup;
@@ -49,7 +50,8 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.fileForm = this.fb.group({
-      recurso: [null, Validators.required]
+      recurso: [null, Validators.required],
+      recursoInput: ['', Validators.required]
     }, {updateOn: 'submit'});
 
     this.detailsForm = this.fb.group({});
@@ -59,7 +61,6 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.inputElement = document.getElementById('upload-input') as HTMLInputElement;
-    this.fileElement = document.getElementById('recurso') as HTMLInputElement;
   }
 
   async uploadFile(event: Event): Promise<void> {
@@ -72,19 +73,25 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     const file = files[0];
 
     this.inputElement.value = file.name;
+
     this.loading = true;
-
-    const resultado = await this.anuncioService.create(file);
-
+    const resultado = this.anuncioId ?
+      await this.anuncioService.updateFile(this.anuncioId, file) :
+      await this.anuncioService.create(file);
     this.loading = false;
 
     if (!resultado) {
       this.fileForm.markAllAsTouched();
       ErrorService.showInForm(this.fileForm);
+      this.inputElement.value = this.fileName ? this.fileName : '';
       return;
     }
 
+    this.fileForm.get('recursoInput')?.setErrors(null);
+    this.fileForm.get('recurso')?.setErrors(null);
+
     this.anuncioId = resultado;
+    this.fileName = file.name;
   }
 
   clickUpload(): void {
@@ -94,10 +101,15 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     document.getElementById('recurso')?.click();
   }
 
-  checkValidity(event: MouseEvent): void {
+  checkValidity(): void {
     if (this.fileForm.invalid) {
       this.fileForm.markAllAsTouched();
       return;
     }
+  }
+
+  get errorsInUpload(): false | ValidationErrors | null | undefined {
+    return (this.fileForm.get('recurso')?.touched && this.fileForm.get('recurso')?.errors) ||
+      (this.fileForm.get('recursoInput')?.touched && this.fileForm.get('recursoInput')?.errors);
   }
 }
