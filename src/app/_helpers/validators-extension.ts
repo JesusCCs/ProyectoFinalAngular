@@ -2,7 +2,7 @@ import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angula
 
 export class ValidatorsExtension {
 
-  public static match(firstToMatch: string, secondToMatch: string, required: boolean = true): ValidatorFn {
+  public static match(firstToMatch: string, secondToMatch: string): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
       const form = control as FormGroup;
@@ -128,5 +128,36 @@ export class ValidatorsExtension {
     }
   }
 
+  public static datesCoherent(initialDateInput: string, finalDateInput: string, required: boolean = true): ValidatorFn {
 
+    return (control: AbstractControl): ValidationErrors | null => {
+      const form = control as FormGroup;
+
+      const initial = form.get(initialDateInput);
+      const final = form.get(finalDateInput);
+
+      if (!initial?.value || !final?.value) {
+        return null;
+      }
+
+      const initialDate = initial.value as Date;
+      const finalDate = final.value as Date;
+
+
+      if (initialDate > finalDate) {
+        initial?.setErrors({datesNotValid: true});
+        final?.setErrors({datesNotValid: true});
+
+        initial?.markAsTouched();
+        final?.markAsTouched();
+
+        return {datesNotValid: true};
+      }
+
+      initial?.setErrors(null);
+      final?.setErrors(null);
+
+      return null;
+    };
+  }
 }

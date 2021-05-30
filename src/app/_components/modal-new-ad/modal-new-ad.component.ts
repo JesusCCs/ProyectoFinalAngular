@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AnuncioService} from '../../_services/anuncio.service';
 import {ErrorService} from '../../_services/error.service';
+import {ValidatorsExtension} from '../../_helpers/validators-extension';
 
 @Component({
   selector: 'app-modal-new-ad',
@@ -19,25 +20,37 @@ import {ErrorService} from '../../_services/error.service';
 })
 export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
-  stepperOrientation: Observable<StepperOrientation>;
-
-  fileForm!: FormGroup;
-  inputElement!: HTMLInputElement;
-
-  fileName: string | null = null;
-
-  detailsForm!: FormGroup;
-  doneForm!: FormGroup;
-
   /**
    * El identificador del anuncio que estamos creando. Se carga en memoria porque el formulario
    * es por partes
    */
   anuncioId: string | null = null;
 
+  /**
+   * Bandera para controlar si estamos en mitad de una llamada ajax o no y así mostrar un spinner de carga
+   */
   loading = false;
 
+  /**
+   * Bandera para sabe si el anuncio se ha creado con éxito y está terminado
+   */
   finished = false;
+
+  stepperOrientation: Observable<StepperOrientation>;
+
+  // ESTADOS FORMULARIO DE SUBIDA DE FICHERO
+  fileForm!: FormGroup;
+  inputElement!: HTMLInputElement;
+  fileName: string | null = null;
+
+  // ESTADOS FORMULARIO DE SUBIDA DE DETALLES
+  detailsForm!: FormGroup;
+  inicio!: HTMLInputElement;
+  fin!: HTMLInputElement;
+
+  // ESTADOS FORMULARIO FINAL
+  doneForm!: FormGroup;
+
 
   constructor(public modalRef: MdbModalRef<ModalNewAdComponent>,
               private fb: FormBuilder,
@@ -58,7 +71,10 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       inicio: [null, Validators.required],
       fin: ['', Validators.required],
       reproduccionesLimite: ['', Validators.required]
-    }, {updateOn: 'change'});
+    }, {
+      validators: ValidatorsExtension.datesCoherent('inicio', 'fin'),
+      updateOn: 'change'
+    });
 
     this.doneForm = this.fb.group({});
   }
@@ -105,7 +121,7 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     document.getElementById('recurso')?.click();
   }
 
-  checkValidity(): void {
+  checkValidityForms(): void {
     if (this.fileForm.invalid) {
       this.fileForm.markAllAsTouched();
       return;
@@ -114,6 +130,10 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     if (this.detailsForm.invalid) {
       this.detailsForm.markAllAsTouched();
     }
+  }
+
+  checkValidityDates(): void {
+
   }
 
   get errorsInUpload(): false | ValidationErrors | null | undefined {

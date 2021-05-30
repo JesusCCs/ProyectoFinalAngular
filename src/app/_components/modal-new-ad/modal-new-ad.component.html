@@ -55,7 +55,7 @@
 
         <!-- Step siguiente -->
         <div class="d-flex justify-content-end">
-          <button class="btn btn-link" matStepperNext (click)="checkValidity()"
+          <button class="btn btn-link" matStepperNext (click)="checkValidityForms()"
                   *ngIf="!loading; else spinner">Siguiente
           </button>
           <ng-template #spinner>
@@ -98,6 +98,9 @@
             <div class="error" *ngIf="get('inicio')?.errors?.required || get('fin')?.errors?.required">
               Ambas fechas son necesarias
             </div>
+            <div class="error" *ngIf="get('inicio')?.errors?.datesNotValid || get('fin')?.errors?.datesNotValid">
+              La fecha inicial no puede ser mayor a la final
+            </div>
             <div class="error" id="fechas-error" *ngIf="get('recurso')?.errors?.formServer">Error</div>
           </div>
 
@@ -116,7 +119,7 @@
 
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
-          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidity()">Siguiente</button>
+          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidityForms()">Siguiente</button>
           <ng-template #spinner>
             <div class="spinner-border white-text hover-pointer me-4" role="status">
               <span class="visually-hidden">Procesando...</span>
