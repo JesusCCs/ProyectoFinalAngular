@@ -8,15 +8,40 @@ import {map} from 'rxjs/operators';
 import {AnuncioService} from '../../_services/anuncio.service';
 import {ErrorService} from '../../_services/error.service';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+import * as _moment from 'moment';
+// @ts-ignore
+import {default as _rollupMoment} from 'moment';
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-modal-new-ad',
   templateUrl: './modal-new-ad.component.html',
   styleUrls: ['./modal-new-ad.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  }],
+  providers: [
+    {provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+  ],
 })
 export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
@@ -81,6 +106,8 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.inputElement = document.getElementById('upload-input') as HTMLInputElement;
+    this.inicio = document.getElementById('inicio') as HTMLInputElement;
+    this.fin = document.getElementById('fin') as HTMLInputElement;
   }
 
   async uploadFile(event: Event): Promise<void> {
@@ -132,8 +159,30 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     }
   }
 
-  checkValidityDates(): void {
+  async checkValidityDates(): Promise<void> {
+    if (!(this.inicio.value && this.fin.value)) {
+      return;
+    }
 
+    const inicio = new Date(this.inicio.value);
+    const fin = new Date(this.fin.value);
+
+    if (fin < inicio) {
+      return;
+    }
+
+    const validas = await this.anuncioService.checkDates(inicio, fin);
+
+    console.log(validas);
+
+    if (validas) {
+      this.get('inicio')?.setErrors(null);
+      this.get('fin')?.setErrors(null);
+      return;
+    }
+
+    this.get('inicio')?.setErrors({rangeInUse: true});
+    this.get('fin')?.setErrors({rangeInUse: true});
   }
 
   get errorsInUpload(): false | ValidationErrors | null | undefined {

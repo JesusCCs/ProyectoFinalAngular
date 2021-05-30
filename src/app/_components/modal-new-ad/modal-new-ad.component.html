@@ -47,7 +47,8 @@
 
         <!-- Errores input -->
         <div *ngIf="errorsInUpload" class="mt-1">
-          <div class="error" *ngIf="fileForm.get('recurso')?.errors?.required || fileForm.get('recursoInput')?.errors?.required">
+          <div class="error"
+               *ngIf="fileForm.get('recurso')?.errors?.required || fileForm.get('recursoInput')?.errors?.required">
             Es obligatorio subir un archivo
           </div>
           <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer">Error</div>
@@ -73,7 +74,8 @@
       <form [formGroup]="detailsForm">
 
         <div class="form-text text-white mt-3">
-          Escriba el rango de fechas en el que quiere mostrar su anuncio y comprobaremos si es posible o, por el contrario,
+          Escriba el rango de fechas en el que quiere mostrar su anuncio y comprobaremos si es posible o, por el
+          contrario,
           tendrá que escoger un nuevo inicio y fin
         </div>
 
@@ -81,14 +83,16 @@
         <div class="d-flex justify-content-start mt-2">
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Ecoja el inicio</mat-label>
-            <input class="text-white" matInput [matDatepicker]="inicio" [formGroup]="detailsForm" formControlName="inicio" required>
+            <input class="text-white" matInput [matDatepicker]="inicio" [formGroup]="detailsForm" id="inicio"
+                   formControlName="inicio" (dateChange)="checkValidityDates()" required>
             <mat-datepicker-toggle matSuffix [for]="inicio"></mat-datepicker-toggle>
             <mat-datepicker #inicio></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Escoja el fin</mat-label>
-            <input class="text-white" matInput [matDatepicker]="fin" [formGroup]="detailsForm" formControlName="fin" required>
+            <input class="text-white" matInput [matDatepicker]="fin" [formGroup]="detailsForm" id="fin"
+                   formControlName="fin" (dateChange)="checkValidityDates()" required>
             <mat-datepicker-toggle matSuffix [for]="fin"></mat-datepicker-toggle>
             <mat-datepicker #fin></mat-datepicker>
           </mat-form-field>
@@ -101,7 +105,10 @@
             <div class="error" *ngIf="get('inicio')?.errors?.datesNotValid || get('fin')?.errors?.datesNotValid">
               La fecha inicial no puede ser mayor a la final
             </div>
-            <div class="error" id="fechas-error" *ngIf="get('recurso')?.errors?.formServer">Error</div>
+            <div class="error" *ngIf="get('inicio')?.errors?.rangeInUse || get('fin')?.errors?.rangeInUse">
+              El rango de fechas escogido se encuentra en uso y no se puede escoger
+            </div>
+            <div class="error" id="fechas-error" *ngIf="get('recurso')?.errors?.formServer"></div>
           </div>
 
         </div>
@@ -113,13 +120,17 @@
         <!-- Input reproducciones -->
         <mat-form-field appearance="fill" class="mt-2">
           <mat-label>Nº. reproducciones</mat-label>
-          <input class="text-white" matInput placeholder="30" [formGroup]="detailsForm" formControlName="reproduccionesLimite" required>
-          <mat-error *ngIf="fileForm.get('reproduccionesLimite')?.errors?.required">Este campo es obligatorio</mat-error>
+          <input class="text-white" matInput placeholder="30" [formGroup]="detailsForm"
+                 formControlName="reproduccionesLimite" required>
+          <mat-error *ngIf="fileForm.get('reproduccionesLimite')?.errors?.required">Este campo es obligatorio
+          </mat-error>
         </mat-form-field>
 
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
-          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidityForms()">Siguiente</button>
+          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidityForms()">
+            Siguiente
+          </button>
           <ng-template #spinner>
             <div class="spinner-border white-text hover-pointer me-4" role="status">
               <span class="visually-hidden">Procesando...</span>
