@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper>
+  <mat-horizontal-stepper linear>
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
@@ -71,7 +71,7 @@
     <!-- Indicar fechas y visualizaciones -->
     <mat-step [stepControl]="detailsForm" label="Selecciona los detalles" state="details">
 
-      <form [formGroup]="detailsForm">
+      <form [formGroup]="detailsForm" (ngSubmit)="updateDetails()">
 
         <div class="form-text text-white mt-3">
           Escriba el rango de fechas en el que quiere mostrar su anuncio y comprobaremos si es posible o, por el
@@ -122,7 +122,7 @@
           <mat-label>Nº. reproducciones</mat-label>
           <input class="text-white" matInput placeholder="30" [formGroup]="detailsForm"
                  formControlName="reproduccionesLimite" required>
-          <mat-error *ngIf="fileForm.get('reproduccionesLimite')?.errors?.required">Este campo es obligatorio
+          <mat-error *ngIf="get('reproduccionesLimite')?.errors?.required">Este campo es obligatorio
           </mat-error>
         </mat-form-field>
 

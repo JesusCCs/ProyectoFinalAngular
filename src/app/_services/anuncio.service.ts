@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 import {HttpClient} from '@angular/common/http';
 import {StorageService} from './storage.service';
+import {Anuncio} from '../_models/anuncio';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ export class AnuncioService {
     form.set('gimnasioId', id);
 
     return await this.http.post<string>(this.base, form)
+      .toPromise().catch(reason => ErrorService.addError(reason));
+  }
+
+  public async updateDetails(anuncioId: string, details: any): Promise<Anuncio | void> {
+    return await this.http.put<Anuncio>(this.base + `/${anuncioId}/details`, details)
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
 

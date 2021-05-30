@@ -85,6 +85,13 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     this.inputElement = document.getElementById('upload-input') as HTMLInputElement;
   }
 
+  clickUpload(): void {
+    if (this.loading) {
+      return;
+    }
+    document.getElementById('recurso')?.click();
+  }
+
   async uploadFile(event: Event): Promise<void> {
     const files = (event.target as HTMLInputElement).files;
 
@@ -116,11 +123,14 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     this.fileName = file.name;
   }
 
-  clickUpload(): void {
-    if (this.loading) {
+  async updateDetails(): Promise<void> {
+    if (!this.anuncioId) {
       return;
     }
-    document.getElementById('recurso')?.click();
+
+    this.loading = true;
+    await this.anuncioService.updateDetails(this.anuncioId, this.detailsForm.value);
+    this.loading = false;
   }
 
   checkValidityForms(): void {
@@ -138,12 +148,16 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     const inicio = this.get('inicio')?.value as Moment;
     const fin = this.get('fin')?.value as Moment;
 
-    if (!inicio || !fin) { return; }
+    if (!inicio || !fin) {
+      return;
+    }
 
     const fechaInicio = inicio.toDate();
     const fechaFin = fin.toDate();
 
-    if (fin < inicio) { return; }
+    if (fin < inicio) {
+      return;
+    }
 
     const validas = await this.anuncioService.checkDates(fechaInicio, fechaFin);
 
