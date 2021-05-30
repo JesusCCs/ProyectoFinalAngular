@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdbModalRef} from 'mdb-angular-ui-kit';
-import {FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {STEPPER_GLOBAL_OPTIONS, StepperOrientation} from '@angular/cdk/stepper';
 import {Observable} from 'rxjs';
@@ -54,7 +54,11 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       recursoInput: ['', Validators.required]
     }, {updateOn: 'submit'});
 
-    this.detailsForm = this.fb.group({});
+    this.detailsForm = this.fb.group({
+      inicio: [null, Validators.required],
+      fin: ['', Validators.required],
+      reproduccionesLimite: ['', Validators.required]
+    }, {updateOn: 'change'});
 
     this.doneForm = this.fb.group({});
   }
@@ -106,10 +110,29 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       this.fileForm.markAllAsTouched();
       return;
     }
+
+    if (this.detailsForm.invalid) {
+      this.detailsForm.markAllAsTouched();
+    }
   }
 
   get errorsInUpload(): false | ValidationErrors | null | undefined {
-    return (this.fileForm.get('recurso')?.touched && this.fileForm.get('recurso')?.errors) ||
-      (this.fileForm.get('recursoInput')?.touched && this.fileForm.get('recursoInput')?.errors);
+    return (this.get('recurso')?.touched && this.get('recurso')?.errors) ||
+      (this.get('recursoInput')?.touched && this.get('recursoInput')?.errors);
+  }
+
+  get errorsInDates(): false | ValidationErrors | null | undefined {
+    return (this.get('inicio')?.touched && this.get('inicio')?.errors) ||
+      (this.get('fin')?.touched && this.get('fin')?.errors);
+  }
+
+  get(element: string): AbstractControl | null {
+    const el = this.fileForm.get(element);
+
+    if (el != null) {
+      return el;
+    }
+
+    return this.detailsForm.get(element);
   }
 }

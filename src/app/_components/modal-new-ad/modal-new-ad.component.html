@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper linear>
+  <mat-horizontal-stepper>
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
@@ -72,10 +72,51 @@
 
       <form [formGroup]="detailsForm">
 
+        <div class="form-text text-white mt-3">
+          Escriba el rango de fechas en el que quiere mostrar su anuncio y comprobaremos si es posible o, por el contrario,
+          tendrá que escoger un nuevo inicio y fin
+        </div>
+
+        <!-- Inputs fechas -->
+        <div class="d-flex justify-content-start mt-2">
+          <mat-form-field appearance="fill" class="me-2">
+            <mat-label>Ecoja el inicio</mat-label>
+            <input class="text-white" matInput [matDatepicker]="inicio" [formGroup]="detailsForm" formControlName="inicio" required>
+            <mat-datepicker-toggle matSuffix [for]="inicio"></mat-datepicker-toggle>
+            <mat-datepicker #inicio></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="me-2">
+            <mat-label>Escoja el fin</mat-label>
+            <input class="text-white" matInput [matDatepicker]="fin" [formGroup]="detailsForm" formControlName="fin" required>
+            <mat-datepicker-toggle matSuffix [for]="fin"></mat-datepicker-toggle>
+            <mat-datepicker #fin></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Errores Fechas -->
+          <div *ngIf="errorsInDates" style="line-height: 4em; margin-left: 2em">
+            <div class="error" *ngIf="get('inicio')?.errors?.required || get('fin')?.errors?.required">
+              Ambas fechas son necesarias
+            </div>
+            <div class="error" id="fechas-error" *ngIf="get('recurso')?.errors?.formServer">Error</div>
+          </div>
+
+        </div>
+
+        <div class="form-text text-white">
+          También debe indicar el número de veces que quiere que se muestre como mucho su anuncio a un mismo usuario
+        </div>
+
+        <!-- Input reproducciones -->
+        <mat-form-field appearance="fill" class="mt-2">
+          <mat-label>Nº. reproducciones</mat-label>
+          <input class="text-white" matInput placeholder="30" [formGroup]="detailsForm" formControlName="reproduccionesLimite" required>
+          <mat-error *ngIf="fileForm.get('reproduccionesLimite')?.errors?.required">Este campo es obligatorio</mat-error>
+        </mat-form-field>
 
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
-          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner">Siguiente</button>
+          <button class="btn btn-link" matStepperNext *ngIf="!loading; else spinner" (click)="checkValidity()">Siguiente</button>
           <ng-template #spinner>
             <div class="spinner-border white-text hover-pointer me-4" role="status">
               <span class="visually-hidden">Procesando...</span>
