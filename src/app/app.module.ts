@@ -29,6 +29,7 @@ import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-e
 import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.component';
 import {MaterialModule} from './material.module';
 import {ModalNewAdComponent} from './_components/modal-new-ad/modal-new-ad.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -51,16 +52,17 @@ import {ModalNewAdComponent} from './_components/modal-new-ad/modal-new-ad.compo
     MisAnunciosComponent,
     ModalNewAdComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        MdbModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        BdcWalkModule,
-        MaterialModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MdbModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BdcWalkModule,
+    MaterialModule,
+    MatDatepickerModule
+  ],
   providers: [
     StorageService,
     ErrorService,

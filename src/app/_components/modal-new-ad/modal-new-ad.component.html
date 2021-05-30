@@ -84,7 +84,7 @@
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Ecoja el inicio</mat-label>
             <input class="text-white" matInput [matDatepicker]="inicio" [formGroup]="detailsForm" id="inicio"
-                   formControlName="inicio" (dateChange)="checkValidityDates()" required>
+                   formControlName="inicio" (dateChange)="checkValidityDates()" required readonly>
             <mat-datepicker-toggle matSuffix [for]="inicio"></mat-datepicker-toggle>
             <mat-datepicker #inicio></mat-datepicker>
           </mat-form-field>
@@ -92,7 +92,7 @@
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Escoja el fin</mat-label>
             <input class="text-white" matInput [matDatepicker]="fin" [formGroup]="detailsForm" id="fin"
-                   formControlName="fin" (dateChange)="checkValidityDates()" required>
+                   formControlName="fin" (dateChange)="checkValidityDates()" required readonly>
             <mat-datepicker-toggle matSuffix [for]="fin"></mat-datepicker-toggle>
             <mat-datepicker #fin></mat-datepicker>
           </mat-form-field>
@@ -114,7 +114,7 @@
         </div>
 
         <div class="form-text text-white">
-          También debe indicar el número de veces que quiere que se muestre como mucho su anuncio a un mismo usuario
+          También debe indicar el número de veces que quiere que se muestre como mucho su anuncio
         </div>
 
         <!-- Input reproducciones -->
