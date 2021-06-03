@@ -27,11 +27,11 @@ export class MisAnunciosComponent implements OnInit {
     const anuncios = await this.gimnasioService.anuncios();
 
     if (!anuncios) {
+      this.hayAnuncios = false;
       return;
     }
 
     this.anuncios = anuncios;
-
     this.hayAnuncios = anuncios.length > 0;
   }
 
@@ -56,6 +56,12 @@ export class MisAnunciosComponent implements OnInit {
       ignoreBackdropClick: true
     });
 
-    this.modalCreateNewAd.onClose.subscribe(newAd => this.anuncios?.push(newAd));
+    this.modalCreateNewAd.onClose.subscribe(newAd => {
+      if (!newAd) {
+        return;
+      }
+
+      this.anuncios?.unshift(newAd);
+    });
   }
 }

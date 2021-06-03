@@ -49,8 +49,8 @@ export class AnuncioService {
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
 
-  async confirm(anuncioId: string): Promise<Anuncio | void> {
-    return await this.http.put<Anuncio>(this.base + `/${anuncioId}/finalizado`, {finalizado: true})
+  async setStatus(anuncioId: string, finalizado: boolean): Promise<Anuncio | void> {
+    return await this.http.put<Anuncio>(this.base + `/${anuncioId}/finalizado`, {finalizado})
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
 }

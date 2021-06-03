@@ -133,7 +133,9 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     this.loading = true;
     await this.anuncioService.updateDetails(this.anuncioId, this.detailsForm.value);
     this.loading = false;
+
     this.finished = true;
+
     this.nextStep();
   }
 
@@ -142,8 +144,16 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const anuncio = await this.anuncioService.confirm(this.anuncioId);
+    const anuncio = await this.anuncioService.setStatus(this.anuncioId, true);
     this.modalRef.close(anuncio);
+  }
+
+  async cancel(): Promise<void> {
+    if (this.anuncioId) {
+      await this.anuncioService.setStatus(this.anuncioId, false);
+    }
+
+    this.modalRef.close();
   }
 
   checkValidityForms(): void {

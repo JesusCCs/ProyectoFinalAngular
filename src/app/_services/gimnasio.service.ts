@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 import {Gimnasio} from '../_models/gimnasio';
 import {Anuncio} from '../_models/anuncio';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
