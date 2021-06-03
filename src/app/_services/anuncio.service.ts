@@ -53,4 +53,9 @@ export class AnuncioService {
     return await this.http.put<Anuncio>(this.base + `/${anuncioId}/finalizado`, {finalizado})
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
+
+  async desactivar(anuncioId: string): Promise<void> {
+    await this.http.put(this.base + `/${anuncioId}`, { activo: false })
+      .toPromise().catch(reason => ErrorService.addError(reason));
+  }
 }

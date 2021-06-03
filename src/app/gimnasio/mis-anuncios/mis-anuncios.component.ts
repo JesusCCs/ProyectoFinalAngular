@@ -4,6 +4,7 @@ import {GimnasioService} from '../../_services/gimnasio.service';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {FormBuilder} from '@angular/forms';
 import {ModalNewAdComponent} from '../../_components/modal-new-ad/modal-new-ad.component';
+import {AnuncioService} from '../../_services/anuncio.service';
 
 @Component({
   selector: 'app-mis-anuncios',
@@ -19,8 +20,8 @@ export class MisAnunciosComponent implements OnInit {
   modalCreateNewAd!: MdbModalRef<ModalNewAdComponent>;
 
   constructor(private gimnasioService: GimnasioService,
-              private modalService: MdbModalService,
-              private fb: FormBuilder) {
+              private anuncioService: AnuncioService,
+              private modalService: MdbModalService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -67,5 +68,13 @@ export class MisAnunciosComponent implements OnInit {
       this.anuncios.unshift(newAd);
       this.hayAnuncios = true;
     });
+  }
+
+  async desactivar(event: MouseEvent): Promise<void> {
+    const el = event.target as HTMLAnchorElement;
+
+    await this.anuncioService.desactivar(el.id);
+
+    this.anuncios.find(anuncio => anuncio.id === el.id)!.activo = false;
   }
 }

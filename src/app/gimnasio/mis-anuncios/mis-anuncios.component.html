@@ -23,7 +23,9 @@
       <span> {{anuncio.reproducciones}} / {{anuncio.reproduccionesLimite}}</span>
     </div>
     <div class="card-body">
-      <a href="#" class="card-link">Detalles</a>
+      <a (click)="desactivar($event)" id="{{anuncio.id}}" class="card-link text-danger hover-pointer"
+         *ngIf="anuncio.activo">Desactivar</a>
+      <a class="card-link text-warning" *ngIf="!anuncio.activo">Inactivo</a>
     </div>
   </div>
 
