@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidatorsExtension} from '../../_helpers/validators-extension';
 import {ErrorService} from '../../_services/error.service';
 import {Toast} from '../../_models/toast';
-import {GimnasioService} from '../../_services/gimnasio.service';
 import {AuthService} from '../../_services/auth.service';
 
 @Component({

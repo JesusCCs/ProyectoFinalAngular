@@ -1,0 +1,18 @@
+.spinner-border {
+  border-right-color: white;
+}
+
+.btn-floating.little, .btn-floating.little .fas, .btn-floating.little .far, .btn-floating.little .fab  {
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  top: -5px;
+}
+
+.btn-floating.little .fas, .btn-floating.little .far, .btn-floating.little .fab {
+  line-height: 1.6rem;
+}
+
+.error {
+  color: #f44336;
+}

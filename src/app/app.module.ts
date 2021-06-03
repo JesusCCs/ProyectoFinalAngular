@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -27,6 +27,10 @@ import { ModalChangeEmailComponent } from './_components/modal-change-email/moda
 import { TextareaComponent } from './_components/textarea/textarea.component';
 import { ConfirmNewEmailComponent } from './auth/confirm-new-email/confirm-new-email.component';
 import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.component';
+import {MaterialModule} from './material.module';
+import {ModalNewAdComponent} from './_components/modal-new-ad/modal-new-ad.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {LocalizationSpanish} from './_helpers/locale';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,8 @@ import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.compo
     ModalChangeEmailComponent,
     TextareaComponent,
     ConfirmNewEmailComponent,
-    MisAnunciosComponent
+    MisAnunciosComponent,
+    ModalNewAdComponent
   ],
   imports: [
     BrowserModule,
@@ -55,14 +60,17 @@ import { MisAnunciosComponent } from './gimnasio/mis-anuncios/mis-anuncios.compo
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BdcWalkModule
+    BdcWalkModule,
+    MaterialModule,
+    MatDatepickerModule
   ],
   providers: [
     StorageService,
     ErrorService,
-    HttpInterceptorProviders
+    HttpInterceptorProviders,
+    LocalizationSpanish
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

@@ -1,1 +1,45 @@
-<app-navbar type="gimnasio" page="mis-anuncios"></app-navbar>
+<app-navbar type="gimnasio" [showNewAdd]="hayAnuncios" page="mis-anuncios" (newAd)="onCreateAd()"></app-navbar>
+
+<div class="m-5 ad-list" (wheel)="onWheel($event)" id="container" *ngIf="hayAnuncios; else sinAnuncios">
+
+  <div class="card text-white bg-dark me-4" style="min-width: 18rem;max-width: 18rem;" *ngFor="let anuncio of anuncios">
+
+    <img *ngIf="anuncio.tipo=='imagen' || anuncio.tipo=='gif'" src="{{ anuncio.recurso }}" class="card-img-top" alt="{{anuncio.tipo}}"
+         loading="lazy"/>
+
+    <video *ngIf="anuncio.tipo=='video'" class="card-img-top" controls (ended)="resetVideo($event)">
+      <source src="{{anuncio.recurso}}">
+    </video>
+
+    <div class="card-body">
+      <h5 class="card-title">{{anuncio.tipo | uppercase}}</h5>
+    </div>
+
+    <div class="grid bg-dark list-group-flush">
+      <span>Inicio:</span>
+      <span>{{anuncio.inicio | date}}</span>
+
+      <span>Fin:</span>
+      <span>{{anuncio.fin | date}}</span>
+
+      <span>Reproducciones:</span>
+      <span> {{anuncio.reproducciones}} / {{anuncio.reproduccionesLimite}}</span>
+    </div>
+    <div class="card-body">
+      <a (click)="desactivar($event)" id="{{anuncio.id}}" class="card-link text-danger hover-pointer"
+         *ngIf="anuncio.activo">Desactivar</a>
+      <a class="card-link text-warning" *ngIf="!anuncio.activo">Inactivo</a>
+    </div>
+  </div>
+
+
+</div>
+
+<ng-template #sinAnuncios>
+  <div class="p-5 text-center mt-5">
+    <h3 class="mb-3">BIENVENIDO A TUS ANUNCIOS</h3>
+    <h5 class="mb-3">Parece que aún no tienes creado ningún anuncio, ¿por qué no creas alguno?</h5>
+    <button class="btn btn-dark" (click)="openModalNewAd()">Nuevo anuncio</button>
+  </div>
+</ng-template>
+

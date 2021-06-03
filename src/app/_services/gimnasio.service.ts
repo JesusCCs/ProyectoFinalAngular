@@ -4,6 +4,8 @@ import {StorageService} from './storage.service';
 import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 import {Gimnasio} from '../_models/gimnasio';
+import {Anuncio} from '../_models/anuncio';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class GimnasioService {
     form.set('id', String(id));
 
     for (const [key, value] of Object.entries(inputs)) {
-        form.set(key, value);
+      form.set(key, value);
     }
 
     if (file) {
@@ -39,5 +41,12 @@ export class GimnasioService {
       .toPromise().catch(reason => ErrorService.addError(reason));
 
     return response !== undefined;
+  }
+
+  public async anuncios(): Promise<Array<Anuncio> | void> {
+    const id = this.storage.getAccessToken()?.getId();
+
+    return await this.http.get<Array<Anuncio>>(`${environment.apiUrl}/gimnasios/${id}/anuncios`)
+      .toPromise().catch(reason => ErrorService.addError(reason));
   }
 }
