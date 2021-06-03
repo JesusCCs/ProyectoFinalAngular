@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper linear #stepper>
+  <mat-horizontal-stepper #stepper>
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
@@ -128,9 +128,7 @@
 
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
-          <button class="btn btn-link" *ngIf="!loading; else spinner" (click)="updateDetails()">
-            Siguiente
-          </button>
+          <button class="btn btn-link" *ngIf="!loading; else spinner" (click)="updateDetails()">Siguiente</button>
           <ng-template #spinner>
             <div class="spinner-border white-text hover-pointer me-4" role="status">
               <span class="visually-hidden">Procesando...</span>

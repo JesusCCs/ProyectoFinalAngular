@@ -44,8 +44,8 @@ export class AnuncioService {
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
 
-  async checkDates(inicio: Date, fin: Date): Promise<boolean | void> {
-    return await this.http.get<boolean>(this.base + `/${inicio.toISOString()}/${fin.toISOString()}`)
+  async checkDates(inicio: string, fin: string): Promise<boolean | void> {
+    return await this.http.get<boolean>(this.base + `/${inicio}/${fin}`)
       .toPromise().catch(reason => ErrorService.addError(reason));
   }
 

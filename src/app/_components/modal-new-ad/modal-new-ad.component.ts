@@ -130,8 +130,15 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    const iniM = this.get('inicio')?.value as Moment;
+    const finM = this.get('fin')?.value as Moment;
+
+    const inicio = iniM.format('YYYY-MM-DD');
+    const fin = finM.format('YYYY-MM-DD');
+    const reproduccionesLimite = this.get('reproduccionesLimite')?.value;
+
     this.loading = true;
-    await this.anuncioService.updateDetails(this.anuncioId, this.detailsForm.value);
+    await this.anuncioService.updateDetails(this.anuncioId, { reproduccionesLimite, inicio, fin } );
     this.loading = false;
 
     this.finished = true;
@@ -171,10 +178,10 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const fechaInicio = inicio.toDate();
-    const fechaFin = fin.toDate();
+    const fechaInicio = inicio.format('YYYY-MM-DD');
+    const fechaFin = fin.format('YYYY-MM-DD');
 
-    if (fin < inicio) {
+    if (fin.isBefore(inicio)) {
       return;
     }
 
