@@ -4,7 +4,6 @@ import {GimnasioService} from '../../_services/gimnasio.service';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
 import {ModalNewAdComponent} from '../../_components/modal-new-ad/modal-new-ad.component';
 import {AnuncioService} from '../../_services/anuncio.service';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mis-anuncios',
@@ -21,8 +20,7 @@ export class MisAnunciosComponent implements OnInit {
 
   constructor(private gimnasioService: GimnasioService,
               private anuncioService: AnuncioService,
-              private modalService: MdbModalService,
-              private sanitizer: DomSanitizer) {
+              private modalService: MdbModalService) {
   }
 
   async ngOnInit(): Promise<void> {
