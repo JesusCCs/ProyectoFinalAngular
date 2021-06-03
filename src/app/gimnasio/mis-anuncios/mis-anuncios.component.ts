@@ -2,9 +2,9 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Anuncio} from '../../_models/anuncio';
 import {GimnasioService} from '../../_services/gimnasio.service';
 import {MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit';
-import {FormBuilder} from '@angular/forms';
 import {ModalNewAdComponent} from '../../_components/modal-new-ad/modal-new-ad.component';
 import {AnuncioService} from '../../_services/anuncio.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mis-anuncios',
@@ -21,7 +21,8 @@ export class MisAnunciosComponent implements OnInit {
 
   constructor(private gimnasioService: GimnasioService,
               private anuncioService: AnuncioService,
-              private modalService: MdbModalService) {
+              private modalService: MdbModalService,
+              private sanitizer: DomSanitizer) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -76,5 +77,10 @@ export class MisAnunciosComponent implements OnInit {
     await this.anuncioService.desactivar(el.id);
 
     this.anuncios.find(anuncio => anuncio.id === el.id)!.activo = false;
+  }
+
+  resetVideo(event: Event): void {
+    const el = event.target as HTMLVideoElement;
+    el.load();
   }
 }

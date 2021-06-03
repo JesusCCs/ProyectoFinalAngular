@@ -3,15 +3,18 @@
 <div class="m-5 ad-list" (wheel)="onWheel($event)" id="container" *ngIf="hayAnuncios; else sinAnuncios">
 
   <div class="card text-white bg-dark me-4" style="min-width: 18rem;max-width: 18rem;" *ngFor="let anuncio of anuncios">
-    <img
-      src="{{ anuncio.recurso }}"
-      class="card-img-top"
-      alt="{{anuncio.tipo}}"
-      loading="lazy"
-    />
+
+    <img *ngIf="anuncio.tipo=='imagen' || anuncio.tipo=='gif'" src="{{ anuncio.recurso }}" class="card-img-top" alt="{{anuncio.tipo}}"
+         loading="lazy"/>
+
+    <video *ngIf="anuncio.tipo=='video'" class="card-img-top" controls (ended)="resetVideo($event)">
+      <source src="{{anuncio.recurso}}">
+    </video>
+
     <div class="card-body">
-      <h5 class="card-title">Imagen</h5>
+      <h5 class="card-title">{{anuncio.tipo | uppercase}}</h5>
     </div>
+
     <div class="grid bg-dark list-group-flush">
       <span>Inicio:</span>
       <span>{{anuncio.inicio | date}}</span>
