@@ -7,6 +7,7 @@
 
 <div class="modal-body bg-dark-modal">
   <mat-horizontal-stepper linear #stepper>
+
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
@@ -54,7 +55,7 @@
           <div class="error" id="recurso-error" *ngIf="fileForm.get('recurso')?.errors?.formServer">Error</div>
         </div>
 
-        <!-- Step siguiente -->
+        <!-- A siguiente step -->
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperNext (click)="checkValidityForms()"
                   *ngIf="!loading; else spinner">Siguiente
@@ -83,15 +84,15 @@
         <div class="d-flex justify-content-start mt-2">
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Ecoja el inicio</mat-label>
-            <input class="text-white" matInput [matDatepicker]="inicio" [formGroup]="detailsForm" id="inicio"
-                   formControlName="inicio" (dateChange)="checkValidityDates()" required readonly>
+            <input class="text-white" matInput [matDatepicker]="inicio" [min]="min" [formGroup]="detailsForm" id="inicio"
+                   formControlName="inicio" (dateChange)="checkValidityDates()" required readonly >
             <mat-datepicker-toggle matSuffix [for]="inicio"></mat-datepicker-toggle>
             <mat-datepicker #inicio></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="me-2">
             <mat-label>Escoja el fin</mat-label>
-            <input class="text-white" matInput [matDatepicker]="fin" [formGroup]="detailsForm" id="fin"
+            <input class="text-white" matInput [matDatepicker]="fin" [min]="min" [formGroup]="detailsForm" id="fin"
                    formControlName="fin" (dateChange)="checkValidityDates()" required readonly>
             <mat-datepicker-toggle matSuffix [for]="fin"></mat-datepicker-toggle>
             <mat-datepicker #fin></mat-datepicker>
@@ -99,7 +100,7 @@
 
           <!-- Errores Fechas -->
           <div *ngIf="errorsInDates" style="line-height: 4em; margin-left: 2em">
-            <div class="error" *ngIf="get('inicio')?.errors?.required || get('fin')?.errors?.required">
+            <div class="error" *ngIf="get('inicio')?.errors?.required && get('fin')?.errors?.required">
               Ambas fechas son necesarias
             </div>
             <div class="error" *ngIf="get('inicio')?.errors?.datesNotValid || get('fin')?.errors?.datesNotValid">
@@ -126,6 +127,7 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- Al siguiente step-->
         <div class="d-flex justify-content-end">
           <button class="btn btn-link" matStepperPrevious *ngIf="!loading; else spinner">Atrás</button>
           <button class="btn btn-link" *ngIf="!loading; else spinner" (click)="updateDetails()">Siguiente</button>

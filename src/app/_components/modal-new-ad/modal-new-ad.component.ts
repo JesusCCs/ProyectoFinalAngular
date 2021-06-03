@@ -58,6 +58,8 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
   detailsForm!: FormGroup;
 
 
+  min = new Date();
+
   constructor(public modalRef: MdbModalRef<ModalNewAdComponent>,
               private fb: FormBuilder,
               private anuncioService: AnuncioService,
@@ -138,7 +140,7 @@ export class ModalNewAdComponent implements OnInit, AfterViewInit {
     const reproduccionesLimite = this.get('reproduccionesLimite')?.value;
 
     this.loading = true;
-    await this.anuncioService.updateDetails(this.anuncioId, { reproduccionesLimite, inicio, fin } );
+    await this.anuncioService.updateDetails(this.anuncioId, {reproduccionesLimite, inicio, fin});
     this.loading = false;
 
     this.finished = true;

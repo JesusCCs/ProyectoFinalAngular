@@ -31,3 +31,8 @@
   margin: 0 1rem;
   grid-row-gap: 10px;
 }
+
+.card-img-top {
+  height: 13em;
+  object-fit: cover;
+}
