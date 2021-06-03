@@ -13,7 +13,7 @@ import {ModalNewAdComponent} from '../../_components/modal-new-ad/modal-new-ad.c
 })
 export class MisAnunciosComponent implements OnInit {
 
-  anuncios: Array<Anuncio> | null = null;
+  anuncios!: Array<Anuncio>;
   hayAnuncios = false;
 
   modalCreateNewAd!: MdbModalRef<ModalNewAdComponent>;
@@ -26,13 +26,15 @@ export class MisAnunciosComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const anuncios = await this.gimnasioService.anuncios();
 
+    this.anuncios = new Array<Anuncio>();
+
     if (!anuncios) {
-      this.hayAnuncios = false;
       return;
     }
 
     this.anuncios = anuncios;
     this.hayAnuncios = anuncios.length > 0;
+
   }
 
   onCreateAd(): void {
@@ -57,11 +59,13 @@ export class MisAnunciosComponent implements OnInit {
     });
 
     this.modalCreateNewAd.onClose.subscribe(newAd => {
+      console.log({newAd});
       if (!newAd) {
         return;
       }
 
-      this.anuncios?.unshift(newAd);
+      this.anuncios.unshift(newAd);
+      this.hayAnuncios = true;
     });
   }
 }

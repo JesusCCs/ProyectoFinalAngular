@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body bg-dark-modal">
-  <mat-horizontal-stepper #stepper>
+  <mat-horizontal-stepper linear #stepper>
     <!-- Subida de ficheros -->
     <mat-step [stepControl]="fileForm" label="Sube el archivo" state="file">
       <form [formGroup]="fileForm">
