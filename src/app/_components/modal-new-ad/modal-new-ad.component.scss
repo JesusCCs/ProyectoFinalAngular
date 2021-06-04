@@ -16,3 +16,10 @@
 .error {
   color: #f44336;
 }
+
+
+@media (max-width: 991px) {
+  #fechas {
+    flex-direction: column;
+  }
+}
