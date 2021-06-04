@@ -34,9 +34,51 @@ body {
   cursor: pointer;
 }
 
+.left {
+  max-width: 300px;
+}
+
 .vista-previa {
   max-height: 600px;
   min-height: 400px;
+  max-width: 300px;
   overflow-y: auto;
   scrollbar-width: thin;
+}
+
+#change-pass {
+  height: 42px;
+  width: 50%;
+}
+
+@media (max-width: 1199px) {
+  #change-pass {
+    width: 100%;
+  }
+}
+
+@media (max-width: 991px) {
+  form {
+    align-content: center;
+    justify-content: center;
+  }
+
+  .vista-previa {
+    max-height: none;
+  }
+
+  section > h6 {
+    margin-top: 1em;
+  }
+
+  .right {
+    margin-top: 2em;
+  }
+
+}
+
+@media (max-width: 575px) {
+  #submit {
+    margin-top: 1em;
+  }
 }

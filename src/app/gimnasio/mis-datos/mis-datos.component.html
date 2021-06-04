@@ -4,7 +4,7 @@
   <form *ngIf="updateForm" [formGroup]="updateForm" class="row gutters mt-4" (ngSubmit)="onSubmit()">
 
     <!-- Vista Previa -->
-    <div class="col-xl-3 col-lg-3 col-12">
+    <div class="col-xl-3 col-lg-3 col-12 left">
       <div class="card h-100 bg-dark text-light">
         <div class="card-body vista-previa" *ngIf="gimnasio">
           <div class="cabecera">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Formulario -->
-    <div class="col-lg-9 col-12">
+    <div class="col-lg-9 col-12 right">
       <div class="card h-100 bg-dark text-light">
         <div class="card-body p-4">
 
@@ -75,7 +75,7 @@
 
               <!-- Contraseña -->
               <div class="col-sm-12 col-md-6">
-                <button type="button" class="btn btn-light w-50" (click)="openModalPass()" style="height: 42px;">Cambiar Contraseña</button>
+                <button type="button" class="btn btn-light" (click)="openModalPass()" id="change-pass">Cambiar Contraseña</button>
               </div>
             </div>
 
@@ -87,13 +87,13 @@
 
             <div class="row">
               <!-- Id input -->
-              <div class="col-4">
+              <div class="col-md-4 col-sm-12">
                 <app-input name="identificador" [readonly]="true" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador"
                            [form]="updateForm"></app-input>
               </div>
 
               <!-- Name input -->
-              <div class="col-8">
+              <div class="col-md-8 col-sm-12">
                 <app-input name="nombre" [darkTheme]="true" minLength="6" maxLength="200" label="Nombre"
                            [form]="updateForm"></app-input>
               </div>
@@ -101,13 +101,13 @@
 
             <div class="row">
               <!-- Address input -->
-              <div class="col-10">
+              <div class="col-md-10 col-sm-12">
                 <app-input name="direccion" [darkTheme]="true" minLength="5" maxLength="200" label="Dirección"
                            [form]="updateForm"></app-input>
               </div>
 
               <!-- Price input -->
-              <div class="col-2">
+              <div class="col-md-2 col-sm-5">
                 <app-input type="number" step="0.01" [darkTheme]="true" min="1" max="999" name="tarifa"
                            label="Tarifa (€)" [form]="updateForm"></app-input>
               </div>
@@ -120,12 +120,12 @@
             </div>
 
             <div class="row justify-content-end">
-              <div class="col-4">
+              <div class="col-md-4 col-sm-6">
                 <button (click)="onReset()" type="button" class="btn btn-outline-gray w-100"><span class="text-light">Reiniciar</span>
                 </button>
               </div>
-              <div class="col-4">
-                <button type="submit" class="btn btn-action w-100">Actualizar</button>
+              <div class="col-md-4 col-sm-6">
+                <button type="submit" class="btn btn-action w-100" id="submit">Actualizar</button>
               </div>
             </div>
 
