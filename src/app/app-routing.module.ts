@@ -35,7 +35,7 @@ const routes: Routes = [
       {path: '**', redirectTo: ''}
     ]
   },
-  { // Rutas para el administrador
+  { // Rutas para el administrador. NOTA: NO es funcional actualmente, porque al final no se ha implementado el panel de administrador
     path: 'admin',
     canActivate: [AdminGuard],
     component: AdminHomeComponent,
