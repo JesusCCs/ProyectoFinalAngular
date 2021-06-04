@@ -11,6 +11,9 @@ const CUSTOM_FORMAT = {
   },
 };
 
+/**
+ * Para encapsular todos los providers que tienen que ver con la localización de los datepicker de la aplicación
+ */
 export const DateLocalizationProvider = [
   {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
   {provide: MAT_DATE_FORMATS, useValue: CUSTOM_FORMAT},

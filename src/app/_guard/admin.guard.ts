@@ -3,6 +3,11 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTre
 import {Observable} from 'rxjs';
 import {AuthService} from '../_services/auth.service';
 
+
+/**
+ * Actualmente no se usa. Iba a servir para tener en la misma página web un panel de administrador donde ver todos los
+ * gimansios y anuncios creados.
+ */
 @Injectable({
   providedIn: 'root'
 })

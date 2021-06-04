@@ -8,6 +8,20 @@ import {
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
+/**
+ * Envuelve al interceptador de peticiones que se encarga de observar si hay errores en el response y construir un mensaje
+ * que se vuelve a lanzar para que se recoja más adelante en la aplicación y mostrarlo en pantalla
+ * Los que controla son:
+ *
+ * -   0, No hubo conexión con el servidor
+ *
+ * - 500, para dar parte de que hubo un error interno
+ *
+ * - 403 , que es cuando no solo el token de acceso se ha caducado, si no también el de refresh
+ *
+ * - 400, errores correspondientes con datos enviados con formato inadecuado o excepciones del servidor que son conocidas y controladas por parte
+ * de éste.
+ */
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 

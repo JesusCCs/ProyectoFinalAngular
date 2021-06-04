@@ -1,7 +1,15 @@
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 
+/**
+ * Clase que posee todos los métodos de las validaciones propias
+ */
 export class ValidatorsExtension {
 
+  /**
+   * Comprueba que dos campos tienen el mismo valor. Útil para los campos de Contraseña y Repetir Contraseña
+   * @param firstToMatch El nombre del primer campo
+   * @param secondToMatch El nombre del segundo campo
+   */
   public static match(firstToMatch: string, secondToMatch: string): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
@@ -32,6 +40,10 @@ export class ValidatorsExtension {
     };
   }
 
+  /**
+   * La validación de CIF está adaptado a Typescript a partir del script de la siguiente página:
+   * https://www.lawebdelprogramador.com/codigo/JavaScript/1992-Validar-un-CIF-NIF-y-DNI.html
+   */
   public static mustBeAValidCif(control: AbstractControl): ValidationErrors | null {
     if (!validarCif(control.value)) {
       return {invalidCif: true};
@@ -39,10 +51,6 @@ export class ValidatorsExtension {
 
     return null;
 
-    /**
-     * La validación de CIF está cogida de aqui:
-     * https://www.lawebdelprogramador.com/codigo/JavaScript/1992-Validar-un-CIF-NIF-y-DNI.html
-     */
     function validarCif(cif: string): boolean {
       // Quitamos el primer caracter y el ultimo digito
       const valueCif = cif.substr(1, cif.length - 2);
@@ -128,7 +136,12 @@ export class ValidatorsExtension {
     }
   }
 
-  public static datesCoherent(initialDateInput: string, finalDateInput: string, required: boolean = true): ValidatorFn {
+  /**
+   * Comprueba que el input de la fecha final es superior o igual al de la fecha inicial escogida
+   * @param initialDateInput Nombre en el formulario del input que contiene la fecha inicial
+   * @param finalDateInput Nombre en el formulario del input que contiene la fecha final
+   */
+  public static datesCoherent(initialDateInput: string, finalDateInput: string): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
       const form = control as FormGroup;

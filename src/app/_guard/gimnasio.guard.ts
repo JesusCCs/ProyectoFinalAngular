@@ -3,9 +3,17 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTre
 import {Observable} from 'rxjs';
 import {StorageService, TOKEN_KEY} from '../_services/storage.service';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Es el guardían para las rutas que necesitan de un login exitoso.
+ * El único método que implemte es el de canActivate, donde se comprueba que hay un token guardado
+ * en la sesión
+ */
 export class GimnasioGuard implements CanActivate {
 
   constructor(
