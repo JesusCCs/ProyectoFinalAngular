@@ -1,0 +1,38 @@
+<div class="container-sm" style="max-width: 30rem">
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="border border-light py-5">
+
+    <p class="text-center h4 mb-4">Login</p>
+
+    <!-- Login input -->
+    <app-input type="text" name="userNameOrEmail" label="Email o Usuario" [form]="loginForm"></app-input>
+
+    <!-- Password input -->
+    <app-input type="password" name="password" label="Contraseña" [form]="loginForm"></app-input>
+
+    <div class="row mb-4">
+      <!-- Remember me -->
+      <div class="col d-flex justify-content-start" style="padding-left: 17px">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe" checked/>
+          <label class="form-check-label" for="rememberMe"> Recordarme </label>
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="col text-end">
+        <a routerLink="/auth/forgot">¿Olvidaste la contraseña?</a>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar Sesión</button>
+
+    <!-- Register buttons -->
+    <div class="text-center">
+      <p>¿No tienes cuenta? <a routerLink="/auth/signup">Regístrate</a></p>
+    </div>
+
+  </form>
+
+</div>

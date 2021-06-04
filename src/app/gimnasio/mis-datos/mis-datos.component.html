@@ -1,0 +1,140 @@
+<app-navbar type="gimnasio" page="mis-datos"></app-navbar>
+
+<div class="container-sm">
+  <form *ngIf="updateForm" [formGroup]="updateForm" class="row gutters mt-4" (ngSubmit)="onSubmit()">
+
+    <!-- Vista Previa -->
+    <div class="col-xl-3 col-lg-3 col-12 left">
+      <div class="card h-100 bg-dark text-light">
+        <div class="card-body vista-previa" *ngIf="gimnasio">
+          <div class="cabecera">
+
+            <!-- Imagen -->
+            <div class="bg-image hover-overlay ripple" (click)="openFileSelector()">
+              <img [src]="gimnasioPrevia.logo"
+                   class="img-fluid center"
+                   alt="Imagen del Logo" style="max-height: 270px"/>
+              <div class="mask" style="background-color: rgba(57, 192, 237, 0.2)"></div>
+              <input type="file" accept="image/jpeg,image/png" id="uploader" style="display:none" (change)="uploadFile($event)">
+            </div>
+
+            <h5 class="mt-2 mb-1">{{ gimnasioPrevia.nombre }}</h5>
+            <h6 style="color: rgba(220,220,220,0.71)">{{ gimnasioPrevia.identificador }}</h6>
+          </div>
+
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Tarifa</h5>
+            <p>{{ (+gimnasioPrevia.tarifa).toFixed(2) }} €/mes</p>
+          </div>
+
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Dirección</h5>
+            <p>{{ gimnasioPrevia.direccion }}</p>
+          </div>
+
+          <div class="mt-1">
+            <h5 class="mb-1 text-warning">Descripción</h5>
+            <p>{{ gimnasioPrevia.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="col-lg-9 col-12 right">
+      <div class="card h-100 bg-dark text-light">
+        <div class="card-body p-4">
+
+          <!-- Zona privada -->
+          <section>
+            <h6 class="mb-3 text-warning">Detalles de la cuenta</h6>
+
+            <div class="row">
+              <!-- Username -->
+              <div class="col-sm-12 col-md-6">
+                <app-input name="userName" [darkTheme]="true" [readonly]="true"
+                           label="Usuario" [form]="updateForm"></app-input>
+              </div>
+
+              <!-- Email -->
+              <div class="col-sm-12 col-md-6 d-flex">
+                <app-input name="email" [darkTheme]="true" [readonly]="true"
+                           label="Email" [form]="updateForm" style="width: 100%"></app-input>
+                <button class="btn btn-light" type="button" (click)="openModalEmail()"
+                        style="max-height: 42px;margin-left: 10px;width: 110px;">
+                  Editar
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- CIF -->
+              <div class="col-sm-12 col-md-6">
+                <app-input name="cif" [darkTheme]="true" label="NIF" [form]="updateForm"></app-input>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="col-sm-12 col-md-6">
+                <button type="button" class="btn btn-light" (click)="openModalPass()" id="change-pass">Cambiar Contraseña</button>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Zona pública -->
+          <section>
+            <h6 class="mb-3 text-warning">Información pública</h6>
+
+            <div class="row">
+              <!-- Id input -->
+              <div class="col-md-4 col-sm-12">
+                <app-input name="identificador" [readonly]="true" [darkTheme]="true" minLength="6" maxLength="200" label="Identificador"
+                           [form]="updateForm"></app-input>
+              </div>
+
+              <!-- Name input -->
+              <div class="col-md-8 col-sm-12">
+                <app-input name="nombre" [darkTheme]="true" minLength="6" maxLength="200" label="Nombre"
+                           [form]="updateForm"></app-input>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Address input -->
+              <div class="col-md-10 col-sm-12">
+                <app-input name="direccion" [darkTheme]="true" minLength="5" maxLength="200" label="Dirección"
+                           [form]="updateForm"></app-input>
+              </div>
+
+              <!-- Price input -->
+              <div class="col-md-2 col-sm-5">
+                <app-input type="number" step="0.01" [darkTheme]="true" min="1" max="999" name="tarifa"
+                           label="Tarifa (€)" [form]="updateForm"></app-input>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <app-textarea [form]="updateForm" [darkTheme]="true" label="Descripción" name="descripcion"></app-textarea>
+              </div>
+            </div>
+
+            <div class="row justify-content-end">
+              <div class="col-md-4 col-sm-6">
+                <button (click)="onReset()" type="button" class="btn btn-outline-gray w-100"><span class="text-light">Reiniciar</span>
+                </button>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <button type="submit" class="btn btn-action w-100" id="submit">Actualizar</button>
+              </div>
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+

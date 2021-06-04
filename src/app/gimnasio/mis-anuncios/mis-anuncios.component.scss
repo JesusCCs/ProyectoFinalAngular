@@ -1,0 +1,38 @@
+.ad-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.bg-dark-modal {
+  background-color: #424242
+}
+
+.btn-link {
+  color: #fff;
+}
+
+.btn-link:hover {
+  color: #ffa900;
+  background-color: #424242
+}
+
+.btn-link:active, .btn-link:focus {
+  color: #ffa900;
+  background-color: #424242
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  margin: 0 1rem;
+  grid-row-gap: 10px;
+}
+
+.card-img-top {
+  height: 13em;
+  object-fit: cover;
+}

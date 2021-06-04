@@ -1,0 +1,21 @@
+$color: #444;
+
+.form-outline .form-control:focus ~ .form-label {
+  color: $color;
+}
+
+.form-outline .form-control:focus ~ .form-notch .form-notch-leading {
+  border-top: .125rem solid $color;
+  border-bottom: .125rem solid $color;
+  border-left: .125rem solid $color;
+}
+
+.form-outline .form-control:focus ~ .form-notch .form-notch-middle {
+  border-color: $color;
+}
+
+.form-outline .form-control:focus ~ .form-notch .form-notch-trailing {
+  border-top: .125rem solid $color;
+  border-bottom: .125rem solid $color;
+  border-right: .125rem solid $color;
+}
