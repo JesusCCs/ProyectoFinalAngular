@@ -2,9 +2,6 @@ import {Injectable} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
 
-@Injectable({
-  providedIn: 'root'
-})
 /**
  * Clase de vital importancia que trabaja junto al interceptor de errores para mostrar adecuadamente las excepciones del servidor
  * al usuario. El interceptador se encarga de averiguar de qué error se trata y formatear una respuesta para seguir pasándola a la aplicación
@@ -13,7 +10,10 @@ import Swal from 'sweetalert2';
  * los errores (recordemos que formateados por el interceptor) siempre son capturados y es en esta función donde llaman a los métodos
  * estáticos de esta clase que se encarga de almacenarlos
  */
-export abstract class ErrorService {
+@Injectable({
+  providedIn: 'root'
+})
+export class ErrorService {
 
   /**
    * Aquí es donde guardamos los errores que van llegando
